@@ -64,8 +64,8 @@ Uploaded files (e.g. maps, guest lists) │ ├── app.js \# Main Express ap
 ## 🚀 Getting Started
 
 1.  Clone the repo: \`\`\`bash git clone
-    https://github.com/your-username/event-management.git cd
-    event-management \`\`\`
+    https://github.com/bethelcoder/event-management-3rd-year-SPD-project.git cd
+    event-management-3rd-year-SPD-project \`\`\`
 
 2.  Install dependencies: \`\`\`bash npm install \`\`\`
 
@@ -143,8 +143,8 @@ y: Number, label: String } \] } \`\`\`
 
 ## 👥 Contributors
 
--   Mualusi (Lead Developer)
--   \[Add others as needed\]
+-   Nelufule Thendo (Scrum Master)
+-   \[Mabhele Tebogo, Mualusi Lilimu, Siaga Mumandafhadzi\]
 
 ------------------------------------------------------------------------
 
