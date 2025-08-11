@@ -1,0 +1,40 @@
+
+.login_form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    justify-self: center;
+    margin-top: 25vh;
+    height: 50vh;
+    width: 50vh;
+    background-color: rgb(106, 187, 187);
+    border-radius: 10px;
+    box-shadow: 10px 5px 30px rgba(97, 97, 97, 0.959);
+}
+.google{
+    margin-top: 20px;
+    background-color: white;
+    border: 1px solid #4285f4;
+    color: #4285f4;
+    font-weight: 600;
+    padding: 10px 80px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+.github{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: #0b1864;
+    color: white;
+    border: none;
+    padding: 10px 80px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+
+}
