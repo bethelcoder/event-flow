@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Role Selection</title>
+<link rel="stylesheet" href="../styles/roles.css" />
+</head>
+<body>
+
+<section class="role-container">
+
+  <section class="role-card">
+    <strong class="role-title">Choose Your Role</strong>
+    <section class="roles-split">
+
+      <!-- Manager Role Form -->
+      <section class="role option manager">
+        <h2 id="manager_header">Event Manager</h2>
+        <ul id="manager_list">
+          <li>Manage events</li>
+          <li>schedules</li>
+          <li>guests</li>
+          <li>communicate with staff</li>
+          <li>And more...</li>
+        </ul>
+
+        <form action="/submit-role" method="POST">
+          <input type="hidden" name="role" value="manager" />
+          <button class="role-button" type="submit">
+            Become Manager
+          </button>
+        </form>
+      </section>
+
+      <!-- Staff Role Form -->
+      <section class="role option staff">
+        <h2 id="staff_header">Staff</h2>
+        <ul id="staff_list">
+          <li>Assist with check-ins</li>
+          <li>announcements</li>
+          <li>make guests feel comfortable</li>
+        </ul>
+
+        <form action="/submit-role" method="POST">
+          <input type="hidden" name="role" value="staff" />
+          <button class="role-button" type="submit">
+            Become Staff
+          </button>
+        </form>
+      </section>
+
+    </section>
+  </section>
+</section>
+
+</body>
+</html>
