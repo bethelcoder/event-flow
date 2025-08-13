@@ -1,0 +1,32 @@
+{
+  "name": "event-management-3rd-year-spd-project",
+  "version": "1.0.0",
+  "description": "A full-stack real-time event management platform built with Express.js,\r MongoDB, EJS templating, and Socket.IO. Designed to help organizers\r manage event-day operations such as guest check-ins, live schedule\r updates, venue mapping, and on-site staff coordination.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bethelcoder/event-management-3rd-year-SPD-project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bethelcoder/event-management-3rd-year-SPD-project/issues"
+  },
+  "homepage": "https://github.com/bethelcoder/event-management-3rd-year-SPD-project#readme",
+  "dependencies": {
+    "dotenv": "^17.2.1",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.17.1",
+    "nodemon": "^3.1.10",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0"
+  }
+}
