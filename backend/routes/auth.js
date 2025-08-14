@@ -20,24 +20,44 @@ router.get(
     try {
       
       let user = await User.findOne({ googleId: req.user.id });
+      //user doesn't exist
       if (!user) {
         user = await User.create({
           googleId: req.user.id,
           displayName: req.user.displayName,
           email: req.user.emails?.[0]?.value || null,
         });
-      }
-      const token = jwt.sign(
+
+        const token = jwt.sign(
         {
           id: user._id.toString(),
         },
         JWT_SECRET,
         { expiresIn: '1d' }
-      );
+        );
 
-      req.session.jwt = token;
+        req.session.jwt = token;
 
-      res.redirect('/roles');
+        res.status(200).redirect('/roles');
+      
+      } else {
+        //user exists
+        const token = jwt.sign(
+        {
+          id: user._id.toString(),
+          role: user.role,
+        },
+        JWT_SECRET,
+        { expiresIn: '1d' }
+        );
+
+        req.session.jwt = token;
+
+        res.status(200).redirect('/dashboard');
+      }
+      
+
+      
     } catch (err) {
       console.error('Error in Google callback:', err);
       res.redirect('/login');
