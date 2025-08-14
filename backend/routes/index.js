@@ -7,8 +7,10 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 
 
-
-router.get('/', redirectIfAuthenticated, (req, res) => {
+router.get('/welcome', (req, res) => {
+  res.render('index');
+});
+router.get('/signup', redirectIfAuthenticated, (req, res) => {
   res.render('signup');
 });
 
