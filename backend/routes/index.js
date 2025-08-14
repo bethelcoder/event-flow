@@ -7,8 +7,10 @@ const User=require('../models/User')
 
 
 
-
-router.get('/', redirectIfAuthenticated, (req, res) => {
+router.get('/welcome', (req, res) => {
+  res.render('index');
+});
+router.get('/signup', redirectIfAuthenticated, (req, res) => {
   res.render('signup');
 });
 router.get('/roles', authenticateJWT, (req, res) => {
