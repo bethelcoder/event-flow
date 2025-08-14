@@ -1,0 +1,261 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.navigation{
+    float: right;
+    display: flex;
+    gap: 20px;
+    margin: 14px;
+}
+.navigation_section{
+    height: 47px;
+}
+#eventflow_nav{
+    float: left;
+    display: flex;
+    margin: 14px;
+}
+
+/* welocome page design */
+#slogen{
+    display: flex;
+    height: 640px;
+    background-color: aqua;
+
+}
+
+#heading{
+  
+} 
+
+#index_slogen{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    width: 50%;
+    background-color: rgb(65, 119, 119);
+}
+
+#index_picture{
+    display: flex;
+    margin-left: 100px;
+    margin-top: 40px;
+    height: 550px;
+    width: 590px;
+    background-color: blue;
+}
+
+.orange_button{
+
+}
+
+.clear_button{
+
+}
+
+/* feature page design */
+#feature_section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 860px;
+    margin-top: 40px;
+    background-color: blueviolet;
+}
+
+#feature_heading{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: aqua;
+}
+
+#features{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    padding: 20px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    max-width: 1200px; /* instead of fixed width */
+    width: 100%;
+    box-sizing: border-box;
+    background-color: aqua;
+}
+
+.card {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    height: 170px;
+    width: 350px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+}
+
+.card header {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+#how_it_works {
+    text-align: center;
+    padding: 40px;
+    background-color: #f8f9fa;
+}
+
+.steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 in a row */
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.step img {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 15px;
+}
+
+.step h3 {
+    margin: 10px 0;
+    font-size: 1.2rem;
+}
+
+.step p {
+    color: #555;
+    font-size: 0.95rem;
+}
+
+@media (max-width: 900px) {
+    .steps {
+        grid-template-columns: repeat(2, 1fr); /* 2 per row */
+    }
+    .card{
+        grid-template-columns: repeat(2, 1fr); /* 2 per row */
+    }
+}
+
+@media (max-width: 500px) {
+    .steps {
+        grid-template-columns: 1fr; /* 1 per row */
+    }
+    .card{
+        grid-template-columns: 1fr /* 1 per row */
+    }
+}
+
+.icon {
+    width: 50px;       /* size */
+    height: 50px;
+    color: red;        /* changes stroke color */
+}
+
+#manage_today {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;       /* centers heading and paragraph */
+    padding: 40px;
+    background-color: #f0f0f0;
+}
+
+#manage_today .Integrations-container {
+    display: flex;            /* puts articles in a row */
+    justify-content: center;  /* centers the row horizontally */
+    gap: 30px;                /* space between articles */
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.Integrations {
+    display: flex;             /* make icon and text side by side */
+    align-items: center;       /* vertically center icon and text */
+    background-color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    width: 250px;              /* adjust width */
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    gap: 15px;                 /* space between icon and text */
+}
+
+.Integrations .icon {
+    width: 25px;
+    height: 25px;
+    color: #6c63ff;           /* icon color */
+    margin-bottom: 10px;
+}
+
+#clients_say{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    padding: 20px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    max-width: 1200px; /* instead of fixed width */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#clients_say {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap; /* wrap on smaller screens */
+    padding: 40px;
+}
+
+.testimonial {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 250px;              /* card width */
+    padding: 20px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.rating {
+    font-size: 1.2rem;
+    color: gold;
+    margin-bottom: 10px;
+}
+
+.testimonial p {
+    flex-grow: 1;
+    margin-bottom: 15px;
+    font-style: italic;
+}
+
+/* Profile styling */
+.author figure {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+}
+
+.author img {
+    width: 40px;           /* small size */
+    height: 40px;
+    border-radius: 50%;    /* round image */
+    object-fit: cover;     /* crop image to fit container */
+}
+
+#sign_up{
+    
+}
