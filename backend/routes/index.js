@@ -1,9 +1,9 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
-const {authenticateJWT,redirectIfAuthenticated} = require('../middleware/authenticateJWT');
-const User=require('../models/User')
-
+const {authenticateJWT,redirectIfAuthenticated, onboardingJWT} = require('../middleware/authenticateJWT');
+const User=require('../models/User');
+const JWT_SECRET = process.env.JWT_SECRET;
 
 
 
@@ -11,21 +11,29 @@ const User=require('../models/User')
 router.get('/', redirectIfAuthenticated, (req, res) => {
   res.render('signup');
 });
-router.get('/roles', authenticateJWT, (req, res) => {
+
+router.get('/roles', onboardingJWT, (req, res) => {
   res.render('roles', { user: req.user });
 });
+
 router.post('/submit-role', authenticateJWT, async (req, res) => {
   try {
     const selectedRole = req.body.role; 
     const userId = req.user.id;
 
-   
     await User.findByIdAndUpdate(userId, { role: selectedRole });
 
-  
-    
-  
-    res.redirect('/login');
+     const newToken = jwt.sign(
+      {
+        id: userId,
+        role: selectedRole,
+      },
+      JWT_SECRET,
+      { expiresIn: '1d' }
+    );
+
+    req.session.jwt = newToken;
+    res.status(200).redirect('/dashboard');
   } catch (error) {
     console.error('Error setting role:', error);
     res.status(500).send('Internal server error');
@@ -36,6 +44,10 @@ module.exports = router;
 
 router.get('/login', (req, res) => {
   res.render('login');
+});
+
+router.get('/dashboard', authenticateJWT, async (req, res) => {
+  res.render('dashboard');
 });
 
 module.exports = router;
