@@ -6,10 +6,14 @@ const User=require('../models/User');
 const JWT_SECRET = process.env.JWT_SECRET;
 
 
+router.get('/', redirectIfAuthenticated, (req, res) => {
+  res.redirect('/welcome');
+});
 
-router.get('/welcome', (req, res) => {
+router.get('/welcome', redirectIfAuthenticated, (req, res) => {
   res.render('index');
 });
+
 router.get('/signup', redirectIfAuthenticated, (req, res) => {
   res.render('signup');
 });
@@ -42,12 +46,30 @@ router.post('/submit-role', authenticateJWT, async (req, res) => {
   }
 });
 
-module.exports = router;
 
 router.get('/login', (req, res) => {
   res.render('login');
 });
 
+router.get('/logout', (req, res) => {
+  req.session.destroy(err => {
+    if (err) {
+      console.error('Error destroying session:', err);
+      return res.status(500).json({ message: 'Logout failed' });
+    }
+
+    // Remove session cookie
+    res.clearCookie('connect.sid', {
+      path: '/',   
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production', 
+      sameSite: 'lax'
+    });
+
+    res.status(200).json({ message: 'Logged out successfully' });
+  });
+
+});
 router.get('/dashboard', authenticateJWT, async (req, res) => {
   res.render('dashboard');
 });

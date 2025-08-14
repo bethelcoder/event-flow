@@ -50,7 +50,7 @@ function redirectIfAuthenticated(req, res, next) {
       return next(); 
     }
     
-    return res.redirect('/login');//We can't send authenticated users back to login, send them to dashboard rather
+    return res.redirect('/dashboard');//We can't send authenticated users back to login, send them to dashboard rather
   });
 }
 
