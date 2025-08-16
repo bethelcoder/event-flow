@@ -1,26 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles/Login.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <title>Login</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../styles/login.css">
+  <title>Login - Event Flow</title>
 </head>
 <body>
 
-    <form class="login_form" action="/login" method="POST">
-        <h2 class="login_header">Login with:</h2>
-        <button type="submit" class="google">
-            <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google logo" style="height: 20px; margin-right: 10px;">
-            Google
-        </button>
-        <button type="submit" class="github">
-             <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub logo" style="height: 20px; margin-right: 10px;">
-            Github
-        </button>
+  <div class="login-container">
+    <h1 class="login-header">Login to Event Flow</h1>
+
+    <form class="login-form">
+      <a href="/auth/google" class="auth-btn google">
+        <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google logo" />
+        Login with Google
+      </a>
+
+      <a href="/auth/github" class="auth-btn github">
+        <img src="https://www.svgrepo.com/show/349375/github.svg" alt="GitHub logo" />
+        Login with GitHub
+      </a>
     </form>
+
+    <p class="signup-link">
+      Don't have an account yet? <a href="/signup">Register here</a>
+    </p>
+
+    <section id="animated-text">
+      <span>Welcome back! Ready to manage your events effortlessly?</span>
+      <span>Secure, fast, and easy to use.</span>
+      <span>Join thousands keeping events on track every day.</span>
+      
+    </section>
+  </div>
 
 </body>
 </html>
