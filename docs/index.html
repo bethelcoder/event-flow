@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Event Flow Documentation Site</title>
+    <style>
+        /* General page styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f8;
+            color: #333;
+            text-align: center;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 80vh; /* taller hero */
+            background: url('images/event.png') center/cover no-repeat;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(80, 42, 196, 0.4); /* purple alpha overlay */
+        }
+
+        .hero .overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 0;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+        }
+
+        /* Buttons container */
+        .button-container {
+            margin: 50px 0;
+            display: flex;
+            flex-direction: column; /* vertical stacking */
+            align-items: center;
+        }
+
+        /* Buttons styling */
+        .btn {
+            display: block; /* full block for vertical stacking */
+            width: 250px; /* bigger button width */
+            padding: 20px 0; /* taller button */
+            margin: 15px 0; /* space between buttons */
+            font-size: 1.5rem; /* bigger text */
+            color: white;
+            text-decoration: none;
+            background-color: #08293e; /* purple */
+            border-radius: 12px;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn:hover {
+            background-color: #6A0DAD;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="overlay">
+            <h1>Event Flow Documentation Site</h1>
+        </div>
+    </section>
+
+    <!-- Sprint Buttons -->
+    <main>
+        <div class="button-container">
+            <a href="sprint1/land.html" class="btn">Sprint 1</a>
+            <a href="sprint2/index.html" class="btn">Sprint 2</a>
+            <a href="sprint3/index.html" class="btn">Sprint 3</a>
+            <a href="sprint4/index.html" class="btn">Sprint 4</a>
+        </div>
+    </main>
+
+</body>
+</html>
