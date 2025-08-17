@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Git Methodology - Sprint 1</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f8;
+            color: #333;
+        }
+
+        header {
+            background-color: #6A0DAD;
+            color: white;
+            padding: 30px 0;
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+        }
+
+        main {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            color: #6A0DAD;
+            margin-bottom: 15px;
+        }
+
+        .section p {
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        code {
+            background-color: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        a {
+            color: #9B30FF;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<header>Git Methodology - Sprint 1</header>
+
+<main>
+    <div class="section">
+        <h2>Methodology Used</h2>
+        <p>We follow the <strong>GitHub Flow</strong> methodology to manage our codebase efficiently. This ensures collaboration, minimizes conflicts, and keeps the main branch stable at all times.</p>
+    </div>
+
+    <div class="section">
+        <h2>Branching Strategy</h2>
+        <p>The <code>main</code> branch is locked for direct changes. Every team member works on their own feature or documentation branch. Examples include:</p>
+        <ul>
+            <li><code>documentation-site</code> — for documentation site work</li>
+            <li><code>frontend-feature-login</code> — for login page frontend development</li>
+            <li><code>backend-api-events</code> — for API endpoints related to events</li>
+        </ul>
+        <p>Once a branch is ready, a pull request (PR) is created to merge into <code>main</code>.</p>
+    </div>
+
+    <div class="section">
+        <h2>Pull Requests & Code Review</h2>
+        <p>Each PR is reviewed by at least one team member before merging. This ensures:</p>
+        <ul>
+            <li>Code quality and readability</li>
+            <li>Consistency with project standards</li>
+            <li>Detection of potential bugs early</li>
+        </ul>
+        <p>The main branch manager approves the PR if it meets all criteria.</p>
+    </div>
+
+    <div class="section">
+        <h2>Commit Practices</h2>
+        <p>We follow these commit rules to make history clear and trackable:</p>
+        <ul>
+            <li>Write descriptive commit messages (e.g., <code>Added RSVP backend endpoint</code>)</li>
+            <li>Commit frequently to save progress</li>
+            <li>Push branches regularly to GitHub</li>
+            <li>Include task IDs when applicable for easier reference</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Additional Notes</h2>
+        <p>Following this workflow keeps the project organized, prevents accidental overwrites, and allows multiple team members to work simultaneously without conflicts. It also makes it easy to roll back changes if needed — Git is our safety net! 🛡️</p>
+        <p>Resources:</p>
+<ul>
+  <li><a href="https://guides.github.com/introduction/flow/" target="_blank">GitHub Flow Guide</a></li>
+  <li><a href="https://git-scm.com/doc" target="_blank">Git Official Documentation</a></li>
+</ul>
+
+    </div>
+</main>
+
+</body>
+</html>
