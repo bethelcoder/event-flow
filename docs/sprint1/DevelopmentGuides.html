@@ -63,18 +63,16 @@
 <body>
 
 <header>Development Guide - Sprint 1</header>
+
  <div class="section">
+
+     <div class="section">
     <h2>1.Project Overview</h2>
     <p><strong>WHAT THE APP DOES:</strong> A full-stack real-time event management platform built with Express.js, MongoDB, EJS templating, and Socket.IO. Designed to help organizers manage event-day operations such as guest check-ins, live schedule updates, venue mapping, and on-site staff coordination.</p>
     <p><strong>Tech Stack:<br></strong>Frontend: EJS, CSS, JS.<br>
     Backend:Node.js, Express Database MongoDB (Mongoose)</p>
     <p><strong>Architecture Diagram:
     </strong></p>
-<a href="../images/event-management-platform(final).png">
-  <img src="../images/event-management-platform(final).png" 
-       alt="Event Management Platform"
-       style="max-width: 100%; height: auto; display: block; margin: 0 auto; cursor: zoom-in;">
-</a>
  </div>
  <div class="section">
     <h2>2.Setup instructions</h2>
@@ -86,27 +84,49 @@
     <p><strong>How to run the project:</strong><br>
     npm run start</p>
  </div>
- <div class="section">
-    <h2>3.Coding Standards</h2>
-    <p><strong>folder structure</strong></p><br>
-    <p>``` event-management/ │ ├── backend/ │ ├── controllers/ # Logic for each module │ ├── models/ # Mongoose schemas │ ├── routes/ # Express route handlers │ └── socket/ # Socket.IO event logic │ ├── public/ # Static files (CSS, JS) │ ├── views/ # EJS templates │ ├── checkin.ejs │ ├── schedule.ejs │ ├── map.ejs │ └── staff.ejs │ ├── uploads/ # Uploaded files (e.g. maps, guest lists) │ ├── app.js # Main Express app ├── .env # Environment variables ├── package.json └── README.md ```</p><br>
-    <p><strong>Coding rules</strong><br>Meaningful code(variables,function_names)</p>
+    <div class="section">
+  <h2>3. Development Database</h2>
+  <p><strong>Database Technology:</strong> MongoDB (with Mongoose ODM).</p>
+  <p><strong>Steps to set up locally:</strong></p>
+  <ol>
+    <li>Install MongoDB Community Edition on your machine, or run it with Docker.</li>
+    <li>Create a new local database called <code>eventflow_dev</code>.</li>
+    <li>Update the <code>MONGO_URI</code> in your <code>.env</code> file to point to your localhost instance:<br>
+    <code>MONGO_URI=mongodb://127.0.0.1:27017/eventflow_dev</code></li>
+    <li>Start MongoDB so it is running in the background.</li>
+  </ol>
+</div>
+
+<div class="section">
+  <h2>4. Development API</h2>
+  <p><strong>Backend Technology:</strong> Node.js with Express.js.</p>
+  <p><strong>Steps to run API locally:</strong></p>
+  <ol>
+    <li>Navigate to the project root: <code>cd event-flow</code></li>
+    <li>Ensure dependencies are installed: <code>npm install</code></li>
+    <li>Start the server: <code>npm run start</code></li>
+    <li>The console should display: <code>Server running on port 3000</code> and <code>MongoDB connected</code>.</li>
+    <li>API endpoints are available under <code>http://localhost:3000/api</code>. (Example: <code>GET http://localhost:3000/login</code>).</li>
+  </ol>
+</div>
+
+<div class="section">
+  <h2>5. Development Site</h2>
+  <p><strong>Frontend Technology:</strong> EJS templates, CSS, and JavaScript served by Express.</p>
+  <p><strong>Steps to run site locally:</strong></p>
+  <ol>
+    <li>Ensure the API/backend server is already running with <code>npm run start</code>.</li>
+    <li>Open <code>http://localhost:3000</code> in your browser.</li>
+    <li>The frontend (EJS views) will load from the same Express server, and connect to the MongoDB database through the API.</li>
+  </ol>
+</div>
+
+
  </div>
- <div class="section">
-    <h2>4.Branching & Git Workflow</h2>
-    <p><strong>How to name branches</strong><br>
-    use the following convention: <strong>feature/login, fix/session-bug</strong></p>
-    <p><strong>How to push to Github</strong><br>
-    Push to your own branch with a Meaningful comment and then create a pull request</p>
-    <p><strong>Pull request process:</strong>
-    <br>Only Tebogo reviews pull requests</p>
- </div>
- <div class="section">
-    <h2>5.Deployment
-    </h2>
-    <p>The site is deployed on Render at the following url</p>
-    <a href="https://event-flow-6514.onrender.com">https://event-flow-6514.onrender.com</a>
- </div>
+
+
+
+
 <main>
 
 </main>
