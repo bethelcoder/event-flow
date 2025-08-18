@@ -8,36 +8,41 @@
   <title>Sign Up - Event Flow</title>
 </head>
 <body>
-  <section id="header">
-    Become a member of Event Flow today
+
+  <section class="main">
+      <section class="logo">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
+        </svg>
+        <h3>EventFlow</h3>
+      </section>
+      <section id="header">
+        Become a member of Event Flow today
+      </section>
+
+      <section id="animated-text">
+        <span>It only takes less than a minute to create an account</span>
+        <span>Join thousands managing events effortlessly</span>
+        <span>Secure, fast, and easy to use</span>
+      </section>
+
+      <section id="why-join">
+        <strong>Why join?</strong><br />
+        Gain full access to event scheduling, real-time guest check-ins, interactive venue maps, and on-site staff coordination tools — all from one easy platform.
+      </section>
+
+      <section id="auth-buttons">
+        <a href="/auth/google" class="auth-btn google" aria-label="Sign up with Google">
+          <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google logo" />
+          Sign up with Google
+        </a>
+
+        <p class="login-link">
+          Already have an account? <a href="/login">Click here to login</a>
+        </p>
+      </section>
   </section>
 
-  <section id="animated-text">
-    <span>It only takes less than a minute to create an account</span>
-    <span>Join thousands managing events effortlessly</span>
-    <span>Secure, fast, and easy to use</span>
-  </section>
-
-  <section id="why-join">
-    <strong>Why join?</strong><br />
-    Gain full access to event scheduling, real-time guest check-ins, interactive venue maps, and on-site staff coordination tools — all from one easy platform.
-  </section>
-
-  <section id="auth-buttons">
-    <a href="/auth/google" class="auth-btn google" aria-label="Sign up with Google">
-      <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google logo" />
-      Sign up with Google
-    </a>
-
-    <a href="/auth/github" class="auth-btn github" aria-label="Sign up with GitHub">
-      <img src="https://www.svgrepo.com/show/349375/github.svg" alt="GitHub logo" />
-      Sign up with GitHub
-    </a>
-
-    <p class="login-link">
-      Already have an account? <a href="/login">Click here to login</a>
-    </p>
-  </section>
-
+  <%- include('partials/footer', { year: new Date().getFullYear() }) %>
 </body>
 </html>

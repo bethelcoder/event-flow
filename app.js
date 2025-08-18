@@ -23,6 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/styles', express.static(path.join(__dirname, 'frontend','styles')));
+app.use('/scripts', express.static(path.join(__dirname, 'frontend','scripts')));
 app.use('/visuals', express.static(path.join(__dirname, 'visuals')));
 app.use('/auth', authRoutes);
 app.use('/', indexRoutes);
