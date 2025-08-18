@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Development Guides - Sprint 1</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f8;
+            color: #333;
+        }
+
+        header {
+            background-color: #153291;
+            color: white;
+            padding: 25px 0;
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+        }
+
+        main {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            color: black;
+            margin-bottom: 15px;
+        }
+
+        .section p, .section ul {
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        ul li {
+            margin-bottom: 8px;
+        }
+
+        .placeholder {
+            background-color: #f0f0f0;
+            border-left: 4px solid #ff8800fb;
+            padding: 10px;
+            margin-top: 10px;
+            font-style: italic;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+<header>Development Guide - Sprint 1</header>
+ <div class="section">
+    <h2>1.Project Overview</h2>
+    <p><strong>WHAT THE APP DOES:</strong> A full-stack real-time event management platform built with Express.js, MongoDB, EJS templating, and Socket.IO. Designed to help organizers manage event-day operations such as guest check-ins, live schedule updates, venue mapping, and on-site staff coordination.</p>
+    <p><strong>Tech Stack:<br></strong>Frontend: EJS, CSS, JS.<br>
+    Backend:Node.js, Express Database MongoDB (Mongoose)</p>
+    <p><strong>Architecture Diagram:
+    </strong></p>
+<a href="../../visuals/event-management-platform(final).png">
+  <img src="../../visuals/event-management-platform(final).png" 
+       alt="Event Management Platform"
+       style="max-width: 100%; height: auto; display: block; margin: 0 auto; cursor: zoom-in;">
+</a>
+ </div>
+ <div class="section">
+    <h2>2.Setup instructions</h2>
+    <p><strong>How to clone repo</strong></p>
+    <p>Clone the repo: bash <strong>git clone https://github.com/bethelcoder/event-flow.git cd event-flow</strong></p><br>
+    <p><strong></strong>Install dependencies: <strong> bash npm install ``</strong></p><br>
+    <p><strong>.env variables</strong></p>
+    <p>MONGO_URI,GOOGLE_CLIENT_ID,GOOGLE_CLIENT_SECRET,GOOGLE_CALLBACK_URL,JWT_SECRET,SESSION_SECRET</p>
+    <p><strong>How to run the project:</strong><br>
+    npm run start</p>
+ </div>
+ <div class="section">
+    <h2>3.Coding Standards</h2>
+    <p><strong>folder structure</strong></p><br>
+    <p>``` event-management/ │ ├── backend/ │ ├── controllers/ # Logic for each module │ ├── models/ # Mongoose schemas │ ├── routes/ # Express route handlers │ └── socket/ # Socket.IO event logic │ ├── public/ # Static files (CSS, JS) │ ├── views/ # EJS templates │ ├── checkin.ejs │ ├── schedule.ejs │ ├── map.ejs │ └── staff.ejs │ ├── uploads/ # Uploaded files (e.g. maps, guest lists) │ ├── app.js # Main Express app ├── .env # Environment variables ├── package.json └── README.md ```</p><br>
+    <p><strong>Coding rules</strong><br>Meaningful code(variables,function_names)</p>
+ </div>
+ <div class="section">
+    <h2>4.Branching & Git Workflow</h2>
+    <p><strong>How to name branches</strong><br>
+    use the following convention: <strong>feature/login, fix/session-bug</strong></p>
+    <p><strong>How to push to Github</strong><br>
+    Push to your own branch with a Meaningful comment and then create a pull request</p>
+    <p><strong>Pull request process:</strong>
+    <br>Only Tebogo reviews pull requests</p>
+ </div>
+ <div class="section">
+    <h2>5.Deployment
+    </h2>
+    <p>The site is deployed on Render at the following url</p>
+    <a href="https://event-flow-6514.onrender.com">https://event-flow-6514.onrender.com</a>
+ </div>
+<main>
+
+</main>
+
+</body>
+</html>
