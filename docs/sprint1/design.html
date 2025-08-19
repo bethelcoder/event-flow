@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Initial Design & Development Plan - Sprint 1</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9fb;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            background-color: #6A0DAD;
+            color: white;
+            text-align: center;
+            padding: 25px 0;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: auto;
+            padding: 30px 20px;
+        }
+
+        .section {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #6A0DAD;
+            margin-bottom: 15px;
+        }
+
+        p, ul {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #9B30FF;
+            color: white;
+        }
+
+        .sub-section {
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                font-size: 1.5rem;
+            }
+
+            th, td {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>Initial Design & Development Plan - Sprint 1</header>
+
+<main>
+    <!-- Project Architecture -->
+    <div class="section">
+        <h2>Project Architecture</h2>
+        <p>
+            For Sprint 1, the main architecture focuses on separating frontend and backend responsibilities, ensuring modularity and maintainability.  
+            We used an MVC-like approach with Node.js and Express handling backend routing, EJS templates for frontend rendering, and MongoDB as the database.
+        </p>
+        <ul>
+            <li><strong>Frontend:</strong> EJS templates, CSS, and JavaScript for a responsive and dynamic user interface.</li>
+            <li><strong>Backend:</strong> Node.js with Express handles authentication and routing.</li>
+            <li><strong>Database:</strong> MongoDB stores minimal user-related data since authentication is handled via Google OAuth.</li>
+            <li><strong>Authentication:</strong> Third-party Google OAuth for secure login of Staff and Event Managers.</li>
+            <li><strong>Task Management:</strong> Notion was used to assign sprint tasks and track progress.</li>
+            <li><strong>Architecture Diagram:</strong> Provides a visual overview of the system flow between frontend, backend, and database.</li>
+        </ul>
+    </div>
+
+    <!-- Sprint 1 Development Plan -->
+    <div class="section">
+        <h2>Sprint 1 Development Plan</h2>
+        <p>
+            The development plan for this sprint outlines what was accomplished and the responsible team members.
+        </p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Description</th>
+                    <th>Team Members</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Landing Page</td>
+                    <td>Created a welcoming hero page with navigation to documentation pages and login/signup buttons.</td>
+                    <td>Mualusi</td>
+                    <td>Completed</td>
+                </tr>
+                <tr>
+                    <td>Signup Page</td>
+                    <td>Implemented third-party Google OAuth signup for users, no personal data collected.</td>
+                    <td>Thendo</td>
+                    <td>Completed</td>
+                </tr>
+                <tr>
+                    <td>Login Page</td>
+                    <td>Secure login via Google OAuth for Staff and Event Manager roles.</td>
+                    <td>Thendo</td>
+                    <td>Completed</td>
+                </tr>
+                <tr>
+                    <td>Welcome/Dashboard Pages</td>
+                    <td>Separate dashboards for Staff and Event Managers showing role-specific greetings and navigation.</td>
+                    <td>Mualusi</td>
+                    <td>Completed</td>
+                </tr>
+                <tr>
+                    <td>Backend Authentication</td>
+                    <td>Configured OAuth routes, session management, and middleware for role verification.</td>
+                    <td>Siaga, Vhafunzi</td>
+                    <td>Completed</td>
+                </tr>
+                <tr>
+                    <td>Documentation Setup</td>
+                    <td>Created the documentation site template for sprint-wise documentation.</td>
+                    <td>All team members</td>
+                    <td>Completed</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Notes & Rationale -->
+    <div class="section">
+        <h2>Notes & Rationale</h2>
+        <p>
+            This sprint focused on authentication and landing pages as the core foundation. Using Google OAuth ensures secure authentication without handling sensitive data directly.  
+            Task allocation via Notion allowed the team to work independently yet remain coordinated.  
+            The architecture diagram provides a clear understanding of the system flow, helping new team members onboard quickly.
+        </p>
+        <p>
+            By the end of Sprint 1, the authentication system was fully functional, the frontend landing pages were visually appealing and responsive, and the documentation site template was ready for teammates to populate further details.
+        </p>
+    </div>
+
+    <!-- Roadmap Section -->
+    <div class="section">
+        <h2>Project Roadmap</h2>
+        <p>
+            The roadmap below shows the planned development milestones across Sprints 1–4:
+        </p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Sprint</th>
+                    <th>Main Focus / Deliverables</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Sprint 1</td>
+                    <td>Authentication (Google OAuth), Landing Page, Signup/Login, Welcome Pages, Documentation Template</td>
+                </tr>
+                <tr>
+                    <td>Sprint 2</td>
+                    <td>Core Feature Implementation, Automated Testing, Stakeholder Reviews, API Integration, User Feedback, Bug Tracker Usage, Database Documentation, Third-Party Code Documentation, Testing Documentation</td>
+                </tr>
+                <tr>
+                    <td>Sprint 3</td>
+                    <td>Events Management Module, RSVP System, Admin Dashboard, Analytics Features</td>
+                </tr>
+                <tr>
+                    <td>Sprint 4</td>
+                    <td>Final Polishing, Full Testing, Complete Documentation, Deployment Enhancements</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Sprint 2 Preview Section -->
+    <div class="section">
+        <h2>Sprint 2 Preview</h2>
+        <p>
+            Based on the roadmap, Sprint 2 will build on Sprint 1 foundations:
+        </p>
+        <ul>
+            <li><strong>Core Features:</strong> Implement critical modules with minimal bugs.</li>
+            <li><strong>Automated Testing:</strong> Establish UI and API test suites to reduce regressions.</li>
+            <li><strong>Stakeholder Reviews:</strong> Regularly evaluate feedback and integrate into development.</li>
+            <li><strong>API Integration:</strong> Implement external API usage and expose project API endpoints.</li>
+            <li><strong>User Feedback:</strong> Conduct testing sessions and formal feedback collection.</li>
+            <li><strong>Project Management:</strong> Continue Agile Scrum methodology with Notion for task tracking.</li>
+            <li><strong>Bug Tracker:</strong> Use for all issues found during development.</li>
+            <li><strong>Database Documentation:</strong> Document schema, deployment info, and rationale.</li>
+            <li><strong>Third-Party Code Documentation:</strong> Record usage and justification for external libraries.</li>
+            <li><strong>Testing Documentation:</strong> Document automated tests usage and user feedback process.</li>
+        </ul>
+    </div>
+
+</main>
+
+</body>
+</html>
