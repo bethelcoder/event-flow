@@ -3,30 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <title>Frontend Documentation - Sprint 1</title>
-    <link rel="stylesheet" href="frontend.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9fb;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #6A0DAD;
+            color: white;
+            padding: 25px 0;
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        main {
+            padding: 30px 20px;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .section {
+            background-color: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #6A0DAD;
+            margin-bottom: 15px;
+        }
+
+        p, ul {
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Header -->
-    <header>Frontend Documentation - Sprint 1</header>
+<header>Frontend Documentation - Sprint 1</header>
 
-    <!-- Content section -->
-    <main>
-        <div class="section">
-            <h2>Overview</h2>
-            <p>/* Teammates can write frontend overview here */</p>
-        </div>
+<main>
+    <!-- Overview -->
+    <div class="section">
+        <h2>Overview</h2>
+        <p>
+            During Sprint 1, the frontend team focused on creating the user-facing pages of the Event Flow project.
+            Our main goal was to establish a modern, clean, and responsive interface that serves as the foundation
+            for user interactions. The pages are developed using <strong>EJS templates</strong> integrated with
+            the Node.js and Express backend. Styling was implemented using <strong>CSS3</strong>, and JavaScript
+            was used for client-side interactivity.
+        </p>
+        <p>
+            Key objectives included intuitive navigation, consistent branding, responsive layouts for all devices,
+            and a solid foundation for upcoming sprint enhancements. By the end of Sprint 1, all main pages were functional
+            and visually aligned with project goals.
+        </p>
+    </div>
 
-        <div class="section">
-            <h2>UI Components</h2>
-            <p>/* Teammates can describe UI components here */</p>
-        </div>
+    <!-- UI Components -->
+    <div class="section">
+        <h2>UI Components</h2>
+        <p>The following user interface components were created during Sprint 1:</p>
+        <ul>
+            <li><strong>Landing Page:</strong> Hero section with overlay text, prominent buttons linking to sprint documentation pages, and visually appealing backgrounds. Serves as the first impression for users.</li>
+            <li><strong>Sign-Up Page:</strong> Users register through <strong>Google OAuth</strong>. No personal information is stored directly by the system. The page features a clear button for signing up with Google and provides a secure authentication experience.</li>
+            <li><strong>Login Page:</strong> Authentication is handled via <strong>Google OAuth</strong>. Users simply click the login button to authenticate. No passwords or sensitive information are stored in the application. Client-side validations ensure smooth login experience.</li>
+            <li><strong>Welcome Pages:</strong> Separate dashboards for <em>Staff</em> and <em>Event Managers</em>. Each dashboard displays personalized greetings and access to relevant functionalities. Designed for clarity, simplicity, and easy navigation.</li>
+        </ul>
+    </div>
 
-        <div class="section">
-            <h2>Implementation Details</h2>
-            <p>/* Teammates can write code snippets or design notes here */</p>
-        </div>
-    </main>
+    <!-- Technologies Used -->
+    <div class="section">
+        <h2>Technologies Used</h2>
+        <p>
+            The frontend for Sprint 1 uses the following technologies:
+        </p>
+        <ul>
+            <li><strong>EJS Templates:</strong> Modular HTML rendering integrated with the Node.js backend.</li>
+            <li><strong>CSS3:</strong> Styling the pages with responsive design and modern aesthetics.</li>
+            <li><strong>JavaScript:</strong> Handling interactivity such as button actions, navigation effects, and dynamic content updates.</li>
+            <li><strong>Google OAuth:</strong> Secure third-party authentication without storing user credentials.</li>
+        </ul>
+        <p>
+            These technologies ensure modularity, maintainability, and readiness for future sprints.
+        </p>
+    </div>
+
+    <!-- Design Notes -->
+    <div class="section">
+        <h2>Design Notes & Features</h2>
+        <p>
+            Key design principles applied in Sprint 1 include:
+        </p>
+        <ul>
+            <li>Responsive layouts for desktops, tablets, and mobile devices.</li>
+            <li>Consistent color palette and typography across pages.</li>
+            <li>Clear navigation and prominent action buttons for user interaction.</li>
+            <li>Modular design using EJS partials for headers, footers, and reusable components.</li>
+            <li>Accessible forms and buttons with hover effects and visual feedback.</li>
+            <li>Preparation for backend integration and dynamic content in upcoming sprints.</li>
+        </ul>
+        <p>
+            Overall, the frontend ensures a professional and cohesive user experience.
+        </p>
+    </div>
+
+   
+</main>
 
 </body>
 </html>
