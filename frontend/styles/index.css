@@ -10,8 +10,11 @@ body {
     color: #333;
     line-height: 1.1;
 }
+
+/* css for navigation bar */
 .navigation {
     display: flex;
+    white-space: nowrap;
     gap: 20px;
 }
 .navigation a {
