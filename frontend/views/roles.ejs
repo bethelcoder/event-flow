@@ -22,21 +22,23 @@
 
     <section class="choose">
 
-      <form action="/submit-role" method="post" class="roles">
-        <section class="manager">
+      <section  class="roles">
+        <form  action="/submit-role" method="post" class="manager">
           <h4>Manager</h4>
           <p>
             Full event management and coordination
           </p>
+          <input type="hidden" name="role" value="manager">
           <button class="become_btn" type="submit">Become manager</button>
-        </section>
+        </form>
 
-        <section class="staff">
+        <form action="/submit-role" method="post" class="staff">
           <h4>Staff</h4>
-          <P>task management and team communication</P>
+          <p>task management and team communication</p>
+          <input type="hidden" name="role" value="staff">
           <button class="become_btn" type="submit"> Become Staff</button>
-        </section>
-      </form>
+        </form>
+      </section>
 
     </section>
 
