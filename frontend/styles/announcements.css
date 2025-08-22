@@ -1,0 +1,175 @@
+/* announcements.css */
+
+/* Main container to wrap everything in Omega */
+.announcements-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  color: #000;
+  max-height: calc(100vh - 150px); /* leave space for header/footer */
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+/* Header Section */
+.announcements-header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.announcements-header h2 {
+  font-size: 1.8em;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.announcements-header .subtitle {
+  font-size: 0.95em;
+  color: #555;
+  margin-top: 3px;
+}
+
+/* Right-side header actions */
+.header-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.header-actions span {
+  font-weight: bold;
+}
+
+.header-actions .urgent {
+  color: red;
+}
+
+.header-actions .unread {
+  color: #000;
+}
+
+.header-actions .mark-all-read {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border: none;
+  background: #000;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.header-actions .mark-all-read:hover {
+  background: #333;
+}
+
+/* Category Buttons Section */
+.announcement-categories {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.category-btn {
+  flex: 1;
+  border: none;
+  background: #fff;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  border: 1px solid #ccc;
+}
+
+.category-btn:hover {
+  background: #f0f0f0;
+}
+
+/* Horizontal lines */
+hr {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 15px 0;
+}
+
+/* Announcements List */
+.announcement-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Individual Announcement Boxes */
+.announcement {
+  background: snow;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.05);
+}
+
+.announcement header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.announcement header .title {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.announcement .meta {
+  font-size: 0.75em;
+  color: #555;
+  margin-top: 3px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.announcement .meta .time i {
+  margin-right: 3px;
+}
+
+.announcement p {
+  margin: 8px 0 0 0;
+  font-size: 0.95em;
+}
+
+/* Mark as read button */
+.announcement footer .mark-read {
+  margin-top: 10px;
+  border: none;
+  background: #000;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.announcement footer .mark-read:hover {
+  background: #333;
+}
+
+/* Status Colors */
+.status.success {
+  color: green;
+  font-weight: bold;
+}
+
+.status.info {
+  color: blue;
+  font-weight: bold;
+}
+
+.status.urgent {
+  color: red;
+  font-weight: bold;
+}
