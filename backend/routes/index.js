@@ -86,4 +86,7 @@ router.get('/report-incident', authenticateJWT, (req, res) => {
 router.get('/my-tasks', authenticateJWT, (req, res) => {
   res.render('my-tasks', { layout: false });
 });
+router.get('/announcements', (req, res) => {
+  res.render('announcements', { layout: false });
+});
 module.exports = router;

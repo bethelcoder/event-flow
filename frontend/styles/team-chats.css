@@ -1,0 +1,133 @@
+/* TEAM CHATS PAGE STYLES - Scoped to chat only */
+.chat-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  background: #fff;
+  color: #000;
+}
+
+/* Remove padding that caused white gaps */
+.chat-page section,
+.chat-page main,
+.chat-page header,
+.chat-page footer,
+.chat-page aside {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Container for chat and staff list */
+.chat-container {
+  display: flex;
+  gap: 20px;
+  flex: 1; /* fills remaining space in dashboard */
+  padding: 0 10px;
+}
+
+/* Chat Box */
+.chat-box {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #000;
+  border-radius: 10px;
+  overflow: hidden;
+  height: 100%;
+}
+
+.chat-box-header {
+  padding: 10px 15px;
+  border-bottom: 2px solid #000;
+  background: #f9f9f9;
+}
+
+.messages {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+}
+
+.message {
+  padding: 10px 15px;
+  margin: 8px 0;
+  border-radius: 10px;
+  max-width: 70%;
+}
+
+.sender {
+  background: #000;
+  color: #fff;
+  align-self: flex-start;
+}
+
+.receiver {
+  background: #f0f0f0;
+  color: #000;
+  align-self: flex-end;
+}
+
+/* Input bar */
+.message-input {
+  display: flex;
+  border-top: 2px solid #000;
+}
+
+.message-input input {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  outline: none;
+}
+
+.message-input button {
+  padding: 12px 20px;
+  border: none;
+  background: #000;
+  color: #fff;
+  cursor: pointer;
+}
+
+.message-input button:hover {
+  background: #333;
+}
+
+/* Staff List (Right Side) */
+.staff-list {
+  flex: 1;
+  border: 2px solid #000;
+  border-radius: 10px;
+  padding: 15px;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.staff-list header h3 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.staff {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.avatar {
+  background: #000;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  font-weight: bold;
+}
