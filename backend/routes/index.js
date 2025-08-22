@@ -28,7 +28,7 @@ router.post('/submit-role', authenticateJWT, async (req, res) => {
     const userId = req.user.id;
 
     await User.findByIdAndUpdate(userId, { role: selectedRole });
-
+    
      const newToken = jwt.sign(
       {
         id: userId,
