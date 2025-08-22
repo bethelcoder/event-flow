@@ -1,4 +1,3 @@
-<!-- frontend/views/StaffDashboard.ejs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,77 +5,73 @@
   <title>Staff Dashboard</title>
   <link rel="stylesheet" href="/styles/footer.css">
   <link rel="stylesheet" href="/styles/staff-dashboard.css">
-  <!-- Font Awesome CDN for icons (correct link) -->
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
 
-  <!-- Container for the lines and sections -->
-  <section class="line-container">
+<section class="line-container">
 
-    <!-- Full-height vertical line -->
-    <section class="vertical-line"></section>
+  <!-- Vertical and horizontal lines -->
+  <section class="vertical-line"></section>
+  <section class="horizontal-line"></section>
 
-    <!-- Horizontal line starting from vertical line -->
-    <section class="horizontal-line"></section>
-
-<!-- Alpha: Left of vertical line -->
-<section class="alpha">
-
-  <!-- Header for Alpha section -->
-  <h2 class="alpha-header">Staff Dashboard</h2>
-
-  <!-- Vertical button list -->
-  <nav class="alpha-buttons">
-
-    <!-- Team Chats button -->
-<a href="/team-chats" class="alpha-btn">
-  <i class="fa-solid fa-message"></i>  <!-- correct chat icon -->
-  Team Chats
-</a>
-
-    <!-- Report Incident button -->
-    <a href="/report-incident" class="alpha-btn">
-      <i class="fas fa-triangle-exclamation"></i> <!-- warning triangle icon -->
-      Report Incident
-    </a>
-
-    <!-- My Tasks button -->
-    <a href="/my-tasks" class="alpha-btn">
-      <i class="fas fa-clipboard-check"></i> <!-- checklist icon -->
-      My Tasks
-    </a>
-
-  </nav>
-
-</section>
-
-
-
-<!-- Beta: Top-right space above horizontal line -->
-<section class="beta">
-  <h2 class="beta-header">
-    <i class="fa-solid fa-window-maximize " > </i><i class="fa-solid fa-user"></i>  Staff Portal</h2>
-
-  <p class="beta-subtitle">
-   Event Support Team
-  </p>
-
- 
-</section>
-
-
-
-
-    <!-- Omega: Remaining space (main content) -->
-    <section class="omega">
-      <!-- Content for omega goes here -->
-    </section>
-
+  <!-- Alpha -->
+  <section class="alpha">
+    <h2 class="alpha-header">Staff Dashboard</h2>
+    <nav class="alpha-buttons">
+      <a href="#" class="alpha-btn" data-page="/team-chats">
+        <i class="fa-solid fa-message"></i> Team Chats
+      </a>
+      <a href="#" class="alpha-btn" data-page="/report-incident">
+        <i class="fas fa-triangle-exclamation"></i> Report Incident
+      </a>
+      <a href="#" class="alpha-btn" data-page="/my-tasks">
+        <i class="fas fa-clipboard-check"></i> My Tasks
+      </a>
+    </nav>
   </section>
 
-  <%- include('partials/footer', { year: new Date().getFullYear() }) %>
+  <!-- Beta -->
+  <section class="beta">
+    <h2 class="beta-header">
+      <i class="fa-solid fa-window-maximize"></i>
+      <i class="fa-solid fa-user"></i> Staff Portal
+    </h2>
+    <p class="beta-subtitle">Event Support Team</p>
+  </section>
+
+  <!-- Omega -->
+  <section class="omega" id="omega">
+    <p>Welcome! Click a button on the left to load content here.</p>
+  </section>
+
+</section>
+
+<%- include('partials/footer', { year: new Date().getFullYear() }) %>
+
+<script>
+const alphaButtons = document.querySelectorAll('.alpha-btn');
+const omega = document.getElementById('omega');
+
+alphaButtons.forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const page = btn.getAttribute('data-page');
+
+    fetch(page)
+      .then(res => {
+        if (!res.ok) throw new Error('Page not found');
+        return res.text();
+      })
+      .then(html => {
+        omega.innerHTML = html;
+      })
+      .catch(err => {
+        omega.innerHTML = `<p style="color:red;">Error loading page: ${err}</p>`;
+      });
+  });
+});
+</script>
 
 </body>
 </html>
