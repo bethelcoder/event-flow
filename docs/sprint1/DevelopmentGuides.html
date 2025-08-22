@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Development Guides - Sprint 1</title>
+    <style>
+        /* Base styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f8;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #153291;
+            color: white;
+            padding: 25px 15px;
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+        }
+
+        main {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .section {
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            word-wrap: break-word; /* allows long text to wrap */
+        }
+
+        .section h2 {
+            color: #153291;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .section p, .section ol, .section ul {
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        code, pre {
+            display: block;
+            white-space: pre-wrap; /* allows wrapping in code */
+            word-break: break-word;
+            background-color: #f0f0f0;
+            padding: 8px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 0.95rem;
+            overflow-x: auto;
+        }
+
+        ol li, ul li {
+            margin-bottom: 8px;
+        }
+
+        .placeholder {
+            background-color: #f0f0f0;
+            border-left: 4px solid #ff8800fb;
+            padding: 10px;
+            margin-top: 10px;
+            font-style: italic;
+            color: #666;
+        }
+
+        
+        @media screen and (max-width: 600px) {
+            header {
+                font-size: 1.5rem;
+                padding: 20px 10px;
+            }
+
+            .section {
+                padding: 15px;
+            }
+
+            .section h2 {
+                font-size: 1.3rem;
+            }
+
+            .section p, .section ol, .section ul, code, pre {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>Development Guide - Sprint 1</header>
+
+<main>
+    <div class="section">
+        <h2>1. Project Overview</h2>
+        <p><strong>WHAT THE APP DOES:</strong> A full-stack real-time event management platform built with Express.js, MongoDB, EJS templating, and Socket.IO. Designed to help organizers manage event-day operations such as guest check-ins, live schedule updates, venue mapping, and on-site staff coordination.</p>
+        <p><strong>Tech Stack:<br></strong>Frontend: EJS, CSS, JS.<br>Backend: Node.js, Express Database MongoDB (Mongoose)</p>
+    </div>
+
+    <div class="section">
+        <h2>2. Setup Instructions</h2>
+        <p><strong>How to clone repo:</strong></p>
+        <code>git clone https://github.com/bethelcoder/event-flow.git
+cd event-flow</code>
+        <p><strong>Install dependencies:</strong></p>
+        <code>npm install</code>
+        <p><strong>.env variables:</strong></p>
+        <pre>
+MONGO_URI=
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+GOOGLE_CALLBACK_URL=
+JWT_SECRET=
+SESSION_SECRET=
+        </pre>
+        <p><strong>How to run the project:</strong></p>
+        <code>npm run start</code>
+    </div>
+
+    <div class="section">
+        <h2>3. Development Database</h2>
+        <p><strong>Database Technology:</strong> MongoDB (with Mongoose ODM)</p>
+        <p><strong>Steps to set up locally:</strong></p>
+        <ol>
+            <li>Install MongoDB Community Edition or run it with Docker.</li>
+            <li>Create a new local database called <code>eventflow_dev</code>.</li>
+            <li>Update the <code>MONGO_URI</code> in your <code>.env</code> file to point to your localhost instance:<br>
+            <code>MONGO_URI=mongodb://127.0.0.1:27017/eventflow_dev</code></li>
+            <li>Start MongoDB so it runs in the background.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <h2>4. Development API</h2>
+        <p><strong>Backend Technology:</strong> Node.js with Express.js</p>
+        <p><strong>Steps to run API locally:</strong></p>
+        <ol>
+            <li>Navigate to the project root: <code>cd event-flow</code></li>
+            <li>Ensure dependencies are installed: <code>npm install</code></li>
+            <li>Start the server: <code>npm run start</code></li>
+            <li>The console should display: <code>Server running on port 3000</code> and <code>MongoDB connected</code>.</li>
+            <li>API endpoints are available under <code>http://localhost:3000/api</code>.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <h2>5. Development Site</h2>
+        <p><strong>Frontend Technology:</strong> EJS templates, CSS, and JavaScript served by Express.</p>
+        <p><strong>Steps to run site locally:</strong></p>
+        <ol>
+            <li>Ensure the API/backend server is already running with <code>npm run start</code>.</li>
+            <li>Open <code>http://localhost:3000</code> in your browser.</li>
+            <li>The frontend (EJS views) will load from the same Express server and connect to the MongoDB database.</li>
+        </ol>
+    </div>
+</main>
+
+</body>
+</html>
