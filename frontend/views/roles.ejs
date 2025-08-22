@@ -5,54 +5,57 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Role Selection</title>
 <link rel="stylesheet" href="../styles/roles.css" />
+<link rel="stylesheet" href="../styles/footer.css">
 </head>
 <body>
 
-<section class="role-container">
+  <section class="main">
+    <section class="role_container">
 
-  <section class="role-card">
-    <strong class="role-title">Choose Your Role</strong>
-    <section class="roles-split">
+        <h2 class="heading">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
+          </svg>
+          Event Management System
+        </h2>
+    <p>Choose your role to be part of the successful event </p>
 
-      <!-- Manager Role Form -->
-      <section class="role option manager">
-        <h2 id="manager_header">Event Manager</h2>
-        <ul id="manager_list">
-          <li>Manage events</li>
-          <li>schedules</li>
-          <li>guests</li>
-          <li>communicate with staff</li>
-          <li>And more...</li>
-        </ul>
+    <section class="choose">
 
-        <form action="/submit-role" method="POST">
-          <input type="hidden" name="role" value="manager" />
-          <button class="role-button" type="submit">
-            Become Manager
-          </button>
-        </form>
-      </section>
+      <form action="/submit-role" method="post" class="roles">
+        <section class="manager">
+          <h4>Manager</h4>
+          <p>
+            Full event management and coordination
+          </p>
+          <button class="become_btn" type="submit">Become manager</button>
+        </section>
 
-      <!-- Staff Role Form -->
-      <section class="role option staff">
-        <h2 id="staff_header">Staff</h2>
-        <ul id="staff_list">
-          <li>Assist with check-ins</li>
-          <li>announcements</li>
-          <li>make guests feel comfortable</li>
-        </ul>
+        <section class="staff">
+          <h4>Staff</h4>
+          <P>task management and team communication</P>
+          <button class="become_btn" type="submit"> Become Staff</button>
+        </section>
+      </form>
 
-        <form action="/submit-role" method="POST">
-          <input type="hidden" name="role" value="staff" />
-          <button class="role-button" type="submit">
-            Become Staff
-          </button>
-        </form>
-      </section>
+    </section>
+
+    <section class="description">
+      <h4>
+        Role-Based Access
+      </h4>
+      <p class="can_do">
+        <strong>Managers</strong>
+        can coordinate events, communicate with staff, book venues, send invitations and manage the complete event workflow
+      </p>
+      <p class="can_do">
+        <strong>Staff</strong>
+        can chat with team members, report incidents, and manage assigned tasks during events.
+      </p>
+    </section>
 
     </section>
   </section>
-</section>
-
+  <%- include('partials/footer', { year: new Date().getFullYear() }) %>
 </body>
 </html>

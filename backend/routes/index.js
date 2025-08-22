@@ -66,7 +66,7 @@ router.get('/logout', (req, res) => {
       sameSite: 'lax'
     });
 
-    res.status(200).json({ message: 'Logged out successfully' });
+    res.redirect("/login");
   });
 
 });
