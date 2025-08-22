@@ -6,6 +6,9 @@
   <title>Staff Dashboard</title>
   <link rel="stylesheet" href="/styles/footer.css">
   <link rel="stylesheet" href="/styles/staff-dashboard.css">
+  <!-- Font Awesome CDN for icons (correct link) -->
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
 
@@ -18,15 +21,53 @@
     <!-- Horizontal line starting from vertical line -->
     <section class="horizontal-line"></section>
 
-    <!-- Alpha: Left of the vertical line -->
-    <section class="alpha">
-      <!-- Content for alpha goes here -->
-    </section>
+<!-- Alpha: Left of vertical line -->
+<section class="alpha">
 
-    <!-- Beta: Top-right space above horizontal line -->
-    <section class="beta">
-      <!-- Content for beta goes here -->
-    </section>
+  <!-- Header for Alpha section -->
+  <h2 class="alpha-header">Staff Dashboard</h2>
+
+  <!-- Vertical button list -->
+  <nav class="alpha-buttons">
+
+    <!-- Team Chats button -->
+<a href="/team-chats" class="alpha-btn">
+  <i class="fa-solid fa-message"></i>  <!-- correct chat icon -->
+  Team Chats
+</a>
+
+    <!-- Report Incident button -->
+    <a href="/report-incident" class="alpha-btn">
+      <i class="fas fa-triangle-exclamation"></i> <!-- warning triangle icon -->
+      Report Incident
+    </a>
+
+    <!-- My Tasks button -->
+    <a href="/my-tasks" class="alpha-btn">
+      <i class="fas fa-clipboard-check"></i> <!-- checklist icon -->
+      My Tasks
+    </a>
+
+  </nav>
+
+</section>
+
+
+
+<!-- Beta: Top-right space above horizontal line -->
+<section class="beta">
+  <h2 class="beta-header">
+    <i class="fa-solid fa-window-maximize " > </i><i class="fa-solid fa-user"></i>  Staff Portal</h2>
+
+  <p class="beta-subtitle">
+   Event Support Team
+  </p>
+
+ 
+</section>
+
+
+
 
     <!-- Omega: Remaining space (main content) -->
     <section class="omega">
