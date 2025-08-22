@@ -4,36 +4,44 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="../styles/login.css">
-  <title>Login - Event Flow</title>
+  <link rel="stylesheet" href="../styles/footer.css">
+  <title>Login - EventFlow</title>
 </head>
 <body>
+  <section class="main">
+    <section class="login-container">
+      <h1 class="login-header">
+        Login to 
+        <span class="logo">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="logo-icon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
+          </svg>
+          <span class="logo-text">EventFlow</span>
+        </span>
+      </h1>
 
-  <div class="login-container">
-    <h1 class="login-header">Login to Event Flow</h1>
 
-    <form class="login-form">
-      <a href="/auth/google" class="auth-btn google">
-        <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google logo" />
-        Login with Google
-      </a>
+      <form class="login-form">
+        <a href="/auth/google" class="auth-btn google">
+          <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google logo" />
+          Login with Google
+        </a>
 
-      <a href="/auth/github" class="auth-btn github">
-        <img src="https://www.svgrepo.com/show/349375/github.svg" alt="GitHub logo" />
-        Login with GitHub
-      </a>
-    </form>
+      </form>
 
-    <p class="signup-link">
-      Don't have an account yet? <a href="/signup">Register here</a>
-    </p>
+      <p class="signup-link">
+        Don't have an account yet? <a href="/signup">Register here</a>
+      </p>
 
-    <section id="animated-text">
-      <span>Welcome back! Ready to manage your events effortlessly?</span>
-      <span>Secure, fast, and easy to use.</span>
-      <span>Join thousands keeping events on track every day.</span>
-      
+      <section id="animated-text">
+        <span>Welcome back! Ready to manage your events effortlessly?</span>
+        <span>Secure, fast, and easy to use.</span>
+        <span>Join thousands keeping events on track every day.</span>
+        
+      </section>
     </section>
-  </div>
-
+  </section>
+  
+  <%- include('partials/footer', { year: new Date().getFullYear() }) %>
 </body>
 </html>

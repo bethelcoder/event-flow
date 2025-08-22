@@ -1,171 +1,166 @@
-/* Reset */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
 }
 
 body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background: #f9fafb;
-}
-#manager_header{
-    margin-bottom: 50px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f8;
+    color: #333;
 }
 
-#staff_header{
-    margin-bottom: 50px;
-}
 
-#manager_list{
-    margin-bottom: 50px;
-}
-
-#staff_list{
-    margin-bottom: 50px;
-}
-/* Container */
-.role-container {
-    width: 850px;
-    aspect-ratio: 2/1;
-}
-
-/* Card Base */
-.role-card {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #4F46E5, #10B981);
-    color: white;
-    padding: 40px;
-    text-align: center;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    position: relative;
-    cursor: pointer;
-    overflow: hidden;
-    transition: all 0.1s ease;
-}
-
-/* Title Animation */
-.role-title {
-    font-size: 2.5rem;
-    font-weight: 600;
-    display: block;
-    opacity: 1;
-    transform: scale(1);
-    transition: opacity 0.3s ease, transform 0.4s ease;
-}
-
-/* Role Cards Hidden State */
-.roles-split {
-    display: flex;
-    width: 100%;
-    height: 100%;   /* fill full height of .role-card */
-    gap: 10px;
-}
-
-.role {
-    flex: content;         /* disable flex-grow */
-    width: 50%;         /* half width */
-    height: 90%;       /* full height */
-    padding: 20px;
-    border-radius: 5px;   /* remove rounding so edges meet */
-    box-sizing: border-box;
+.role_container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    opacity: 0;
-    transition: transform 0.5s ease, opacity 0.5s ease
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 3rem 4rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    width: 90%;
+    max-width: 900px;
+    text-align: center;
+    gap: 2rem;
+    margin-bottom: 2%;
+}
+.main{
+    min-height: 100vh;
 }
 
-.manager {
-    /* background-image: url('../../visuals/event-manager.webp'); */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    color: white;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-    transform: translateX(50%);
-    background-color: #b96210;
+.heading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #153291;
 }
 
-.staff {
-    /* background-image: url('../../visuals/staff.webp'); */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    color: white;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-    transform: translateX(-50%);
-    background-color: #163b9e;
+.heading .icon {
+    width: 36px;
+    height: 36px;
+    color: #ff8800fb;
 }
 
-.role-button {
-    background-color: #000000;   /* Vibrant blue-purple color */
-    color: white;                /* White text for contrast */
-    border: none;                /* Remove default border */
-    padding: 12px 24px;          /* Comfortable padding */
-    font-size: 16px;             /* Readable font size */
-    font-weight: 600;            /* Semi-bold */
-    border-radius: 8px;          /* Rounded corners */
-    cursor: pointer;             /* Pointer on hover */
-    box-shadow: 0 4px 8px rgba(79, 70, 229, 0.3); /* subtle shadow */
-    transition: background-color 0.3s ease, transform 0.2s ease;
+
+.role_container p {
+    font-size: 1rem;
+    color: #555;
 }
 
-.role-button:hover {
-    background-color: #465f29;  /* Darker shade on hover */
-    transform: translateY(-2px); /* Slight lift effect */
+
+.choose {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
 }
 
-.role-button:active {
-    background-color: #1b0d42;  /* Even darker on click */
-    transform: translateY(0);   /* Reset position */
+
+.roles {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+}
+.roles form {
+    background-color: #f9f9f9;
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    width: 250px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.roles section {
+    background-color: #f9f9f9;
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    width: 250px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.role h2 {
-    font-size: 1.2rem;
-    margin-bottom: 8px;
+.roles section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
 }
 
-.role p {
+.roles h4 {
+    margin-bottom: 0.5rem;
+    color: #153291;
+}
+
+.roles p {
     font-size: 0.9rem;
-    opacity: 0.85;
+    color: #555;
+    margin-bottom: 1rem;
 }
 
-/* Hover State */
-.role-card:hover {
-    background: transparent;
-    padding: 20px;
+
+.become_btn {
+    background-color: #ff8800fb;
+    color: #fff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s, transform 0.2s;
 }
 
-.role-card:hover .role-title {
-    opacity: 0;
-    transform: scale(0.8);
+.become_btn:hover {
+    background-color: #e87700;
+    transform: translateY(-2px);
 }
 
-.role-card:hover .manager {
-    transform: translateX(0);
-    opacity: 1;
+/* Description section */
+.description {
+    text-align: left;
+    max-width: 700px;
+    margin-top: 2rem;
 }
 
-.role-card:hover .staff {
-    transform: translateX(0);
-    opacity: 1;
+.description h4 {
+    font-size: 1.5rem;
+    color: #153291;
+    margin-bottom: 0.5rem;
 }
 
-/* Mobile */
-@media (max-width: 600px) {
-    .roles-split {
+.can_do {
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    color: #555;
+}
+
+.can_do strong {
+    color: #ff8800fb;
+}
+
+
+@media screen and (max-width: 768px) {
+    .choose {
         flex-direction: column;
+        gap: 1.5rem;
     }
-    .manager, .staff {
-        transform: translateY(0) !important;
+
+    .roles section {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .role_container {
+        padding: 2rem;
     }
 }

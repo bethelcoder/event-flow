@@ -12,13 +12,13 @@ footer.page-footer {
 .footer-top {
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap; /* responsive layout */
+    flex-wrap: wrap;
     gap: 30px;
     margin-bottom: 20px;
 }
 
 .footer-top article {
-    flex: 1 1 200px; /* grow, shrink, min width */
+    flex: 1 1 200px; 
 }
 
 .footer-top article h3 {
@@ -53,13 +53,12 @@ footer.page-footer {
 }
 
 /* ----- Social Links ----- */
+
 .social li {
-    display: flex;
     margin-right: 15px;
 }
 
 .social li a {
-    display: flex;
     align-items: center;
     gap: 6px;
 }
@@ -90,10 +89,10 @@ footer.page-footer {
 }
 
 /* Brand colors */
-.social li a.facebook { color: #1877F2; }   /* Facebook blue */
-.social li a.twitter { color: #1DA1F2; }    /* Twitter blue */
+.social li a.facebook { color: #1877F2; } 
+.social li a.twitter { color: #1DA1F2; } 
 .social li a.instagram { 
-  color: #E1306C; /* Instagram pink/red as base, or use gradient later */ 
+  color: #E1306C;  
 }
 .social li a.linkedin { color: #0A66C2; }   /* LinkedIn blue */
 
@@ -103,14 +102,12 @@ footer.page-footer {
 }
 
 .icon-heading {
-  display: flex;
   flex-direction: column; 
   gap: 8px;              
   text-align: center;
 }
 
 .icon-heading .top-row {
-  display: flex;
   align-items: center;  
   gap: 8px;               
 }

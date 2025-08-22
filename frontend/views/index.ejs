@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="/styles/footer.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <title>Document</title>
+    <title>EventFlow</title>
 </head>
 <body>
+    
     <!-- navigations -->
      <section class="navigation_section">
         <nav id="eventflow_nav">
@@ -19,20 +20,19 @@
             </svg>
             <a>EventFLow</a>
         </nav>
-        <nav class="navigation">
+        <button class="hamburger" onclick="toggleMenu()">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+        </button>
+        <nav class="navigation" id="nav_links">
             <a href="#feature_section">Features</a>
-            <a href="">About</a>
+            <a href="#">About</a>
             <a href="/login">Sign In</a>
         </nav>
-     </section>
+    </section>
      <!-- welcome-page -->
     <section id="slogen">
-        <section class="scroll-indicator">
-            <section class="mouse">
-                <section class="wheel"></section>
-            </section> 
-            <span class="scroll-text">Scroll Down</span>
-        </section>
         <section id="index_slogen">
             <h2 class="heading">
                 Effortless, Real-Time 
@@ -41,13 +41,10 @@
                 </span>
             </h2>
             <p class="white_p">Coordinate your team, engage guests and manage events with live collaboration tools</p>
-            <section>
+            <section class="buttons">
                 <button onclick="location.href='signup'" class="orange_button">Get Started</button>
                 <button  onclick="document.getElementById('how_it_works').scrollIntoView({ behavior: 'smooth' });" class="clear_button">See How it Works</button>
             </section>
-        </section>
-        <section id="index_picture">
-            
         </section>
     </section>
 
@@ -226,7 +223,7 @@
                     <figure>
                         <img src="../../visuals/client_profile2.jpg" alt="Jane Smith">
                         <figcaption>
-                            <strong>Michael Chen</strong>Operation Manager, EventPro
+                            <strong>Michael Chen </strong>Operation Manager, EventPro
                         </figcaption>
                     </figure>
                 </footer>
@@ -243,7 +240,7 @@
                     <figure>
                         <img src="../../visuals/client_profile3.jpg" alt="Alice Brown">
                         <figcaption>
-                            <strong>Emma Williams</strong>, Weddind planner, Elegnat Events
+                            <strong>Emma Williams</strong>, Wedding planner, Elegnat Events
                         </figcaption>
                     </figure>
                 </footer>
@@ -261,6 +258,12 @@
                 Sign Up Free
             </button>
     </section>
+    <script>
+            function toggleMenu() {
+            const nav = document.getElementById("nav_links");
+            nav.classList.toggle("show");
+        }   
+    </script>
     <%- include('partials/footer', { year: new Date().getFullYear() }) %>
 
 </body>
