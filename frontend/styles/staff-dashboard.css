@@ -1,0 +1,112 @@
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  font-family: Arial, sans-serif;
+}
+
+/* Container holding lines and sections */
+.line-container {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+/* Full-height vertical line */
+.vertical-line {
+  position: absolute;
+  top: 0;
+  left: 250px;          /* desktop position */
+  width: 2px;
+  height: 100%;
+  background-color: black;
+}
+
+/* Horizontal line starting from vertical line */
+.horizontal-line {
+  position: absolute;
+  top: 70px;            /* distance from top */
+  left: 250px;          /* aligned with vertical line */
+  height: 2px;
+  width: calc(100% - 250px);
+  background-color: black;
+}
+
+/* Alpha: Left of vertical line */
+.alpha {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 250px;         /* space up to vertical line */
+  height: 100%;
+  background: transparent; /* optional background */
+}
+
+/* Beta: Top-right space above horizontal line */
+.beta {
+  position: absolute;
+  top: 0;
+  left: 252px;          /* just right of vertical line */
+  width: calc(100% - 252px);
+  height: 70px;         /* same as horizontal line top */
+  background: transparent; /* optional background */
+}
+
+/* Omega: Remaining space below horizontal line */
+.omega {
+  position: absolute;
+  top: 72px;            /* just below horizontal line */
+  left: 252px;          /* right of vertical line */
+  width: calc(100% - 252px);
+  height: calc(100% - 72px); /* remaining height */
+  background: transparent; /* optional background */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .vertical-line {
+    left: 50px;
+  }
+  .horizontal-line {
+    left: 50px;
+    width: calc(100% - 50px);
+  }
+  .alpha {
+    width: 50px;
+  }
+  .beta {
+    left: 52px;
+    width: calc(100% - 52px);
+  }
+  .omega {
+    left: 52px;
+    width: calc(100% - 52px);
+    top: 72px;
+    height: calc(100% - 72px);
+  }
+}
+
+@media (max-width: 480px) {
+  .vertical-line {
+    left: 20px;
+  }
+  .horizontal-line {
+    left: 20px;
+    width: calc(100% - 20px);
+  }
+  .alpha {
+    width: 20px;
+  }
+  .beta {
+    left: 22px;
+    width: calc(100% - 22px);
+  }
+  .omega {
+    left: 22px;
+    width: calc(100% - 22px);
+    top: 72px;
+    height: calc(100% - 72px);
+  }
+}

@@ -1,31 +1,41 @@
+<!-- frontend/views/StaffDashboard.ejs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        .orange_button {
-            border-radius: 5px;
-            background-color: #153291;
-            color: #ffffff;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            font-size: clamp(0.9rem, 1vw, 1rem);
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.2s ease, background 0.3s ease;
-        }
-        .orange_button:hover {
-            transform: translateY(-2px);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Staff Dashboard</title>
+  <link rel="stylesheet" href="/styles/footer.css">
+  <link rel="stylesheet" href="/styles/staff-dashboard.css">
 </head>
 <body>
-    <h2>Hello and welcome to the dashboard</h2>
-    <form action="/logout" method="get">
-        <button type="submit" class="orange_button">Logout</button>
-    </form>
+
+  <!-- Container for the lines and sections -->
+  <section class="line-container">
+
+    <!-- Full-height vertical line -->
+    <section class="vertical-line"></section>
+
+    <!-- Horizontal line starting from vertical line -->
+    <section class="horizontal-line"></section>
+
+    <!-- Alpha: Left of the vertical line -->
+    <section class="alpha">
+      <!-- Content for alpha goes here -->
+    </section>
+
+    <!-- Beta: Top-right space above horizontal line -->
+    <section class="beta">
+      <!-- Content for beta goes here -->
+    </section>
+
+    <!-- Omega: Remaining space (main content) -->
+    <section class="omega">
+      <!-- Content for omega goes here -->
+    </section>
+
+  </section>
+
+  <%- include('partials/footer', { year: new Date().getFullYear() }) %>
+
 </body>
 </html>
