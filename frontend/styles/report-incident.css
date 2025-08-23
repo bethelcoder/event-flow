@@ -1,0 +1,110 @@
+/* =========================
+   Report Incident Page Styles
+   ========================= */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  color: #000;
+}
+
+/* Incident container box */
+.incident-container {
+  background: #f9f9f9;
+  border: 2px solid #000;
+  border-radius: 10px;
+
+  /* ---- WIDTH CONTROL ---- */
+  width: 1300px; 
+  /* 🔥 This makes the box extend almost full page but leaves space for alpha sidebar (adjust 260px if alpha is wider/narrower) */
+
+  margin: 30px 20px 30px 5px; 
+  /* 🔥 Left margin pushes it to start after alpha, adjust 240px to match alpha’s exact width */
+
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.incident-header h2 {
+  margin: 0 0 20px 0;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.incident-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+}
+
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 10px;
+  border: 2px solid #000;
+  border-radius: 6px;
+  background: #fff;
+  font-size: 1rem;
+}
+
+.full-width {
+  width: 100%;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.submit-btn {
+  background: #000;
+  color: #fff;
+}
+
+.submit-btn:hover {
+  background: #333;
+}
+
+.draft-btn {
+  background: #ddd;
+  color: #000;
+}
+
+.draft-btn:hover {
+  background: #bbb;
+}

@@ -1,6 +1,85 @@
-<h2>Report Incident</h2>
-<form>
-  <label>Incident:</label>
-  <input type="text" placeholder="Describe incident" />
-  <button type="submit">Submit</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Report Incident</title>
+  <link rel="stylesheet" href="/styles/footer.css">
+  <link rel="stylesheet" href="/styles/staff-dashboard.css">
+  <link rel="stylesheet" href="/styles/report-incident.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+<section class="incident-container">
+
+  <header class="incident-header">
+    <h2><i class="fas fa-triangle-exclamation"></i> Report New Incident</h2>
+  </header>
+
+  <form class="incident-form">
+
+    <!-- Row 1: Title + Priority -->
+    <section class="form-row">
+      <section class="form-group">
+        <label for="incident-title">Incident Title</label>
+        <input type="text" id="incident-title" name="incident-title" placeholder="Enter incident title">
+      </section>
+
+      <section class="form-group">
+        <label for="priority">Priority Level</label>
+        <select id="priority" name="priority">
+          <option value="">Select priority</option>
+          <option>Low</option>
+          <option>Medium</option>
+          <option>High</option>
+          <option>Critical</option>
+        </select>
+      </section>
+    </section>
+
+    <!-- Row 2: Category + Location -->
+    <section class="form-row">
+      <section class="form-group">
+        <label for="category">Category</label>
+        <select id="category" name="category">
+          <option value="">Select category</option>
+          <option>Technical</option>
+          <option>Security</option>
+          <option>Logistics</option>
+          <option>Other</option>
+        </select>
+      </section>
+
+      <section class="form-group">
+        <label for="location">Location</label>
+        <input type="text" id="location" name="location" placeholder="Enter location of incident">
+      </section>
+    </section>
+
+    <!-- Row 3: Description -->
+    <section class="form-group full-width">
+      <label for="description">Detailed Description</label>
+      <textarea id="description" name="description" rows="5" placeholder="Provide detailed description..."></textarea>
+    </section>
+
+    <!-- Row 4: Photo evidence -->
+    <section class="form-group full-width">
+      <label for="photo">Add Photo Evidence (optional)</label>
+      <input type="file" id="photo" name="photo" accept="image/*" capture="environment">
+    </section>
+
+    <!-- Row 5: Buttons -->
+    <section class="form-actions">
+      <button type="submit" class="submit-btn">
+        <i class="fa fa-paper-plane"></i> Submit Report
+      </button>
+      <button type="button" class="draft-btn">
+        <i class="fa fa-save"></i> Save Draft
+      </button>
+    </section>
+
+  </form>
+</section>
+
+</body>
+</html>
