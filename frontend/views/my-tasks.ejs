@@ -1,1 +1,111 @@
-<h1>WELOCME TO OUR TAKS</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Tasks</title>
+  <link rel="stylesheet" href="/styles/footer.css">
+  <link rel="stylesheet" href="/styles/staff-dashboard.css">
+  <link rel="stylesheet" href="/styles/my-tasks.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+<section class="tasks-header">
+  <h2>My Tasks</h2>
+  <div class="task-summary-buttons">
+    <button>Total No: 10</button>
+    <button>Pending: 4</button>
+    <button>In Progress: 3</button>
+    <button>Completed: 3</button>
+  </div>
+</section>
+
+<!-- =================== Today's Progress Box =================== -->
+<section class="progress-box">
+  <h3>Todays Progress</h3>
+  <p>Completion Rate</p>
+  <div class="progress-bar">
+    <div class="progress-fill" style="width: 60%;"></div>
+  </div>
+  <div class="progress-stats">
+    <div>Pending: 4</div>
+    <div>In Progress: 3</div>
+    <div>Completed: 3</div>
+    <div>Overdue: 0</div>
+  </div>
+</section>
+
+<!-- =================== Filter Buttons =================== -->
+<section class="task-filter-buttons">
+  <button data-filter="all">All Tasks (10)</button>
+  <button data-filter="pending">Pending (4)</button>
+  <button data-filter="inprogress">In Progress (3)</button>
+  <button data-filter="completed">Completed (3)</button>
+</section>
+
+<!-- =================== Tasks List =================== -->
+<section class="tasks-container">
+  <!-- Example task box -->
+  <section class="task-box" data-status="pending">
+    <h4>Task 1: Update Inventory</h4>
+    <p>Assigned to: You</p>
+    <button class="task-action-btn">Start Task</button>
+  </section>
+
+  <section class="task-box" data-status="pending">
+    <h4>Task 2: Check Equipment</h4>
+    <p>Assigned to: You</p>
+    <button class="task-action-btn">Start Task</button>
+  </section>
+
+  <section class="task-box" data-status="inprogress">
+    <h4>Task 3: Safety Inspection</h4>
+    <p>Assigned to: You</p>
+    <button class="task-action-btn">Mark Complete</button>
+  </section>
+</section>
+
+<!-- =================== Script =================== -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  // Filter buttons
+  const filterButtons = document.querySelectorAll('.task-filter-buttons button');
+  const tasks = document.querySelectorAll('.tasks-container .task-box');
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.getAttribute('data-filter');
+      tasks.forEach(task => {
+        if (filter === 'all' || task.dataset.status === filter) {
+          task.style.display = 'block';
+        } else {
+          task.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // Task action buttons
+  const taskActionButtons = document.querySelectorAll('.task-action-btn');
+  taskActionButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const parent = btn.closest('.task-box');
+      if (btn.textContent === 'Start Task') {
+        btn.textContent = 'Mark Complete';
+        parent.dataset.status = 'inprogress';
+      } else if (btn.textContent === 'Mark Complete') {
+        const report = prompt("Enter completion report (optional):");
+        if (report !== null) {
+          alert("Completion report saved:\n" + report);
+        }
+        btn.textContent = 'Completed';
+        parent.dataset.status = 'completed';
+        btn.disabled = true;
+      }
+    });
+  });
+});
+</script>
+
+</body>
+</html>
