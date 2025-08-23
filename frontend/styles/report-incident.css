@@ -1,5 +1,62 @@
 /* =========================
-   Report Incident Page Styles
+   CSS-ONLY Toggle for Report / My Reports
+   ========================= */
+
+/* Hide radio buttons */
+.toggle-wrapper input[type="radio"] {
+  display: none;
+}
+
+/* Toggle buttons container */
+.toggle-buttons {
+  display: flex;
+  gap: 15px;
+  margin: 20px auto;
+  justify-content: center;
+}
+
+/* Style toggle buttons */
+.toggle-buttons label {
+  padding: 10px 20px;
+  border: 2px solid #000;
+  border-radius: 6px;
+  background: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: 0.2s;
+}
+
+.toggle-buttons label:hover {
+  background: #333;
+  color: #fff;
+}
+
+/* Active button styling */
+#report:checked ~ .toggle-buttons label[for="report"],
+#myreports:checked ~ .toggle-buttons label[for="myreports"] {
+  background: #000;
+  color: #fff;
+}
+
+/* Show/hide sections */
+#report-incident-container,
+#my-reports-container {
+  display: none;
+}
+
+#report:checked ~ #report-incident-container {
+  display: block;
+}
+
+#myreports:checked ~ #my-reports-container {
+  display: block;
+}
+
+/* =========================
+   Existing styles for forms and report boxes
    ========================= */
 body {
   font-family: Arial, sans-serif;
@@ -9,19 +66,13 @@ body {
   color: #000;
 }
 
-/* Incident container box */
 .incident-container {
   background: #f9f9f9;
   border: 2px solid #000;
   border-radius: 10px;
-
-  /* ---- WIDTH CONTROL ---- */
-  width: 1300px; 
-  /* 🔥 This makes the box extend almost full page but leaves space for alpha sidebar (adjust 260px if alpha is wider/narrower) */
-
-  margin: 30px 20px 30px 5px; 
-  /* 🔥 Left margin pushes it to start after alpha, adjust 240px to match alpha’s exact width */
-
+  width: 95%;
+  max-width: 1200px;
+  margin: 30px auto;
   padding: 20px;
   box-sizing: border-box;
 }
@@ -43,12 +94,14 @@ body {
 .form-row {
   display: flex;
   gap: 20px;
+  flex-wrap: wrap;
 }
 
 .form-group {
   flex: 1;
   display: flex;
   flex-direction: column;
+  min-width: 200px;
 }
 
 .form-group label {
@@ -107,4 +160,32 @@ button {
 
 .draft-btn:hover {
   background: #bbb;
+}
+
+.report-box {
+  border: 2px solid #000;
+  border-radius: 8px;
+  background: #fff;
+  padding: 15px 20px;
+  margin-bottom: 15px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.report-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.report-box h3 {
+  margin: 0 0 10px 0;
+}
+
+.report-box .small-info {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.report-box i {
+  margin-right: 5px;
 }
