@@ -1,0 +1,308 @@
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f7f8fa;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.main_content {
+    padding: 2rem 3rem;
+}
+ 
+#Guest_list, 
+#EmailTemplate {
+    display: none; 
+}
+.top {
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    margin-bottom: 15px;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 20px 24px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.heading {
+    color: #ff8800fb;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+.overview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+.overview span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #f0f4f8;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #444;
+}
+.overview svg.icon {
+    width: 20px;
+    height: 20px;
+}
+
+
+.Total {
+    background-color: #153291; 
+}
+
+.Accepted {
+    
+    background-color: #28a745;
+}
+
+.Pending {
+    background-color: #ffc107; 
+    color: #333 !important; 
+}
+
+.Declined {
+    background-color: #dc3545; 
+}
+.Invitations {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.top_row {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 1rem;
+}
+
+#Guest_name {
+    margin-bottom: 15px;
+}
+#Guest_email {
+    margin-bottom: 15px;
+}
+#bulk {
+    margin-bottom: 15px;
+    padding-bottom: 20px;
+    width: 60%;
+}
+#message_body {
+    width: 100%;
+    min-height: 200px;  
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    font-family: inherit;  
+    font-size: 1rem;
+    line-height: 1.5;
+    resize: vertical;  
+}
+
+
+/* tab buttons */
+.tablink {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.btn_tablink {
+    padding: 0.8rem 1.4rem;
+    font-size: 1rem;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: 0.2s;
+    min-height: 44px;
+}
+
+.btn_tablink:hover {
+    background-color: #153291;
+    color: white;
+    border-color: #153291;
+}
+.btn_tablink.active {
+    background-color: #153291; 
+    color: white;
+    font-weight: bold;
+}
+
+/* Invitations Section */
+.add_guest, .bulk_invite {
+    flex: 1 1 45%; 
+    background-color: #fff;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.add_guest p, .bulk_invite p {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.8rem;
+}
+
+.add_guest input, .bulk_invite input {
+    width: calc(50% - 0.5rem);
+    padding: 0.5rem;
+    margin-right: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.4rem;
+}
+
+.add_guest button, .bulk_invite button {
+    padding: 0.6rem 1.2rem;
+    background-color: #153291;
+    border: none;
+    color: white;
+    font-weight: 600;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    min-height: 44px; 
+}
+.resend{
+    border: none;
+    cursor: pointer;
+    align-items: center;
+    display: flex;
+    padding: 0.6rem 1.2rem;
+    font-weight: 600;
+    border-radius: 0.4rem;
+    min-height: 30px; 
+    color: white;
+    background-color: #153291;
+}
+
+.add_guest button:hover, .bulk_invite button:hover {
+    background-color: #0056b3;
+}
+
+
+.hint {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 0.8rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #ffeeba;
+}
+
+/* Guest list Section */
+.guest_table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.guest_table th, .guest_table td {
+    text-align: left;
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.guest_table th {
+    background-color: #f1f1f1;
+}
+
+/* Email Template Section */
+.template {
+    background-color: #fff;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.template p {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.template input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.4rem;
+}
+
+.template button {
+    padding: 0.8rem 1.4rem;
+    background-color:  #ff8800fb;
+    color: white;
+    border: none;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    min-height: 44px; 
+}
+
+.template button:hover {
+    background-color: #9e5400fb;
+}
+
+/* icon size */
+.icon {
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+/* Responsive */
+@media(max-width: 768px){
+    .main_content {
+        padding: 1rem;
+    }
+
+    /* Stack the 2 boxes vertically */
+    .top_row {
+        flex-direction: column;
+    }
+
+    .add_guest, .bulk_invite {
+        flex: 1 1 100%;
+        margin-bottom: 1rem;
+    }
+
+    /* Inputs full width */
+    .add_guest input, 
+    .bulk_invite input {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    /* Tab buttons stacked vertically */
+    .tablink {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    /* Guest table scrollable */
+    .guest_table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    /* Email template: inputs & button full width */
+    .template input,
+    .template button {
+        width: 100%;
+    }
+}
