@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head></head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/dashboard.css">
+    <link rel="stylesheet" href="../styles/manager_venue.css">
     <title>venue</title>
 </head>
 <body>
@@ -11,7 +12,46 @@
     
     <section class="main_content" id="mainContent">
         <%- include('partials/topbar') %>
-        <h1>Venue selection</h1>
+         <h2 class="heading">Venue Selection</h2>
+        <section class="search">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+            </svg>
+            <input type="search" placeholder="Search venue...">
+            <select class="venue_type">
+                <option>All Types</option>
+                <option>garden</option>
+            </select>
+        </section>
+
+        <section class="All_venues">
+            <form class="venue" method="post">
+                <img src="img.png">
+                <section class="venue_name">
+                    <h3>venue name</h3>
+                    <span class="rating">4.7</span>
+                </section>
+                <section class="venue_details">
+                    <p class="location">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                        </svg>
+                        location
+                    </p>
+                    <span class="type_of_venue">type of venue</span>
+                    <section class="details">
+                        <span class="item">wifi</span>
+                        <span class="item">catering kitchen</span>
+                        <span class="item">garden view</span>
+                    </section>
+                </section>
+                <section class="choose">
+                    <h3 class="price">R2</h3>
+                    <button class="btn_select" type="submit">select</button>
+                </section>
+            </form>
+        </section>
     </section>
 
     <script src="../scripts/sidebar.js"></script>

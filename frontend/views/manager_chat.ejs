@@ -3,25 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="../styles/dashboard.css"> -->
+    <link rel="stylesheet" href="../styles/dashboard.css">
     <link rel="stylesheet" href="../styles/manager_chat.css">
     <title>Chat</title>
 </head>
 <body>
 
+    <%- include('partials/manager_navigation') %>
     <section class="main_content" id="mainContent">
+        <%- include('partials/topbar') %>
         <section class="chat_system">
             <section class="inbox">
                 <h4 class="heading">Staff Communication</h4>
-
-
                 <section class="message_sent">
                     <section class="profile">
-                        <section class="icon_frame">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                            </svg>
-                        </section>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                        </svg>
                         <p class="user_name">Mualusi</p>
                         <strong class="user_role">manager</strong>
                         <p class="message_time">10:00 AM</p>
@@ -30,12 +28,18 @@
                     <p class="text">HI</p>
                 </section>
 
-                <!-- <section class="message_received">
-                    <p class="user_name">Mualusi Lilimu</p>
-                    <strong class="user_role"></strong>
-                    <p class="message_time"></p>
-                    <span class="status">on/off</span>
-                </section> -->
+                <section class="message_received">
+                    <section class="profile">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                        </svg>
+                        <p class="user_name">Lilimu</p>
+                        <strong class="user_role">staff</strong>
+                        <p class="message_time">10:02AM</p>
+                        <span class="status"></span>
+                    </section>
+                    <p class="text">Hi</p>
+                </section>
 
                 <section class="input">
                     <input type="text" class="input_message"  placeholder="Type your message...">
@@ -49,6 +53,16 @@
             </section>
             <section class="members">
                 <h4 class="heading">Staff Members</h4>
+                <section class="profile">
+                        <section class="icon_frame">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                            </svg>
+                        </section>
+                        <p class="user_name">Mualusi</p>
+                        <strong class="user_role">manager</strong>
+                        <span class="status"></span>
+                    </section>
             </section>
         </section>
     </section>

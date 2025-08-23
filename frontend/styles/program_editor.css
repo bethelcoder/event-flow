@@ -1,0 +1,309 @@
+/* Reset & global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f7f9fc;
+  color: #222;
+  line-height: 1.6;
+}
+
+.main_content {
+    transition: margin-left 0.3s ease;
+    margin-left: 250px;
+}
+.main_content.expanded {
+    margin-left: 0px;
+}
+
+/* Header & buttons */
+.add_program {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap; /* wrap on small screens */
+  margin-bottom: 2rem;
+  gap: 1rem;
+}
+
+.add_program h1 {
+  font-size: 1.8rem;
+  color: #000000;
+}
+
+.add_program button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #153291;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.add_program button.export {
+  background: #ff8800fb;
+}
+
+.add_program button:hover {
+  background: #0e58e0;
+}
+
+.add_program button.export:hover {
+  background: #865802;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Program schedule section */
+.Program_schedule {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.Program-section {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.Program-section .time {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #ff8800fb;
+}
+
+.Program-section .duration {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.Program-section .title {
+  font-size: 1.2rem;
+  color: #333;
+  text-transform: capitalize;
+}
+
+.Program-section .description {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.Program-section .vanue {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.Program-section .cartegory {
+  display: inline-block;
+  background: #e0e7ff;
+  color: #001aff;
+  padding: 0.3rem 0.7rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+
+/* Action buttons (edit & delete) */
+.Program-section button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 1rem;
+}
+
+.Program-section button.edit {
+  right: 2.5rem;
+}
+
+.Program-section button.delete {
+  right: 0.8rem;
+}
+
+.Program-section button:hover svg {
+  stroke: #153291;
+}
+
+.Program-section .endtime {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* Popup form */
+.pop_section {
+  background-color: #fff;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  width: 600px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+}
+
+.pop_section section {
+  display: flex;
+  flex-direction: column;
+}
+
+.pop_section h5 {
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: #333;
+}
+
+.pop_section input,
+.pop_section select {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.pop_section input:focus,
+.pop_section select:focus {
+  border-color: #000000;
+  box-shadow: 0 0 5px rgba(91, 157, 249, 0.5);
+}
+
+.full-width {
+  grid-column: span 2;
+}
+
+.button-container {
+  grid-column: span 2;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.pop_section button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.pop_section button:first-of-type {
+  background-color: #ff8800fb;
+  color: #555;
+}
+
+.pop_section button:first-of-type:hover {
+  background-color: #d88213;
+}
+
+.pop_section button:last-of-type {
+  background-color: #153291;
+  color: #fff;
+}
+
+.pop_section button:last-of-type:hover {
+  background-color: #4073e0;
+}
+
+
+@media (max-width: 992px) {
+  .add_program h1 {
+    font-size: 1.5rem;
+  }
+
+  .Program-section {
+    padding: 1rem;
+  }
+
+  .pop_section {
+    width: 90%;
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+
+  .button-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .pop_section button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  body {
+    padding: 1rem;
+  }
+
+  .add_program {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .add_program button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .Program-section {
+    font-size: 0.95rem;
+  }
+
+  .pop_section {
+    width: 95%;
+    padding: 15px;
+  }
+
+  .pop_section h5 {
+    font-size: 13px;
+  }
+
+  .pop_section input,
+  .pop_section select {
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+
+  .pop_section button {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+}

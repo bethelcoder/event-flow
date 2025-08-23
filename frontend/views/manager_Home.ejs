@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/dashboard.css">
+    <link rel="stylesheet" href="/styles/footer.css">
     <title>Home</title>
 </head>
 <body>
@@ -12,9 +13,11 @@
     <section class="main_content" id="mainContent">
         <%- include('partials/topbar') %>
         <h1>Manager Home</h1>
+        <%- include('partials/footer', { year: new Date().getFullYear() }) %>
     </section>
 
     <script src="../scripts/sidebar.js"></script>
+    
 </body>
 
 </html>
