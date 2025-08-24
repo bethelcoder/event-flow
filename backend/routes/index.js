@@ -39,7 +39,11 @@ router.post('/submit-role', authenticateJWT, async (req, res) => {
     );
 
     req.session.jwt = newToken;
-    res.status(200).redirect('/dashboard');
+    if (selectedRole === 'manager') {
+      res.status(200).redirect('/manager/home');
+    } else if (selectedRole === 'staff') {
+      res.status(200).redirect('/dashboard');
+    }
   } catch (error) {
     console.error('Error setting role:', error);
     res.status(500).send('Internal server error');
