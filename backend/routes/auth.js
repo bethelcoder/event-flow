@@ -53,10 +53,16 @@ router.get(
 
         req.session.jwt = token;
 
+      if(!user.role){
+        res.status(200).redirect('/roles');
+      }
+      if(user.role === 'manager'){
+        res.status(200).redirect('/manager/home');
+      } else if(user.role === 'staff'){
         res.status(200).redirect('/dashboard');
       }
       
-
+    }
       
     } catch (err) {
       console.error('Error in Google callback:', err);
