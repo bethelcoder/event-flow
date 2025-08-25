@@ -8,7 +8,7 @@ router.get('/home', authenticateJWT, (req, res) => {
   res.render('manager_Home', { user: req.user });
 });
 router.get('/chat',authenticateJWT,(req,res)=>{
-    res.render('manager_Chat', { user: req.user });
+    res.render('manager_chat', { user: req.user });
 });
 router.get('/venue-selection',authenticateJWT,(req,res)=>{
     res.render('manager_venue', { user: req.user });
