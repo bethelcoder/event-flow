@@ -11,6 +11,7 @@ const authRoutes = require('./backend/routes/auth');
 const indexRoutes = require('./backend/routes/index');
 const guestRoutes = require('./backend/routes/guestsRoutes.js');
 const checkInRoutes = require('./backend/routes/checkinRoutes.js');
+
 const managerRoutes = require('./backend/routes/managerRoutes.js');
 
 const app = express();
