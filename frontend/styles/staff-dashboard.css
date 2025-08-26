@@ -1,0 +1,198 @@
+/* ------------------- GLOBAL STYLES ------------------- */
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9; /* soft background so content is visible */
+}
+
+/* Container holding lines and sections */
+.line-container {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+/* ------------------- LINES ------------------- */
+/* Full-height vertical line */
+.vertical-line {
+  position: absolute;
+  top: 0;
+  left: 170px;          /* desktop position */
+  width: 2px;
+  height: 100%;
+  background-color: black;
+  z-index: 10;
+}
+
+/* Horizontal line starting from vertical line */
+.horizontal-line {
+  position: absolute;
+  top: 70px;            
+  left: 170px;          /* match new vertical line left */
+  height: 2px;
+  width: calc(100% - 170px); /* stretch remaining width */
+  background-color: black;
+  z-index: 10;
+}
+
+/* ------------------- ALPHA (LEFT SIDEBAR) ------------------- */
+.alpha {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 170px;         /* new width */
+  height: 100%;
+  background-color: white;  
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+  box-sizing: border-box;
+}
+
+/* Header for Alpha */
+.alpha-header {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  text-align: left;
+  color: rgba(26, 24, 24, 0.859);
+}
+
+/* Vertical button container */
+.alpha-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;  
+  padding-left: 10px;
+}
+
+/* Individual buttons/links */
+.alpha-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;         /* space between icon and text */
+  text-decoration: none;
+  color: rgba(26, 24, 24, 0.859);
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.alpha-btn:hover {
+  color: #555;
+}
+
+/* ------------------- BETA (TOP-RIGHT) ------------------- */
+.beta {
+  position: absolute;
+  top: 0;
+  left: 172px;   /* just right of vertical line */
+  height: 70px;  
+  width: calc(100% - 172px); /* fill remaining width */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px 20px;
+  background: #ffffff;
+  box-sizing: border-box;
+}
+
+/* Header for Beta */
+.beta-header {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #4e4b4b;
+}
+
+/* Items with icons aligned horizontally */
+.beta-subtitle {
+  font-size: 16px;
+  margin: 5px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #181515;
+}
+
+.beta-subtitle i {
+  font-size: 18px;
+  color: #3b5bdb; /* accent blue */
+}
+
+/* ------------------- OMEGA (MAIN CONTENT) ------------------- */
+.omega {
+  position: absolute;
+  top: 72px;            
+  left: 172px;          /* right of vertical line */
+  width: calc(100% - 172px);
+  height: calc(100% - 72px); /* remaining height */
+  background: transparent;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* ------------------- RESPONSIVENESS ------------------- */
+@media (max-width: 768px) {
+  .vertical-line {
+    left: 50px;
+  }
+  .horizontal-line {
+    left: 50px;
+    width: calc(100% - 50px);
+  }
+
+  .beta {
+    left: 52px;
+    width: calc(100% - 52px);
+  }
+  .omega {
+    left: 52px;
+    width: calc(100% - 52px);
+    top: 72px;
+    height: calc(100% - 72px);
+  }
+
+  .alpha {
+    width: 60px;
+    padding-top: 10px;
+  }
+  .alpha-header {
+    display: none;
+  }
+  .alpha-buttons {
+    gap: 10px;
+    padding-left: 5px;
+  }
+  .alpha-btn {
+    font-size: 14px;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .vertical-line {
+    left: 20px;
+  }
+  .horizontal-line {
+    left: 20px;
+    width: calc(100% - 20px);
+  }
+  .alpha {
+    width: 20px;
+  }
+  .beta {
+    left: 22px;
+    width: calc(100% - 22px);
+  }
+  .omega {
+    left: 22px;
+    width: calc(100% - 22px);
+    top: 72px;
+    height: calc(100% - 72px);
+  }
+}

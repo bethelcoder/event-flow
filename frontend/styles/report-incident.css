@@ -1,0 +1,260 @@
+/* =========================
+   Incident Reporting Page
+   ========================= */
+
+/* Wrapper like announcements (keeps footer safe) */
+.toggle-wrapper {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  color: #000;
+  max-height: calc(100vh - 150px); /* leaves space for header + footer */
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+/* Page header: Title left + Stats right */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.page-header h2 {
+  margin: 0;
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Incident stats (right side) */
+.incident-stats {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.stat-box {
+  border: 2px solid #000;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff;
+}
+
+/* Color accents for different statuses */
+.stat-box.total { border-color: #000; }
+.stat-box.open { border-color: rgba(159, 7, 45, 0.884); }
+.stat-box.progress { border-color: dodgerblue; }
+.stat-box.resolved { border-color: green; }
+
+/* =========================
+   Toggle Buttons
+   ========================= */
+
+.toggle-wrapper input[type="radio"] { display: none; }
+
+.toggle-buttons {
+  display: flex;
+  gap: 15px;
+  margin: 15px 0 25px;
+  justify-content: flex-start; /* left aligned */
+}
+
+.toggle-buttons label {
+  padding: 10px 18px;
+  border: 2px solid #000;
+  border-radius: 6px;
+  background: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: 0.2s;
+}
+
+.toggle-buttons label:hover {
+  background: #333;
+  color: #fff;
+}
+
+#report:checked ~ .toggle-buttons label[for="report"],
+#myreports:checked ~ .toggle-buttons label[for="myreports"] {
+  background: #000;
+  color: #fff;
+}
+
+/* Show/hide containers */
+#report-incident-container,
+#my-reports-container { display: none; }
+
+#report:checked ~ #report-incident-container { display: block; }
+#myreports:checked ~ #my-reports-container { display: block; }
+
+/* =========================
+   Incident Form + Boxes
+   ========================= */
+.incident-container {
+  background: #f9f9f9;
+  border: 2px solid #000;
+  border-radius: 10px;
+  width: 95%;
+  max-width: 1200px;
+  margin: 0 auto 40px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.incident-header h2 {
+  margin: 0 0 20px 0;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.incident-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+}
+
+.form-group label {
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 10px;
+  border: 2px solid #000;
+  border-radius: 6px;
+  background: #fff;
+  font-size: 1rem;
+}
+
+textarea { resize: vertical; }
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.submit-btn { background: #000; color: #fff; }
+.submit-btn:hover { background: #333; }
+
+.draft-btn { background: #ddd; color: #000; }
+.draft-btn:hover { background: #bbb; }
+
+/* My Reports box */
+.report-box {
+  border: 2px solid #000;
+  border-radius: 8px;
+  background: #fff;
+  padding: 15px 20px;
+  margin-bottom: 15px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.report-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.report-box h3 { margin: 0 0 10px 0; }
+
+.report-box .small-info {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.report-box i { margin-right: 5px; }
+
+/* Photo Upload Box */
+.photo-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #000;
+  border-radius: 10px;
+  padding: 30px;
+  gap: 15px;
+  text-align: center;
+  background: #fafafa;
+  position: relative;
+}
+
+.photo-upload-container i.fas.fa-camera {
+  font-size: 2.5rem;
+  color: #555;
+}
+
+.photo-upload-container p {
+  margin: 0;
+  font-size: 1rem;
+  color: #555;
+}
+
+.photo-upload-btn {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 6px;
+  background: #000;
+  color: #fff;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.photo-upload-btn:hover {
+  background: #333;
+}
+
+/* Hide the actual file input, click handled by button */
+.photo-upload-container input[type="file"] {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+}
