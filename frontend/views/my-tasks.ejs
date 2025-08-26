@@ -10,59 +10,65 @@
 </head>
 <body>
 
-<section class="tasks-header">
-  <h2>My Tasks</h2>
-  <div class="task-summary-buttons">
-    <button>Total No: 10</button>
-    <button>Pending: 4</button>
-    <button>In Progress: 3</button>
-    <button>Completed: 3</button>
-  </div>
-</section>
+<!-- =================== Scrollable Wrapper =================== -->
+<section class="tasks-container-wrapper">
 
-<!-- =================== Today's Progress Box =================== -->
-<section class="progress-box">
-  <h3>Todays Progress</h3>
-  <p>Completion Rate</p>
-  <div class="progress-bar">
-    <div class="progress-fill" style="width: 60%;"></div>
-  </div>
-  <div class="progress-stats">
-    <div>Pending: 4</div>
-    <div>In Progress: 3</div>
-    <div>Completed: 3</div>
-    <div>Overdue: 0</div>
-  </div>
-</section>
-
-<!-- =================== Filter Buttons =================== -->
-<section class="task-filter-buttons">
-  <button data-filter="all">All Tasks (10)</button>
-  <button data-filter="pending">Pending (4)</button>
-  <button data-filter="inprogress">In Progress (3)</button>
-  <button data-filter="completed">Completed (3)</button>
-</section>
-
-<!-- =================== Tasks List =================== -->
-<section class="tasks-container">
-  <!-- Example task box -->
-  <section class="task-box" data-status="pending">
-    <h4>Task 1: Update Inventory</h4>
-    <p>Assigned to: You</p>
-    <button class="task-action-btn">Start Task</button>
+  <!-- Header with task stats -->
+  <section class="tasks-header">
+    <h2>My Tasks</h2>
+    <div class="task-summary-buttons">
+      <button>Total No: 10</button>
+      <button>Pending: 4</button>
+      <button>In Progress: 3</button>
+      <button>Completed: 3</button>
+    </div>
   </section>
 
-  <section class="task-box" data-status="pending">
-    <h4>Task 2: Check Equipment</h4>
-    <p>Assigned to: You</p>
-    <button class="task-action-btn">Start Task</button>
+  <!-- =================== Today's Progress Box =================== -->
+  <section class="progress-box">
+    <h3>Today's Progress</h3>
+    <p>Completion Rate</p>
+    <div class="progress-bar">
+      <div class="progress-fill" style="width: 60%;"></div>
+    </div>
+    <div class="progress-stats">
+      <div>Pending: 4</div>
+      <div>In Progress: 3</div>
+      <div>Completed: 3</div>
+      <div>Overdue: 0</div>
+    </div>
   </section>
 
-  <section class="task-box" data-status="inprogress">
-    <h4>Task 3: Safety Inspection</h4>
-    <p>Assigned to: You</p>
-    <button class="task-action-btn">Mark Complete</button>
+  <!-- =================== Filter Buttons =================== -->
+  <section class="task-filter-buttons">
+    <button data-filter="all">All Tasks (10)</button>
+    <button data-filter="pending">Pending (4)</button>
+    <button data-filter="inprogress">In Progress (3)</button>
+    <button data-filter="completed">Completed (3)</button>
   </section>
+
+  <!-- =================== Tasks List =================== -->
+  <section class="tasks-container">
+    <!-- Example task boxes -->
+    <section class="task-box" data-status="pending">
+      <h4>Task 1: Update Inventory</h4>
+      <p>Assigned to: You</p>
+      <button class="task-action-btn">Start Task</button>
+    </section>
+
+    <section class="task-box" data-status="pending">
+      <h4>Task 2: Check Equipment</h4>
+      <p>Assigned to: You</p>
+      <button class="task-action-btn">Start Task</button>
+    </section>
+
+    <section class="task-box" data-status="inprogress">
+      <h4>Task 3: Safety Inspection</h4>
+      <p>Assigned to: You</p>
+      <button class="task-action-btn">Mark Complete</button>
+    </section>
+  </section>
+
 </section>
 
 <!-- =================== Script =================== -->
