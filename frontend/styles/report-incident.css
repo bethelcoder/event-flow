@@ -2,6 +2,11 @@
    CSS-ONLY Toggle for Report / My Reports
    ========================= */
 
+/* NEW: give page content a little bottom room so a sticky/footer cannot overlap */
+.toggle-wrapper {
+  padding-bottom: clamp(64px, 10vh, 120px);
+}
+
 /* Hide radio buttons */
 .toggle-wrapper input[type="radio"] {
   display: none;
@@ -58,6 +63,8 @@
 /* =========================
    Existing styles for forms and report boxes
    ========================= */
+
+/* NEW: do not touch global layout; keep your original body look */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -66,13 +73,14 @@ body {
   color: #000;
 }
 
+/* NEW: small bottom margin on last container adds extra safety before footer */
 .incident-container {
   background: #f9f9f9;
   border: 2px solid #000;
   border-radius: 10px;
   width: 95%;
   max-width: 1200px;
-  margin: 30px auto;
+  margin: 30px auto 40px; /* was 30px auto; added 40px bottom */
   padding: 20px;
   box-sizing: border-box;
 }
@@ -188,4 +196,15 @@ button {
 
 .report-box i {
   margin-right: 5px;
+}
+
+/* Ensure the main toggle container behaves like announcements */
+.toggle-wrapper {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  color: #000;
+  max-height: calc(100vh - 150px); /* leaves space for header + footer */
+  overflow-y: auto;
+  box-sizing: border-box;
 }
