@@ -11,6 +11,20 @@
 <body>
 
   <section class="toggle-wrapper">
+
+    <!-- Page Header -->
+    <header class="page-header">
+      <h2><i class="fas fa-triangle-exclamation"></i> Incident Reporting</h2>
+
+      <!-- Incident summary stats (static placeholders for now) -->
+      <div class="incident-stats">
+        <span class="stat-box total"><i class="fas fa-triangle-exclamation"></i> Total: 0</span>
+        <span class="stat-box open"><i class="fas fa-folder-open"></i> Open: 0</span>
+        <span class="stat-box progress"><i class="fas fa-spinner"></i> In Progress: 0</span>
+        <span class="stat-box resolved"><i class="fas fa-check-circle"></i> Resolved: 0</span>
+      </div>
+    </header>
+
     <!-- Hidden radios -->
     <input type="radio" name="incident-toggle" id="report" checked>
     <input type="radio" name="incident-toggle" id="myreports">
@@ -70,11 +84,19 @@
           <textarea id="description" name="description" rows="5" placeholder="Provide detailed description..."></textarea>
         </section>
 
-        <!-- Row 4: Photo evidence -->
-        <section class="form-group full-width">
-          <label for="photo">Add Photo Evidence (optional)</label>
-          <input type="file" id="photo" name="photo" accept="image/*" capture="environment">
-        </section>
+<!-- Row 4: Photo evidence -->
+<section class="form-group full-width">
+  <label for="photo">Add Photo Evidence (optional)</label>
+  <div class="photo-upload-container">
+    <i class="fas fa-camera"></i>
+    <p>Take or upload a photo</p>
+    <button type="button" class="photo-upload-btn">
+      <i class="fas fa-upload"></i> Upload
+    </button>
+    <input type="file" id="photo" name="photo" accept="image/*" capture="environment">
+  </div>
+</section>
+
 
         <!-- Row 5: Buttons -->
         <section class="form-actions">
