@@ -51,22 +51,27 @@
   background: #fff;
 }
 
-.progress-box h3 {
-  margin-top: 0;
+.progress-bar-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .progress-bar {
-  width: 100%;
+  width: 90%;
   height: 20px;
   background: #ddd;
   border-radius: 10px;
   overflow: hidden;
-  margin: 10px 0;
 }
 
 .progress-fill {
   height: 100%;
   background: #4caf50;
+}
+
+.progress-percentage {
+  font-weight: bold;
 }
 
 .progress-stats {
@@ -76,23 +81,32 @@
   margin-top: 5px;
 }
 
-/* Task filter buttons */
+/* Filter Buttons Wrapper */
+.task-filter-wrapper {
+  background: #fff;
+  border: 2px solid #000;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
 .task-filter-buttons {
   display: flex;
-  justify-content: flex-start;
-  gap: 10px;
-  margin-bottom: 20px;
+  justify-content: space-around;
   flex-wrap: wrap;
+  gap: 10px;
 }
 
 .task-filter-buttons button {
-  padding: 6px 12px;
+  padding: 10px 15px;
   border: 2px solid #000;
   border-radius: 6px;
-  background: #fff;
+  background: #f5f5f5;
   font-weight: bold;
   cursor: pointer;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
+  flex: 1;
+  text-align: center;
 }
 
 .task-filter-buttons button:hover {
@@ -122,14 +136,24 @@
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-.task-box h4 {
-  margin: 0 0 10px 0;
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  font-weight: bold;
+  margin-bottom: 8px;
+  gap: 10px;
 }
 
-.task-box p {
+.task-body {
   font-size: 0.9rem;
   color: #555;
-  margin: 0 0 10px 0;
+  margin-bottom: 10px;
+}
+
+.task-footer {
+  text-align: left;
 }
 
 /* Task action button */
@@ -148,6 +172,17 @@
   color: #fff;
 }
 
+/* Status colors */
+.task-status.pending {
+  color: orange;
+}
+.task-status.inprogress {
+  color: blue;
+}
+.task-status.completed {
+  color: green;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .tasks-header {
@@ -157,5 +192,14 @@
 
   .task-summary-buttons {
     margin-top: 10px;
+  }
+
+  .task-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .task-filter-buttons {
+    flex-direction: column;
   }
 }

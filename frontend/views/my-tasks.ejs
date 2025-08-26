@@ -27,9 +27,11 @@
   <!-- =================== Today's Progress Box =================== -->
   <section class="progress-box">
     <h3>Today's Progress</h3>
-    <p>Completion Rate</p>
-    <div class="progress-bar">
-      <div class="progress-fill" style="width: 60%;"></div>
+    <div class="progress-bar-wrapper">
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 60%;"></div>
+      </div>
+      <span class="progress-percentage">60%</span>
     </div>
     <div class="progress-stats">
       <div>Pending: 4</div>
@@ -40,33 +42,50 @@
   </section>
 
   <!-- =================== Filter Buttons =================== -->
-  <section class="task-filter-buttons">
-    <button data-filter="all">All Tasks (10)</button>
-    <button data-filter="pending">Pending (4)</button>
-    <button data-filter="inprogress">In Progress (3)</button>
-    <button data-filter="completed">Completed (3)</button>
+  <section class="task-filter-wrapper">
+    <div class="task-filter-buttons">
+      <button data-filter="all"><i class="fas fa-list"></i> All Tasks (10)</button>
+      <button data-filter="pending"><i class="fas fa-hourglass-start"></i> Pending (4)</button>
+      <button data-filter="inprogress"><i class="fas fa-spinner"></i> In Progress (3)</button>
+      <button data-filter="completed"><i class="fas fa-check-circle"></i> Completed (3)</button>
+    </div>
   </section>
 
   <!-- =================== Tasks List =================== -->
   <section class="tasks-container">
-    <!-- Example task boxes -->
+    <!-- Example task box -->
     <section class="task-box" data-status="pending">
-      <h4>Task 1: Update Inventory</h4>
-      <p>Assigned to: You</p>
-      <button class="task-action-btn">Start Task</button>
+      <div class="task-header">
+        <span class="task-title">Test all microphones on main stage</span>
+        <span class="task-priority"><i class="fas fa-exclamation-circle"></i> High</span>
+        <span class="task-status inprogress"><i class="fas fa-spinner"></i> In Progress</span>
+        <span class="task-overdue"><i class="fas fa-calendar-times"></i> Overdue</span>
+      </div>
+      <div class="task-body">
+        <span><i class="fas fa-user"></i> Assigned by: John Doe</span> &nbsp;&nbsp;
+        <span><i class="fas fa-calendar-alt"></i> Due: 25 Aug, 5 PM</span>
+      </div>
+      <div class="task-footer">
+        <button class="task-action-btn">Start Task</button>
+      </div>
     </section>
 
+    <!-- Add more tasks here -->
     <section class="task-box" data-status="pending">
-      <h4>Task 2: Check Equipment</h4>
-      <p>Assigned to: You</p>
-      <button class="task-action-btn">Start Task</button>
+      <div class="task-header">
+        <span class="task-title">Check all lighting in hall</span>
+        <span class="task-priority"><i class="fas fa-exclamation-circle"></i> Medium</span>
+        <span class="task-status pending"><i class="fas fa-hourglass-start"></i> Pending</span>
+      </div>
+      <div class="task-body">
+        <span><i class="fas fa-user"></i> Assigned by: Jane Smith</span> &nbsp;&nbsp;
+        <span><i class="fas fa-calendar-alt"></i> Due: 26 Aug, 3 PM</span>
+      </div>
+      <div class="task-footer">
+        <button class="task-action-btn">Start Task</button>
+      </div>
     </section>
 
-    <section class="task-box" data-status="inprogress">
-      <h4>Task 3: Safety Inspection</h4>
-      <p>Assigned to: You</p>
-      <button class="task-action-btn">Mark Complete</button>
-    </section>
   </section>
 
 </section>
@@ -96,9 +115,15 @@ document.addEventListener("DOMContentLoaded", function() {
   taskActionButtons.forEach(btn => {
     btn.addEventListener('click', () => {
       const parent = btn.closest('.task-box');
+      const statusEl = parent.querySelector('.task-status');
+
       if (btn.textContent === 'Start Task') {
         btn.textContent = 'Mark Complete';
         parent.dataset.status = 'inprogress';
+        if (statusEl) {
+          statusEl.innerHTML = '<i class="fas fa-spinner"></i> In Progress';
+          statusEl.className = 'task-status inprogress';
+        }
       } else if (btn.textContent === 'Mark Complete') {
         const report = prompt("Enter completion report (optional):");
         if (report !== null) {
@@ -106,6 +131,10 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         btn.textContent = 'Completed';
         parent.dataset.status = 'completed';
+        if (statusEl) {
+          statusEl.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
+          statusEl.className = 'task-status completed';
+        }
         btn.disabled = true;
       }
     });
