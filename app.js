@@ -9,6 +9,9 @@ require('./backend/config/passport');
 const sessionMiddleware = require('./backend/config/session');
 const authRoutes = require('./backend/routes/auth');
 const indexRoutes = require('./backend/routes/index');
+const guestRoutes = require('./backend/routes/guestsRoutes.js');
+const checkInRoutes = require('./backend/routes/checkinRoutes.js');
+
 const managerRoutes = require('./backend/routes/managerRoutes.js');
 
 const app = express();
@@ -28,6 +31,8 @@ app.use('/scripts', express.static(path.join(__dirname, 'frontend','scripts')));
 app.use('/visuals', express.static(path.join(__dirname, 'visuals')));
 app.use('/auth', authRoutes);
 app.use('/', indexRoutes);
+app.use('/guests', guestRoutes);
+app.use('/checkin', checkInRoutes);
 app.use('/manager', managerRoutes);
 
 const PORT = process.env.PORT || 3000;

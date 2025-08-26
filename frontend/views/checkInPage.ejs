@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Security Check-In | Event Flow</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .checkin-container {
+      background: #fff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    h1 {
+      margin-bottom: 24px;
+      font-size: 1.8rem;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      text-align: left;
+    }
+
+    input[type="file"],
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .response {
+      margin-top: 16px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="checkin-container">
+    <h1>Guest Check-In</h1>
+
+    <!-- QR Code Upload -->
+    <form id="qrForm">
+      <label for="qrImage">Upload QR Code</label>
+      <input type="file" id="qrImage" name="qrImage" accept="image/*" required>
+      <button type="submit">Check-In via QR</button>
+    </form>
+
+    <hr style="margin: 24px 0;">
+
+    <!-- Manual Ref Number -->
+    <form id="refForm">
+      <label for="refNumber">Enter Reference Number</label>
+      <input type="text" id="refNumber" name="refNumber" placeholder="EVE-XXX-12345" required>
+      <button type="submit">Check-In via Ref</button>
+    </form>
+
+    <div class="response" id="response"></div>
+  </div>
+
+  <script>
+    const qrForm = document.getElementById('qrForm');
+    const refForm = document.getElementById('refForm');
+    const responseDiv = document.getElementById('response');
+
+    qrForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fileInput = document.getElementById('qrImage');
+      if (!fileInput.files[0]) return;
+
+      const formData = new FormData();
+      formData.append('qrImage', fileInput.files[0]);
+
+      try {
+        const res = await fetch('/checkin/auth/qr', {
+          method: 'POST',
+          body: formData
+        });
+        const data = await res.json();
+        responseDiv.textContent = data.success ? data.message : data.message || 'Check-in failed';
+        responseDiv.style.color = data.success ? 'green' : 'red';
+      } catch (err) {
+        responseDiv.textContent = 'Server error';
+        responseDiv.style.color = 'red';
+      }
+    });
+
+    refForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const refNumber = document.getElementById('refNumber').value.trim();
+      if (!refNumber) return;
+
+      try {
+        const res = await fetch('/checkin/auth/ref', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ refNumber })
+        });
+
+        const data = await res.json();
+        responseDiv.textContent = data.success ? data.message : data.message || 'Check-in failed';
+        responseDiv.style.color = data.success ? 'green' : 'red';
+      } catch (err) {
+        responseDiv.textContent = 'Server error';
+        responseDiv.style.color = 'red';
+      }
+    });
+  </script>
+</body>
+</html>
