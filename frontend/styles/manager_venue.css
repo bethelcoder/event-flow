@@ -1,0 +1,194 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+   background: #fdfdfd;
+  color: #333;
+  line-height: 1.5;
+}
+
+.main_content {
+    transition: margin-left 0.3s ease;
+    margin-left: 250px;
+}
+.main_content.expanded {
+    margin-left: 0px;
+}
+
+.heading {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #ff8800fb;
+}
+.icon{
+  height: 15px;
+  width: 15px;
+}
+/* Search bar */
+.search {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: #fffffffb;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+}
+
+.search .icon {
+  width: 24px;
+  height: 24px;
+  color: #153291;
+}
+
+.search input[type="search"] {
+  flex: 1;
+  padding: 0.6rem 0.75rem;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+}
+
+.search .venue_type {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background: #f3f4f6;
+  font-size: 0.95rem;
+}
+
+/* Venue card design */
+.All_venues {
+  display: flex;
+  flex-wrap: wrap;       
+  gap: 1.5rem;
+  justify-content: flex-start;
+}
+
+/* Form Card */
+.venue {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    background-color: #fff;
+    margin: 20px;
+}
+
+.venue:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+/* Image */
+.venue img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+/* Venue Name and Rating */
+.venue_name {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid #eee;
+}
+
+.venue_name h3 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.venue_name .rating {
+    background-color: #ff9900;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* Details Section */
+.venue_details {
+    padding: 12px 16px;
+}
+
+.location {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #555;
+    margin-bottom: 6px;
+}
+
+.location .icon {
+    width: 18px;
+    height: 18px;
+    color: #ff6b6b;
+}
+
+.type_of_venue {
+    display: block;
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 8px;
+}
+
+.details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.details .item {
+    background-color: #f0f0f0;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    color: #555;
+}
+
+/* Choose Section */
+.choose {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-top: 1px solid #eee;
+}
+
+.price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.btn_select {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn_select:hover {
+    background-color: #0056b3;
+}

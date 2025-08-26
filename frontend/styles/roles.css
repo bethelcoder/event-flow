@@ -73,7 +73,15 @@ body {
     justify-content: center;
     width: 100%;
 }
-
+.roles form {
+    background-color: #f9f9f9;
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    width: 250px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 .roles section {
     background-color: #f9f9f9;
     padding: 1.5rem 2rem;

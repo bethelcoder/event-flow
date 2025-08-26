@@ -28,7 +28,7 @@ router.post('/submit-role', authenticateJWT, async (req, res) => {
     const userId = req.user.id;
 
     await User.findByIdAndUpdate(userId, { role: selectedRole });
-
+    
      const newToken = jwt.sign(
       {
         id: userId,
@@ -39,7 +39,11 @@ router.post('/submit-role', authenticateJWT, async (req, res) => {
     );
 
     req.session.jwt = newToken;
-    res.status(200).redirect('/dashboard');
+    if (selectedRole === 'manager') {
+      res.status(200).redirect('/manager/home');
+    } else if (selectedRole === 'staff') {
+      res.status(200).redirect('/dashboard');
+    }
   } catch (error) {
     console.error('Error setting role:', error);
     res.status(500).send('Internal server error');

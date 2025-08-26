@@ -82,7 +82,7 @@ body {
 }
 
 .input button:hover {
-    background-color: #0019fd;
+    background-color: #fd7200;
 }
 
 .input button svg {
@@ -96,16 +96,43 @@ body {
     margin-top: 3%;
     padding-left: 3%;
 }
-.message_sent{
-    display: flex;
-    flex-direction: column;
 
+.message_sent, .message_received {
+    max-width: 70%;
+    padding: 10px 14px;
+    margin: 8px;
+    border-radius: 18px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    word-wrap: break-word;
+    display: inline-block;
 }
 
-.message_received{
-    display: flex;
-    flex-direction: row;
+
+.message_sent {
+    align-self: flex-end;
+    background: #0060f0;  
+    color: #ffffff;
+    border-bottom-right-radius: 4px; 
 }
+
+
+.message_received {
+    align-self: flex-start;
+    background: #e5e5ea;
+    color: #000;
+    border-bottom-left-radius: 4px;
+}
+
+
+.message_time {
+    display: block;
+    font-size: 0.75rem;
+    opacity: 0.6;
+    margin-top: 4px;
+    text-align: right;
+}
+
 .icon_frame{
     border-radius: 50%;
     background-color: #dfe0e2;
@@ -117,4 +144,57 @@ body {
 .icon{
     width: 30px;
     height: 30px;
+}
+
+
+@media (max-width: 768px) {
+    .chat_system {
+        flex-direction: column;
+    }
+
+    .inbox, .members {
+        width: 100%;     
+        margin: 2% 0;    
+        height: auto;    
+    }
+
+    .inbox {
+        height: 70vh; 
+    }
+
+    .members {
+        height: auto;
+        max-height: 25vh; 
+        overflow-y: auto;
+    }
+
+    .profile {
+        gap: 5px;
+        padding-left: 2%;
+    }
+
+    .text {
+        padding-left: 15%; 
+        font-size: 0.9rem;
+    }
+
+    .input {
+        padding: 8px;
+        gap: 5px;
+    }
+
+    .input_message {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+
+    .input button {
+        width: 36px;
+        height: 36px;
+    }
+
+    .icon {
+        width: 24px;
+        height: 24px;
+    }
 }
