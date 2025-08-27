@@ -1,22 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Staff Dashboard</title>
-  <link rel="stylesheet" href="/styles/footer.css">
-  <link rel="stylesheet" href="/styles/staff-dashboard.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <link rel="stylesheet" href="/styles/staff-dashboard.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
 
 <section class="line-container">
 
-  <!-- Vertical and horizontal lines -->
-  <section class="vertical-line"></section>
-  <section class="horizontal-line"></section>
-
-  <!-- Alpha -->
-  <section class="alpha">
+  <!-- ============== ALPHA (Sidebar) ============== -->
+  <section class="alpha" id="alpha">
     <h2 class="alpha-header">Staff Dashboard</h2>
     <nav class="alpha-buttons">
       <a href="#" class="alpha-btn" data-page="/team-chats">
@@ -34,47 +31,82 @@
     </nav>
   </section>
 
-  <!-- Beta -->
-  <section class="beta">
-    <h2 class="beta-header">
-      <i class="fa-solid fa-window-maximize"></i>
-      <i class="fa-solid fa-user"></i> Staff Portal
-    </h2>
-    <p class="beta-subtitle">Event Support Team</p>
+  <!-- ============== BETA (Top Navbar) ============== -->
+  <section class="beta" id="beta">
+    <!-- Left: hamburger -->
+    <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <!-- Center: title -->
+    <h1 class="beta-title">Eventflow</h1>
+
+    <!-- Right: portal name -->
+    <p class="beta-right">STAFF PORTAL</p>
   </section>
 
-  <!-- Omega -->
+  <!-- ============== OMEGA (Main Content Area) ============== -->
   <section class="omega" id="omega">
-    <!-- Include team chats -->
-<%- include('team-chats') %>
+    <div id="omega-content" class="omega-scroll">
+      <%- include('team-chats') %>
+    </div>
   </section>
 
 </section>
 
-<%- include('partials/footer', { year: new Date().getFullYear() }) %>
-
 <script>
-const alphaButtons = document.querySelectorAll('.alpha-btn');
-const omega = document.getElementById('omega');
+  const alpha = document.getElementById('alpha');
+  const menuToggle = document.getElementById('menu-toggle');
+  const omegaContent = document.getElementById('omega-content');
+  const alphaButtons = document.querySelectorAll('.alpha-btn');
 
-alphaButtons.forEach(btn => {
-  btn.addEventListener('click', (e) => {
-    e.preventDefault();
-    const page = btn.getAttribute('data-page');
+  // Toggle sidebar
+  menuToggle.addEventListener('click', () => {
+    const isActive = alpha.classList.toggle('active');
+    menuToggle.setAttribute('aria-expanded', String(isActive));
+  });
 
-    fetch(page)
+  // Load content dynamically into omega
+  function loadIntoOmega(url) {
+    fetch(url)
       .then(res => {
         if (!res.ok) throw new Error('Page not found');
         return res.text();
       })
       .then(html => {
-        omega.innerHTML = html;
+        omegaContent.innerHTML = html;
+
+        // Re-execute inline scripts
+        const scripts = omegaContent.querySelectorAll('script');
+        scripts.forEach(oldScript => {
+          const newScript = document.createElement('script');
+          if (oldScript.src) newScript.src = oldScript.src;
+          else newScript.textContent = oldScript.textContent;
+          [...oldScript.attributes].forEach(attr => newScript.setAttribute(attr.name, attr.value));
+          oldScript.replaceWith(newScript);
+        });
       })
       .catch(err => {
-        omega.innerHTML = `<p style="color:red;">Error loading page: ${err}</p>`;
+        omegaContent.innerHTML = `<p style="color:red;">Error loading page: ${err.message}</p>`;
       });
+  }
+
+  // Handle sidebar nav clicks
+  alphaButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const page = btn.getAttribute('data-page');
+      loadIntoOmega(page);
+    });
   });
-});
+
+  // Optional: close sidebar with Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && alpha.classList.contains('active')) {
+      alpha.classList.remove('active');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
 </script>
 
 </body>
