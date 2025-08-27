@@ -1,198 +1,201 @@
-/* ------------------- GLOBAL STYLES ------------------- */
+/* ------------------- VARIABLES ------------------- */
+:root {
+  --nav-h: 60px;
+  --sidebar-w: 200px;
+  --sidebar-w-sm: 240px;
+  --brand: #3b5bdb;       /* blue */
+  --accent: #ff7f50;      /* orange */
+  --text: #fff;            /* white text for sidebar */
+  --bg: #f9f9f9;
+  --white: #fff;
+  --border: #e6e6e6;
+  --logout-red: #d9534f;
+}
+
+/* ------------------- GLOBAL ------------------- */
+* { box-sizing: border-box; }
+html, body { margin:0; padding:0; height:100%; }
 body {
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  width: 100vw;
-  position: relative;
   font-family: Arial, sans-serif;
-  background-color: #f9f9f9; /* soft background so content is visible */
+  background-color: var(--bg);
+  color: #1a1818;
+  overflow-x: hidden;
 }
 
-/* Container holding lines and sections */
-.line-container {
-  height: 100%;
-  width: 100%;
-  position: relative;
-}
+.line-container { display: block; min-height: 100vh; }
 
-/* ------------------- LINES ------------------- */
-/* Full-height vertical line */
-.vertical-line {
-  position: absolute;
-  top: 0;
-  left: 170px;          /* desktop position */
-  width: 2px;
-  height: 100%;
-  background-color: black;
-  z-index: 10;
-}
-
-/* Horizontal line starting from vertical line */
-.horizontal-line {
-  position: absolute;
-  top: 70px;            
-  left: 170px;          /* match new vertical line left */
-  height: 2px;
-  width: calc(100% - 170px); /* stretch remaining width */
-  background-color: black;
-  z-index: 10;
-}
-
-/* ------------------- ALPHA (LEFT SIDEBAR) ------------------- */
+/* ------------------- ALPHA (Sidebar) ------------------- */
 .alpha {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 170px;         /* new width */
-  height: 100%;
-  background-color: white;  
-  display: flex;
-  flex-direction: column;
-  padding-top: 20px;
-  box-sizing: border-box;
+  position: fixed;
+  top: var(--nav-h);
+  left: calc(-1 * var(--sidebar-w));
+  width: var(--sidebar-w);
+  height: calc(100% - var(--nav-h));
+  background: #153291; /* BLUE background */
+  box-shadow: 2px 0 6px rgba(0,0,0,0.08);
+  padding: 20px 12px;
+  transition: left 0.28s ease;
+  z-index: 1000;
+  overflow-y: auto;
 }
+.alpha.active { left: 0; }
 
-/* Header for Alpha */
 .alpha-header {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 30px;
-  text-align: left;
-  color: rgba(26, 24, 24, 0.859);
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 20px 6px;
+  color: var(--text); /* WHITE */
 }
 
-/* Vertical button container */
 .alpha-buttons {
   display: flex;
   flex-direction: column;
-  gap: 15px;  
-  padding-left: 10px;
+  gap: 12px;
 }
 
-/* Individual buttons/links */
 .alpha-btn {
   display: flex;
   align-items: center;
-  gap: 8px;         /* space between icon and text */
+  gap: 10px;
   text-decoration: none;
-  color: rgba(26, 24, 24, 0.859);
-  font-size: 16px;
-  cursor: pointer;
-  transition: color 0.2s;
+  color: #fcfdff; /* WHITE text */
+  font-size: 15px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  transition: background 0.2s, color 0.2s;
 }
 
 .alpha-btn:hover {
-  color: #555;
+  background: rgba(255,255,255,0.2); /* subtle white hover */
+  color: var(--white);
 }
 
-/* ------------------- BETA (TOP-RIGHT) ------------------- */
+/* ------------------- BETA (Top Navbar) ------------------- */
 .beta {
-  position: absolute;
+  position: fixed;
   top: 0;
-  left: 172px;   /* just right of vertical line */
-  height: 70px;  
-  width: calc(100% - 172px); /* fill remaining width */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 10px 20px;
-  background: #ffffff;
-  box-sizing: border-box;
+  left: 0;
+  height: var(--nav-h);
+  width: 100%;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  padding: 0 16px;
+  z-index: 1100;
 }
 
-/* Header for Beta */
-.beta-header {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 8px;
-  color: #4e4b4b;
-}
-
-/* Items with icons aligned horizontally */
-.beta-subtitle {
-  font-size: 16px;
-  margin: 5px 0;
+.beta-left {
   display: flex;
   align-items: center;
-  gap: 8px;
-  color: #181515;
+  gap: 12px;
 }
 
-.beta-subtitle i {
+/* Hamburger simplified 3 lines */
+.menu-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 18px;
+}
+.menu-toggle span {
+  display: block;
+  height: 2px;
+  width: 22px;
+  background: #333;
+  border-radius: 1px;
+}
+
+/* EventFlow title with calendar icon */
+.beta-dashboard-title {
+  font-weight: 700;
   font-size: 18px;
-  color: #3b5bdb; /* accent blue */
+  color: var(--brand); /* BLUE text */
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.beta-dashboard-title .calendar-icon {
+  color: var(--accent); /* ORANGE icon */
 }
 
-/* ------------------- OMEGA (MAIN CONTENT) ------------------- */
+/* Center title */
+.beta-center {
+  text-align: center;
+  font-weight: 800;
+  color: #153291;
+  font-size: 20px;
+}
+
+/* Right logout button */
+.beta-right {
+  display: flex;
+  justify-content: flex-end;
+}
+.logout-form { margin: 0; }
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--logout-red);
+  border: none;
+  color: #fff;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.logout-btn:hover { background: #820500b6; }
+
+/* ------------------- OMEGA (Content) ------------------- */
 .omega {
-  position: absolute;
-  top: 72px;            
-  left: 172px;          /* right of vertical line */
-  width: calc(100% - 172px);
-  height: calc(100% - 72px); /* remaining height */
-  background: transparent;
+  margin-top: var(--nav-h);
+  transition: margin-left 0.28s ease;
+}
+
+.alpha.active ~ .omega { margin-left: var(--sidebar-w); }
+
+.omega-scroll {
   padding: 20px;
-  box-sizing: border-box;
+  max-height: calc(100vh - var(--nav-h));
+  overflow-y: auto;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-/* ------------------- RESPONSIVENESS ------------------- */
+.logo .icon1 {
+  width: 24px;
+  height: 24px;
+  color: orange;  /* orange icon */
+}
+
+.logo .heading {
+  font-size: 18px;
+  font-weight: 700;
+  color: #153291; /* blue text */
+  margin: 0;
+}
+
+
+/* ------------------- RESPONSIVE ------------------- */
+@media (max-width: 900px) { :root { --sidebar-w: 220px; } }
+
 @media (max-width: 768px) {
-  .vertical-line {
-    left: 50px;
-  }
-  .horizontal-line {
-    left: 50px;
-    width: calc(100% - 50px);
-  }
-
-  .beta {
-    left: 52px;
-    width: calc(100% - 52px);
-  }
-  .omega {
-    left: 52px;
-    width: calc(100% - 52px);
-    top: 72px;
-    height: calc(100% - 72px);
-  }
-
   .alpha {
-    width: 60px;
-    padding-top: 10px;
+    left: calc(-1 * var(--sidebar-w-sm));
+    width: var(--sidebar-w-sm);
   }
-  .alpha-header {
-    display: none;
-  }
-  .alpha-buttons {
-    gap: 10px;
-    padding-left: 5px;
-  }
-  .alpha-btn {
-    font-size: 14px;
-    justify-content: center;
-  }
-}
-
-@media (max-width: 480px) {
-  .vertical-line {
-    left: 20px;
-  }
-  .horizontal-line {
-    left: 20px;
-    width: calc(100% - 20px);
-  }
-  .alpha {
-    width: 20px;
-  }
-  .beta {
-    left: 22px;
-    width: calc(100% - 22px);
-  }
-  .omega {
-    left: 22px;
-    width: calc(100% - 22px);
-    top: 72px;
-    height: calc(100% - 72px);
-  }
+  .alpha.active { left: 0; }
+  .alpha.active ~ .omega { margin-left: 0; }
+  .beta-dashboard-title { font-size: 16px; }
+  .beta-center { font-size: 14px; }
 }
