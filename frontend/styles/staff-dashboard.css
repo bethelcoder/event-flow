@@ -3,11 +3,13 @@
   --nav-h: 60px;
   --sidebar-w: 200px;
   --sidebar-w-sm: 240px;
-  --brand: #3b5bdb;
-  --text: #1a1818;
+  --brand: #3b5bdb;       /* blue */
+  --accent: #ff7f50;      /* orange */
+  --text: #fff;            /* white text for sidebar */
   --bg: #f9f9f9;
   --white: #fff;
   --border: #e6e6e6;
+  --logout-red: #d9534f;
 }
 
 /* ------------------- GLOBAL ------------------- */
@@ -16,14 +18,11 @@ html, body { margin:0; padding:0; height:100%; }
 body {
   font-family: Arial, sans-serif;
   background-color: var(--bg);
-  color: var(--text);
+  color: #1a1818;
   overflow-x: hidden;
 }
 
-.line-container {
-  display: block;
-  min-height: 100vh;
-}
+.line-container { display: block; min-height: 100vh; }
 
 /* ------------------- ALPHA (Sidebar) ------------------- */
 .alpha {
@@ -32,20 +31,20 @@ body {
   left: calc(-1 * var(--sidebar-w));
   width: var(--sidebar-w);
   height: calc(100% - var(--nav-h));
-  background: var(--white);
+  background: #153291; /* BLUE background */
   box-shadow: 2px 0 6px rgba(0,0,0,0.08);
   padding: 20px 12px;
   transition: left 0.28s ease;
   z-index: 1000;
   overflow-y: auto;
 }
-
 .alpha.active { left: 0; }
 
 .alpha-header {
   font-size: 18px;
   font-weight: 700;
   margin: 0 0 20px 6px;
+  color: var(--text); /* WHITE */
 }
 
 .alpha-buttons {
@@ -59,7 +58,7 @@ body {
   align-items: center;
   gap: 10px;
   text-decoration: none;
-  color: var(--text);
+  color: #fcfdff; /* WHITE text */
   font-size: 15px;
   padding: 8px 10px;
   border-radius: 8px;
@@ -67,8 +66,8 @@ body {
 }
 
 .alpha-btn:hover {
-  background: #f2f4ff;
-  color: var(--brand);
+  background: rgba(255,255,255,0.2); /* subtle white hover */
+  color: var(--white);
 }
 
 /* ------------------- BETA (Top Navbar) ------------------- */
@@ -81,26 +80,78 @@ body {
   background: var(--white);
   border-bottom: 1px solid var(--border);
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
   padding: 0 16px;
-  z-index: 1100; /* above sidebar */
+  z-index: 1100;
 }
 
+.beta-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Hamburger simplified 3 lines */
 .menu-toggle {
   background: none;
   border: none;
-  font-size: 22px;
   cursor: pointer;
-  color: #333;
-  padding: 8px;
-  border-radius: 8px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 18px;
+}
+.menu-toggle span {
+  display: block;
+  height: 2px;
+  width: 22px;
+  background: #333;
+  border-radius: 1px;
 }
 
-.menu-toggle:hover { background: #f3f3f3; }
+/* EventFlow title with calendar icon */
+.beta-dashboard-title {
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--brand); /* BLUE text */
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.beta-dashboard-title .calendar-icon {
+  color: var(--accent); /* ORANGE icon */
+}
 
-.beta-title { font-size: 20px; font-weight: 800; text-align: center; color: var(--brand); }
-.beta-right { font-size: 15px; font-weight: 700; color: #333; }
+/* Center title */
+.beta-center {
+  text-align: center;
+  font-weight: 800;
+  color: #153291;
+  font-size: 20px;
+}
+
+/* Right logout button */
+.beta-right {
+  display: flex;
+  justify-content: flex-end;
+}
+.logout-form { margin: 0; }
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--logout-red);
+  border: none;
+  color: #fff;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.logout-btn:hover { background: #820500b6; }
 
 /* ------------------- OMEGA (Content) ------------------- */
 .omega {
@@ -115,6 +166,25 @@ body {
   max-height: calc(100vh - var(--nav-h));
   overflow-y: auto;
 }
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.logo .icon1 {
+  width: 24px;
+  height: 24px;
+  color: orange;  /* orange icon */
+}
+
+.logo .heading {
+  font-size: 18px;
+  font-weight: 700;
+  color: #153291; /* blue text */
+  margin: 0;
+}
+
 
 /* ------------------- RESPONSIVE ------------------- */
 @media (max-width: 900px) { :root { --sidebar-w: 220px; } }
@@ -126,5 +196,6 @@ body {
   }
   .alpha.active { left: 0; }
   .alpha.active ~ .omega { margin-left: 0; }
-  .beta-title { font-size: 18px; }
+  .beta-dashboard-title { font-size: 16px; }
+  .beta-center { font-size: 14px; }
 }
