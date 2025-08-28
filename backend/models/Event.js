@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
 
 const EventSchema = new mongoose.Schema({
-  _id: ObjectId,
   name: String,                   // "Tech Conference 2025"
   description: String,            // Event summary
-  startDate: Date,
-  endDate: Date,
+  dateTime: Date,
+  expectedAttendees: Number,
   location: {
     name: String,                 // "Convention Center"
     address: String,
@@ -14,49 +13,51 @@ const EventSchema = new mongoose.Schema({
   },
 
   organizer: {
+    id: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     name: String,
     contactEmail: String,
     contactPhone: String
   },
 
-  sessions: [                     // Embedded OR reference collection
+  sessions: [
     {
-      sessionId: ObjectId,        // Reference to Session collection
+      sessionId: { type: mongoose.Schema.Types.ObjectId, ref: 'Session' },
       title: String,
       startTime: Date,
       endTime: Date,
       speaker: String,
-      room: String
+      location: String,
+      description: String,
     }
   ],
 
-  guests: [                       // References to Guests
+  guests: [
     {
-      guestId: ObjectId,          // Guest _id
-      status: String,             // invited | checked-in | cancelled
-      refNumber: String,          // guest’s unique reference
-      qrcodeUrl: String,          // secure QR
-      checkInHistory: [           // logs when scanned
-        { time: Date, gate: String, staffId: ObjectId }
+      guestId: { type: mongoose.Schema.Types.ObjectId, ref: 'Guest' },
+      status: String,
+      refNumber: String,
+      qrcodeUrl: String,
+      checkInHistory: [
+        { time: Date, gate: String, staffId: { type: mongoose.Schema.Types.ObjectId, ref: 'Staff' } }
       ]
     }
   ],
 
-  staff: [                        // Assigned staff members
+  staff: [
     {
-      staffId: ObjectId,
-      role: String,               // "security", "usher", "speaker support"
-      taskStatus: String          // "assigned", "in-progress", "done"
+      staffId: { type: mongoose.Schema.Types.ObjectId, ref: 'Staff' },
+      role: String,
+      taskStatus: String
     }
   ],
 
-  map: {                          // For Map API
-    url: String,                  // base map image
+  map: {
+    url: String,
     annotations: [
       {
-        label: String,            // "Stage A"
+        label: String,
         coordinates: { x: Number, y: Number },
-        type: String              // "booth", "stage", "exit"
+        type: String
       }
     ]
   },
@@ -65,4 +66,5 @@ const EventSchema = new mongoose.Schema({
   updatedAt: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model('Event', UserSchema);
+module.exports = mongoose.model('Event', EventSchema);
+
