@@ -78,4 +78,19 @@ router.get('/dashboard', authenticateJWT, async (req, res) => {
   res.render('dashboard');
 });
 
+// Staff Dashboard sub-pages
+router.get('/team-chats', authenticateJWT, (req, res) => {
+  res.render('team-chats', { layout: false }); // Omega content only
+});
+
+router.get('/report-incident', authenticateJWT, (req, res) => {
+  res.render('report-incident', { layout: false });
+});
+
+router.get('/my-tasks', authenticateJWT, (req, res) => {
+  res.render('my-tasks', { layout: false });
+});
+router.get('/announcements', (req, res) => {
+  res.render('announcements', { layout: false });
+});
 module.exports = router;

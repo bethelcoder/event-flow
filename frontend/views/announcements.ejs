@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Announcements</title>
+  <link rel="stylesheet" href="/styles/announcements.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+<section class="announcements-container">
+
+  <!-- Header -->
+  <header class="announcements-header">
+    <div class="header-top">
+      <h2><i class="fas fa-bell"></i> Announcements</h2>
+      <div class="header-actions">
+        <span class="urgent">Urgent: 2</span>
+        <span class="unread">Unread: 3</span>
+        <button class="mark-all-read"><i class="fas fa-check-circle"></i> Mark All Read</button>
+      </div>
+    </div>
+    <p class="subtitle">Stay updated with the latest event information</p>
+  </header>
+
+  <hr>
+
+  <!-- Category Buttons -->
+  <section class="announcement-categories">
+    <button class="category-btn" data-filter="all">All (5)</button>
+    <button class="category-btn" data-filter="unread">Unread (3)</button>
+    <button class="category-btn" data-filter="urgent">Urgent (2)</button>
+  </section>
+
+  <hr>
+
+  <!-- Announcements List -->
+  <section class="announcement-list">
+
+    <article class="announcement" data-type="success">
+      <header>
+        <span class="title">Event Setup Complete</span>
+        <div class="meta">
+          <span class="author">Event Manager</span>
+          <span class="time"><i class="fas fa-clock"></i> 10:30</span>
+          <span class="status success">Success</span>
+        </div>
+      </header>
+      <p>All event areas have been set up and are ready for attendees. Please ensure your stations are prepared for the 9 AM start time.</p>
+      <footer><button class="mark-read">Mark as read</button></footer>
+    </article>
+
+    <article class="announcement" data-type="info">
+      <header>
+        <span class="title">Lunch Service Update</span>
+        <div class="meta">
+          <span class="author">Catering Coordinator</span>
+          <span class="time"><i class="fas fa-clock"></i> 14:15</span>
+          <span class="status info">Info</span>
+        </div>
+      </header>
+      <p>Lunch service will be extended by 15 minutes due to higher than expected attendance. Please inform guests at your stations.</p>
+    </article>
+
+    <article class="announcement" data-type="urgent">
+      <header>
+        <span class="title">Technical Issue - Room A</span>
+        <div class="meta">
+          <span class="author">Technical Support</span>
+          <span class="time"><i class="fas fa-clock"></i> 16:20</span>
+          <span class="status urgent">Urgent</span>
+        </div>
+      </header>
+      <p>Audio system in Conference Room A is experiencing issues. Redirect attendees to Room B for the 2:30 PM workshop.</p>
+      <footer><button class="mark-read">Mark as read</button></footer>
+    </article>
+
+    <article class="announcement" data-type="urgent">
+      <header>
+        <span class="title">Security Alert</span>
+        <div class="meta">
+          <span class="author">Security Chief</span>
+          <span class="time"><i class="fas fa-clock"></i> 17:00</span>
+          <span class="status urgent">Urgent</span>
+        </div>
+      </header>
+      <p>Please be aware of increased security checks at all entry points due to VIP arrivals. Expect slight delays.</p>
+      <footer><button class="mark-read">Mark as read</button></footer>
+    </article>
+
+    <article class="announcement" data-type="info">
+      <header>
+        <span class="title">Lost and Found Items</span>
+        <div class="meta">
+          <span class="author">Front Desk Manager</span>
+          <span class="time"><i class="fas fa-clock"></i> 18:30</span>
+          <span class="status info">Info</span>
+        </div>
+      </header>
+      <p>Several items have been turned in to lost and found. Please direct guests to the information desk in the main lobby.</p>
+    </article>
+
+  </section>
+
+</section>
+
+<script>
+// Filtering logic
+const buttons = document.querySelectorAll('.category-btn');
+const announcements = document.querySelectorAll('.announcement');
+
+buttons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const filter = btn.getAttribute('data-filter');
+
+    announcements.forEach(ann => {
+      if (filter === 'all') {
+        ann.style.display = 'block';
+      } else {
+        ann.style.display = ann.dataset.type === filter ? 'block' : 'none';
+      }
+    });
+  });
+});
+</script>
+
+</body>
+</html>
