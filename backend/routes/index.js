@@ -74,13 +74,16 @@ router.get('/logout', (req, res) => {
   });
 
 });
+
 router.get('/dashboard', authenticateJWT, async (req, res) => {
-  res.render('dashboard');
+  const user = await User.findById(req.user.id);
+  res.render('dashboard',{user});
 });
 
 // Staff Dashboard sub-pages
-router.get('/team-chats', authenticateJWT, (req, res) => {
-  res.render('team-chats', { layout: false }); // Omega content only
+router.get('/team-chats', authenticateJWT, async (req, res) => {
+  const user = await User.findById(req.user.id);
+  res.render('team-chats',{user}); // Omega content only
 });
 
 router.get('/report-incident', authenticateJWT, (req, res) => {

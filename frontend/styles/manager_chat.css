@@ -11,68 +11,224 @@ body {
     line-height: 1.1;
 }
 
-
-.chat_system{
+.chat_system {
     display: flex;
     flex-direction: row;
 }
-.inbox{
-    position: relative;
+
+.inbox {
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
-     height: calc(100% - 40px);
     width: 70%;
     height: 90vh;
-    border-radius: 5px;
-    border: 1px solid black;
+    border-radius: 8px;
+    border: 1px solid #ccc;
     margin-top: 3%;
     margin-left: 3%;
+    background-color: #fff;
+    overflow: hidden;
+    position: relative;
 }
-.members{
+
+
+.inbox .heading {
+    padding: 10px 16px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    background: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+
+.message_container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px 16px;
     display: flex;
     flex-direction: column;
-    border-radius: 5px;
-    border: 1px solid black;
-    height: 90vh;
-    width: 30%;
-    margin-top: 3%;
-    margin-left: 3%;
-    margin-right: 3%;
+    gap: 10px;
 }
 
-.heading{
-    padding-left: 3%;
-    padding-top: 3%;
+.message_received {
+    align-self: flex-start;
+    background: #e5e5ea;
+    color: #000;
+    border-bottom-left-radius: 4px;
 }
+
+ .message_received {
+    padding: 10px 14px;
+    border-radius: 18px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    word-wrap: break-word;
+    display: inline-block;
+}
+/* Container for each sent message */
+.message_sent {
+    display: flex;
+    align-items: flex-start;
+    margin: 10px 0;
+    max-width: 80%;
+    background-color: #426eff; 
+    padding: 12px 15px;
+    border-radius: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    position: relative;
+    margin-left: auto; 
+    flex-direction: column;
+}
+
+
+.message_sent .profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+
+.message_sent .profile .icon {
+    width: 36px;
+    height: 36px;
+    color: #ffffff; 
+}
+
+
+.message_sent .profile .user_name {
+    font-weight: 600;
+    font-size: 14px;
+    color: #ffffff;
+}
+
+
+.message_sent .profile .user_role {
+    font-size: 14px;
+    color: #000000;
+    margin-left: 5px;
+}
+
+.message_sent .profile .message_time {
+    font-size: 11px;
+    color: #ffffff;
+    margin-left: auto;
+}
+
+
+.message_sent .text {
+    font-size: 18px;
+    color: #ffffff;
+    line-height: 1.4;
+    word-wrap: break-word;
+}
+
+
+.message_sent::after {
+    content: '';
+    position: absolute;
+    right: -8px;
+    top: 20px;
+    border-width: 8px 0 8px 8px;
+    border-style: solid;
+    border-color: transparent transparent transparent #e0f7fa;
+}
+
+/* Container for each sent message */
+.message_received {
+    display: flex;
+    align-items: flex-end;
+    margin: 10px 0;
+    max-width: 80%;
+    background-color: #d1d1d1; 
+    padding: 12px 15px;
+    border-radius: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    position: relative;
+    margin-right: auto; 
+    flex-direction: column;
+}
+
+.message_received .profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+
+.message_received .profile .icon {
+    width: 36px;
+    height: 36px;
+    color: #001c79; 
+}
+
+
+.message_received .profile .user_name {
+    font-weight: 600;
+    font-size: 14px;
+    color: #000000;
+}
+
+.message_received .profile .user_role {
+    font-size: 14px;
+    color: #00796b;
+    margin-left: 5px;
+}
+
+
+.message_received .profile .message_time {
+    font-size: 11px;
+    color: #555;
+    margin-left: auto;
+}
+
+
+.message_received .text {
+    font-size: 18px;
+    color: #000000;
+    line-height: 1.4;
+    word-wrap: break-word;
+}
+
+
+.message_received::after {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 20px;
+    border-width: 8px 0 8px 8px;
+    border-style: solid;
+    border-color: transparent transparent transparent #d1d1d1;
+}
+
 
 .input {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    display: flex;  
+    display: flex;
+    gap: 10px;
     padding: 10px;
     background: #f5f5f5;
-    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
-    box-sizing: border-box;
-    gap: 10px;        
+    border-top: 1px solid #ddd;
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
 }
 
-
 .input_message {
-    flex: 1;            
+    flex: 1;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 25px;
     border: 1px solid #ccc;
     font-size: 1rem;
 }
 
 .input button {
-    background-color: #000000;
+    background-color: #000;
     border: none;
     color: white;
-    border-radius: 30%;
+    border-radius: 50%;
     width: 40px;
     height: 40px;
     cursor: pointer;
@@ -89,62 +245,68 @@ body {
     width: 20px;
     height: 20px;
 }
-.profile{
+
+
+.members {
     display: flex;
-    flex-direction: row;
-    gap: 10px;
+    flex-direction: column;
+    width: 30%;
+    height: 90vh;
+    border-radius: 8px;
+    border: 1px solid #ccc;
     margin-top: 3%;
-    padding-left: 3%;
+    margin-left: 3%;
+    margin-right: 3%;
+    background-color: #fff;
+    padding: 10px;
+    overflow-y: auto;
 }
 
-.message_sent, .message_received {
-    max-width: 70%;
-    padding: 10px 14px;
-    margin: 8px;
-    border-radius: 18px;
-    font-size: 0.95rem;
-    line-height: 1.4;
-    word-wrap: break-word;
-    display: inline-block;
-}
-
-
-.message_sent {
-    align-self: flex-end;
-    background: #0060f0;  
-    color: #ffffff;
-    border-bottom-right-radius: 4px; 
+.members .profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+    position: relative;
 }
 
 
-.message_received {
-    align-self: flex-start;
-    background: #e5e5ea;
-    color: #000;
-    border-bottom-left-radius: 4px;
+.members .profile:last-child {
+    border-bottom: none;
 }
 
 
-.message_time {
-    display: block;
-    font-size: 0.75rem;
-    opacity: 0.6;
-    margin-top: 4px;
-    text-align: right;
-}
-
-.icon_frame{
+.icon_frame {
+    width: 40px;
+    height: 40px;
+    background-color: #e0f2f1;
     border-radius: 50%;
-    background-color: #dfe0e2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.text{
-    padding-top: 0.5%;
-    padding-left: 9%;
+
+
+.icon_frame .icon {
+    width: 24px;
+    height: 24px;
+    color: #2a5be0;
 }
-.icon{
-    width: 30px;
-    height: 30px;
+
+
+.members .user_name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #000000;
 }
+
+.members .user_role {
+    font-size: 14px;
+    color: #000000;
+    margin-left: 5px;
+}
+
 
 
 @media (max-width: 768px) {
@@ -153,34 +315,17 @@ body {
     }
 
     .inbox, .members {
-        width: 100%;     
-        margin: 2% 0;    
-        height: auto;    
+        width: 100%;
+        margin: 2% 0;
+        height: auto;
     }
 
     .inbox {
-        height: 70vh; 
+        height: 70vh;
     }
 
     .members {
-        height: auto;
-        max-height: 25vh; 
-        overflow-y: auto;
-    }
-
-    .profile {
-        gap: 5px;
-        padding-left: 2%;
-    }
-
-    .text {
-        padding-left: 15%; 
-        font-size: 0.9rem;
-    }
-
-    .input {
-        padding: 8px;
-        gap: 5px;
+        max-height: 25vh;
     }
 
     .input_message {
@@ -191,10 +336,5 @@ body {
     .input button {
         width: 36px;
         height: 36px;
-    }
-
-    .icon {
-        width: 24px;
-        height: 24px;
     }
 }

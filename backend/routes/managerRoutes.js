@@ -4,11 +4,13 @@ const {authenticateJWT,redirectIfAuthenticated, onboardingJWT} = require('../mid
 const User=require('../models/User');
 
 
+
 router.get('/home', authenticateJWT, (req, res) => {
   res.render('manager_Home', { user: req.user });
 });
-router.get('/chat',authenticateJWT,(req,res)=>{
-    res.render('manager_chat', { user: req.user });
+router.get('/chat',authenticateJWT,async (req,res)=>{
+    const user = await User.findById(req.user.id);
+    res.render('manager_chat', { user });
 });
 router.get('/venue-selection',authenticateJWT,(req,res)=>{
     res.render('manager_venue', { user: req.user });

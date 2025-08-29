@@ -35,5 +35,40 @@ app.use('/guests', guestRoutes);
 app.use('/checkin', checkInRoutes);
 app.use('/manager', managerRoutes);
 
+
+// Socket IO Initialisation
+
+const chat = require('./backend/models/chat.js');
+const http = require('http');
+const server = http.createServer(app);
+const socketio = require('socket.io');
+const io = socketio(server);
+
+
+io.on('connection', function(socket){
+    console.log("new websocket connection...");
+    socket.on('disconnect',function(){
+        console.log('a user disconnected');
+    });
+
+    // message recieved from client
+    socket.on('message', async function(data){
+        
+        try{
+            const chatRoom = await chat.findOne({managerId: data.managerId});
+
+            
+
+            // server send to everyone
+            io.emit('message',data);
+        }
+        catch(error){
+            console.log('cannor save',error);
+        }
+
+    });
+});
+
+
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
