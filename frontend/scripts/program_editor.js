@@ -36,7 +36,11 @@ cancelBtn.addEventListener("click", closeForm);
       alert('Error deleting Program Item.');
     }
   }
-
-
-
+  function exportProgram() {
+    const element = document.getElementById('programSchedule');
+    html2pdf()
+      .from(element)
+      .save('program_schedule.pdf');
+  }
+  
 
