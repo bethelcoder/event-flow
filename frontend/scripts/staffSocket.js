@@ -7,7 +7,11 @@ const inbox = document.querySelector('.message_container');
 clientData = {
     userId: user._id,
     Name: user.Username,
-    Role: user.role
+    Role: user.role,
+
+    // I need to this check this out...waiting for tebogo
+    managerId: "68b46384834383dfb0ffdbea",
+    roomId: "68b46384834383dfb0ffdbea"
 }
 
 form.addEventListener('submit',function(event){
@@ -31,8 +35,10 @@ socket.on('message',function(message){
 });
 
 //join the manager room
-socket.emit('staffJoin',clientData.userId);
+socket.emit('staffJoin',clientData.managerId);
 
+
+//showing the message in the chat box
 function showMessage(message){
     const section = document.createElement('section');
     if(message.userId === user._id){

@@ -7,7 +7,8 @@ const inbox = document.querySelector('.message_container');
 clientData = {
     userId: user._id,
     Name: user.Username,
-    Role: user.role
+    Role: user.role,
+    roomId: user._id
 }
 
 form.addEventListener('submit',function(event){
@@ -34,7 +35,7 @@ socket.on('message',function(message){
 // join the room
 socket.emit('managerJoin',clientData.userId);
 
-
+//showing the message in the chat box
 function showMessage(message){
     const section = document.createElement('section');
     if(message.userId === user._id){

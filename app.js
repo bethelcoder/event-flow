@@ -70,7 +70,7 @@ io.on('connection', function(socket){
             await chatRoom.save();
 
             // server send to everyone
-            io.emit('message',data);
+            io.to(data.roomId).emit('message',data);
         }
         catch(error){
             console.log('cannor save',error);
@@ -81,7 +81,7 @@ io.on('connection', function(socket){
         socket.join(managerID);
         console.log("manager joined the room");
     });
-    socket.on('staffjoin',function(managerId){
+    socket.on('staffJoin',function(managerId){
         socket.join(managerId);
         console.log("staff joined the room");
     });
