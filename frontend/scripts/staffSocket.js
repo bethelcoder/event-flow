@@ -37,7 +37,6 @@ socket.on('message',function(message){
 //join the manager room
 socket.emit('staffJoin',clientData.managerId);
 
-
 //showing the message in the chat box
 function showMessage(message){
     const section = document.createElement('section');
