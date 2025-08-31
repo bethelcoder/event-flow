@@ -13,7 +13,7 @@ const guestRoutes = require('./backend/routes/guestsRoutes.js');
 const checkInRoutes = require('./backend/routes/checkinRoutes.js');
 
 const managerRoutes = require('./backend/routes/managerRoutes.js');
-
+const staffRoutes = require('./backend/routes/staffRoutes.js');
 const app = express();
 
 app.use(sessionMiddleware);
@@ -34,6 +34,7 @@ app.use('/', indexRoutes);
 app.use('/guests', guestRoutes);
 app.use('/checkin', checkInRoutes);
 app.use('/manager', managerRoutes);
+app.use('/staff', staffRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

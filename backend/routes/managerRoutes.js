@@ -4,6 +4,7 @@ const {authenticateJWT,redirectIfAuthenticated, onboardingJWT} = require('../mid
 const User=require('../models/User');
 const Event=require('../models/Event');
 const Session=require('../models/Session');
+const { sendStaffInvite } = require('../services/emailService');
 
 
 
@@ -16,8 +17,20 @@ router.get('/chat',authenticateJWT,(req,res)=>{
 router.get('/venue-selection',authenticateJWT,(req,res)=>{
     res.render('manager_venue', { user: req.user });
 });
-router.get('/guest-invite',authenticateJWT,(req,res)=>{
-    res.render('manager_guests', { user: req.user });
+router.get('/guest-invite',authenticateJWT, async (req,res)=>{
+    const manager = await User.findOne({ _id: req.user.id });
+    const managerName = manager.displayName;
+    res.render('manager_guests', { user: req.user, managerName });    
+});
+router.post("/send-staff-invite", async (req, res) => {
+  try {
+    const { email, name, manager } = req.body;
+    await sendStaffInvite(email, name, manager.name, manager.id);
+    res.json({ success: true, message: "Invitation sent!" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: "Failed to send invite" });
+  }
 });
 router.get('/program',authenticateJWT,async (req,res)=>{
     const user = await User.findById(req.user.id);
