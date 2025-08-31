@@ -4,6 +4,11 @@ const form = document.getElementById('form');
 const input = document.getElementById('input');
 const inbox = document.querySelector('.message_container');
 
+clientData = {
+    userId: user._id,
+    Name: user.Username,
+    Role: user.role
+}
 
 form.addEventListener('submit',function(event){
     event.preventDefault();
@@ -11,7 +16,9 @@ form.addEventListener('submit',function(event){
 
     if(msg){
         // message sent by client
-        socket.emit('message',{userId: user._id, text: msg, Name: user.Username, Role: user.role});
+        clientData.text = msg;
+        clientData.managerId = user._id;
+        socket.emit('message',clientData);
         input.value = '';
         input.focus();
     }
@@ -23,6 +30,10 @@ socket.on('message',function(message){
     inbox.scrollTop = inbox.scrollHeight;
 
 });
+
+// join the room
+socket.emit('managerJoin',clientData.userId);
+
 
 function showMessage(message){
     const section = document.createElement('section');

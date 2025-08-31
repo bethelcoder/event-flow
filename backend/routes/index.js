@@ -4,6 +4,7 @@ const router = express.Router();
 const {authenticateJWT,redirectIfAuthenticated, onboardingJWT} = require('../middleware/authenticateJWT');
 const User=require('../models/User');
 const JWT_SECRET = process.env.JWT_SECRET;
+const chat = require('../models/chat');
 
 
 router.get('/', redirectIfAuthenticated, (req, res) => {
@@ -39,9 +40,14 @@ router.post('/submit-role', authenticateJWT, async (req, res) => {
     );
 
     req.session.jwt = newToken;
+
     if (selectedRole === 'manager') {
       res.status(200).redirect('/manager/home');
-    } else if (selectedRole === 'staff') {
+      await chat.create({
+        managerId: userId
+      });
+    } 
+    else if (selectedRole === 'staff') {
       res.status(200).redirect('/dashboard');
     }
   } catch (error) {

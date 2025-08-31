@@ -53,11 +53,21 @@ io.on('connection', function(socket){
 
     // message recieved from client
     socket.on('message', async function(data){
-        
-        try{
-            const chatRoom = await chat.findOne({managerId: data.managerId});
 
-            
+        try{
+            let chatRoom = await chat.findOne({managerId: data.managerId});
+
+            if(!chatRoom){
+                console.log("no chat was found");
+            }
+            const newMessage = {
+                senderId: data.userId,
+                senderRole: data.Role,
+                content: data.text,
+                timestamp: new Date()
+            };
+            chatRoom.messages.push(newMessage);
+            await chatRoom.save();
 
             // server send to everyone
             io.emit('message',data);
@@ -65,7 +75,15 @@ io.on('connection', function(socket){
         catch(error){
             console.log('cannor save',error);
         }
+    });
 
+    socket.on('managerJoin',function(managerID){
+        socket.join(managerID);
+        console.log("manager joined the room");
+    });
+    socket.on('staffjoin',function(managerId){
+        socket.join(managerId);
+        console.log("staff joined the room");
     });
 });
 
