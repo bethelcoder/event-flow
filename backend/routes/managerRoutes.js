@@ -5,11 +5,13 @@ const User=require('../models/User');
 const Event=require('../models/Event');
 const Session=require('../models/Session');
 const { sendStaffInvite } = require('../services/emailService');
+const { registerGuest } = require('../controllers/guestsController');
 
 
 
 router.get('/home', authenticateJWT, (req, res) => {
-  res.render('manager_Home', { user: req.user });
+  const manager = User.findById({ _id: req.user.id});
+  res.render('manager_Home', { user: req.user, name: manager.displayName });
 });
 router.get('/chat',authenticateJWT,(req,res)=>{
     res.render('manager_chat', { user: req.user });
@@ -22,11 +24,14 @@ router.get('/guest-invite',authenticateJWT, async (req,res)=>{
     const managerName = manager.displayName;
     res.render('manager_guests', { user: req.user, managerName });    
 });
+router.post("/send-guest-invite", registerGuest);
+
 router.post("/send-staff-invite", async (req, res) => {
   try {
     const { email, name, manager } = req.body;
     await sendStaffInvite(email, name, manager.name, manager.id);
-    res.json({ success: true, message: "Invitation sent!" });
+    
+    res.redirect("/manager/home");
   } catch (err) {
     console.error(err);
     res.status(500).json({ success: false, message: "Failed to send invite" });

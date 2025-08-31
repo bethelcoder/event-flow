@@ -44,12 +44,12 @@ inviteBtn.addEventListener('click', async () => {
             };
 
             try {
-                const res = await fetch("/manager/send-staff-invite", {
+                const res = await fetch("/manager/send-guest-invite", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                     email: guestEmail.value,
-                    name: guestName.value,
+                    fullName: guestName.value,
                     manager: managerDetails
                     })
                 });
@@ -57,12 +57,13 @@ inviteBtn.addEventListener('click', async () => {
                 const data = await res.json();
 
                 if (data.success) {
-                    alert("Invitation successfully sent.");
+                    alert("Guest Invitation successfully sent.");
                 } else {
                     alert(data.message || "Failed to send invite.");
                 }
                 } catch (error) {
-                alert("There was an error with our email system. Please try again later.");
+                    alert("There was an error with our email system. Please try again later.");
+                    console.log(error);
                 }
             
         }
