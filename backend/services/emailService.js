@@ -48,4 +48,40 @@ const sendGuestQRCode = async (to, name, refNumber, qrCodeUrl) => {
   });
 };
 
-module.exports = { sendGuestQRCode };
+const sendStaffInvite = async (to, staffName, managerName, managerId) => {
+  const registrationLink = `${process.env.WEBSITE_URL}/staff/signup?managerId=${managerId}`;
+
+  const html = `
+    <h2>👋 Invitation to Join Our Event Staff</h2>
+    <p>Hi <b>${staffName}</b>,</p>
+    
+    <p>${managerName} has invited you to join the staff team for an upcoming event.</p>
+    
+    <p><b>Event Details:</b></p>
+    <p><b>To be available once signed in</b></p>
+
+    <p>To confirm your participation, please register using the special link below:</p>
+    
+    <p style="margin:20px 0;">
+      <a href="${registrationLink}" 
+         style="background:#4CAF50;color:#fff;padding:12px 20px;text-decoration:none;border-radius:6px;">
+        Register as Staff
+      </a>
+    </p>
+
+    <p>This link is unique to you and will automatically connect your profile with <b>${managerName}</b>.</p>
+
+    <br/>
+    <p>We’re excited to have you on the team!</p>
+    <p>– Event Flow Team</p>
+  `;
+
+  await transporter.sendMail({
+    from: `"Event Flow" <${process.env.EMAIL_USER}>`,
+    to,
+    subject: `You're Invited to Join the event's Staff 🎟️`,
+    html,
+  });
+};
+
+module.exports = { sendGuestQRCode, sendStaffInvite };
