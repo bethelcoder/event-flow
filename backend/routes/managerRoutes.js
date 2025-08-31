@@ -6,11 +6,12 @@ const Event=require('../models/Event');
 const Session=require('../models/Session');
 const { sendStaffInvite } = require('../services/emailService');
 const { registerGuest } = require('../controllers/guestsController');
+const { findOne } = require('../models/Guest');
 
 
 
-router.get('/home', authenticateJWT, (req, res) => {
-  const manager = User.findById({ _id: req.user.id});
+router.get('/home', authenticateJWT, async (req, res) => {
+  const manager = await User.findById({ _id: req.user.id});
   res.render('manager_Home', { user: req.user, name: manager.displayName });
 });
 router.get('/chat',authenticateJWT,(req,res)=>{
@@ -28,8 +29,8 @@ router.post("/send-guest-invite", registerGuest);
 
 router.post("/send-staff-invite", async (req, res) => {
   try {
-    const { email, name, manager } = req.body;
-    await sendStaffInvite(email, name, manager.name, manager.id);
+    const { email, name, managerName, managerId } = req.body;
+    await sendStaffInvite(email, name, managerName, managerId);
     
     res.redirect("/manager/home");
   } catch (err) {
