@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Security Check-In | Event Flow</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.4/html5-qrcode.min.js" integrity="sha512-k/KAe4Yff9EUdYI5/IAHlwUswqeipP+Cp5qnrsUjTPCgl51La2/JhyyjNciztD7mWNKLSXci48m7cctATKfLlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -64,6 +65,11 @@
       background-color: #0056b3;
     }
 
+    #reader {
+      width: 100%;
+      margin: 0 auto 20px;
+    }
+
     .response {
       margin-top: 16px;
       font-weight: bold;
@@ -72,15 +78,12 @@
   </style>
 </head>
 <body>
-  <div class="checkin-container">
+  <main class="checkin-container">
     <h1>Guest Check-In</h1>
 
-    <!-- QR Code Upload -->
-    <form id="qrForm">
-      <label for="qrImage">Upload QR Code</label>
-      <input type="file" id="qrImage" name="qrImage" accept="image/*" required>
-      <button type="submit">Check-In via QR</button>
-    </form>
+    <!-- QR Scanner -->
+    <section id="reader"></section>
+    <section class="response" id="response"></section>
 
     <hr style="margin: 24px 0;">
 
@@ -91,54 +94,71 @@
       <button type="submit">Check-In via Ref</button>
     </form>
 
-    <div class="response" id="response"></div>
-  </div>
+    <section class="response" id="response"></section>
+  </main>
 
   <script>
-    const qrForm = document.getElementById('qrForm');
-    const refForm = document.getElementById('refForm');
-    const responseDiv = document.getElementById('response');
-
-    qrForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const fileInput = document.getElementById('qrImage');
-      if (!fileInput.files[0]) return;
-
-      const formData = new FormData();
-      formData.append('qrImage', fileInput.files[0]);
-
-      try {
-        const res = await fetch('/checkin/auth/qr', {
-          method: 'POST',
-          body: formData
-        });
-        const data = await res.json();
-        responseDiv.textContent = data.success ? data.message : data.message || 'Check-in failed';
-        responseDiv.style.color = data.success ? 'green' : 'red';
-      } catch (err) {
-        responseDiv.textContent = 'Server error';
-        responseDiv.style.color = 'red';
-      }
+    const responseSection = document.getElementById('response');
+    //Initializing QR Scanner
+    const scanner = new Html5QrcodeScanner('reader', { 
+        // Scanner will be initialized in DOM inside element with id of 'reader'
+        qrbox: {
+            width: 250,
+            height: 250,
+        },  // Sets dimensions of scanning box (set relative to reader element width)
+        fps: 20, // Frames per second to attempt a scan
     });
 
+    scanner.render(onScanSuccess, onScanError);
+
+    //onResponse
+    async function onScanSuccess(result) {
+      // Send scanned encrypted QR string to backend
+      try {
+          const res = await fetch('/checkin/api/qr', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ qrCodeData: result })
+          });
+
+          const data = await res.json();
+          responseSection.textContent = data.success ? data.message : data.message || 'Check-in failed';
+          responseSection.style.color = data.success ? 'green' : 'red';
+        } catch (err) {
+          responseSection.textContent = 'Server error';
+          responseSection.style.color = 'red';
+        }
+
+        // Stop scanner after successful scan
+        scanner.clear();
+        document.getElementById('reader').remove();
+
+    };
+
+    async function onScanError(result) {
+      console.warn(err); // Not critical, it retries continuously
+    };
+
+
+    const refForm = document.getElementById('refForm');
     refForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const refNumber = document.getElementById('refNumber').value.trim();
       if (!refNumber) return;
 
       try {
-        const res = await fetch('/checkin/auth/ref', {
+        const res = await fetch('/checkin/api/ref', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ refNumber })
         });
 
         const data = await res.json();
-        responseDiv.textContent = data.success ? data.message : data.message || 'Check-in failed';
-        responseDiv.style.color = data.success ? 'green' : 'red';
+        responseSection.textContent = data.success ? data.message : data.message || 'Check-in failed';
+        responseSection.style.color = data.success ? 'green' : 'red';
       } catch (err) {
-        responseDiv.textContent = 'Server error';
-        responseDiv.style.color = 'red';
+        responseSection.textContent = 'Server error';
+        responseSection.style.color = 'red';
       }
     });
   </script>

@@ -107,6 +107,15 @@ body {
     resize: vertical;  
 }
 
+#errorSection {
+    display: none;
+    margin-bottom: 1rem;
+    font-size: .8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color:#dc3545;
+    transition: .2s ease-in-out;
+}
 
 /* tab buttons */
 .tablink {

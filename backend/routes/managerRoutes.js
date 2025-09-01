@@ -5,6 +5,9 @@ const User=require('../models/User');
 const Event=require('../models/Event');
 const Session=require('../models/Session');
 const Venue=require('../models/Venue');
+const { sendStaffInvite } = require('../services/emailService');
+const { registerGuest } = require('../controllers/guestsController');
+const { findOne } = require('../models/Guest');
 
 const { cloudinary, VenueUpload } = require('../config/cloudinary');
 
@@ -56,9 +59,10 @@ router.post('/venue/upload', authenticateJWT, VenueUpload.single('venueImage'), 
 router.get('/home', authenticateJWT, async (req, res) => {
   const user = await User.findById(req.user.id);
   const event = await Event.findOne({ 'organizer.id': user._id });
+  const manager = await User.findById({ _id: req.user.id});
  
-  res.render('manager_Home', { user: req.user, event });
-});
+  res.render('manager_Home', { user: req.user, event,name:manager.displayName });
+
 router.get('/chat',authenticateJWT,(req,res)=>{
     res.render('manager_chat', { user: req.user });
 });
@@ -67,12 +71,24 @@ router.get('/venue-selection',authenticateJWT,async(req,res)=>{
   const venues = await Venue.find();
   res.render('manager_venue', { user: req.user, venues });
 });
+  
+router.get('/guest-invite',authenticateJWT, async (req,res)=>{
+    const manager = await User.findOne({ _id: req.user.id });
+    const managerName = manager.displayName;
+    res.render('manager_guests', { user: req.user, managerName });    
+});
+router.post("/send-guest-invite", registerGuest);
 
-
-
-
-router.get('/guest-invite',authenticateJWT,(req,res)=>{
-    res.render('manager_guests', { user: req.user });
+router.post("/send-staff-invite", async (req, res) => {
+  try {
+    const { email, name, managerName, managerId } = req.body;
+    await sendStaffInvite(email, name, managerName, managerId);
+    
+    res.redirect("/manager/home");
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: "Failed to send invite" });
+  }
 });
 router.get('/program',authenticateJWT,async (req,res)=>{
     const user = await User.findById(req.user.id);

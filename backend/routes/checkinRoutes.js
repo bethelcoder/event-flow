@@ -5,10 +5,10 @@ const checkinController = require('../controllers/checkinController');
 
 // Check-in
 router.get('/check-in', (req, res) => {
-    res.render('checkInpage');
+    res.render('checkInPage');
 })
-router.post("/auth/qr", upload.single('qrImage'), checkinController.checkInByQR);
+router.post("/api/qr", upload.single('qrImage'), checkinController.checkInByQR);
 
-router.post("/auth/ref", checkinController.checkInByRef);
+router.post("/api/ref", checkinController.checkInByRef);
 
 module.exports = router;

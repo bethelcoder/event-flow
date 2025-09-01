@@ -28,11 +28,12 @@ exports.registerGuest = async (req, res) => {
       qrCodeUrl,
       refNumber
     });
+    await guest.save();
 
     // 📩 Send email with QR code
     await sendGuestQRCode(email, fullName, refNumber, qrCodeUrl);
 
-    res.status(201).json({ success: true, guest });
+    res.redirect("/manager/home");
   } catch (err) {
     console.error(err);
     res.status(500).json({ success: false, error: err.message });
