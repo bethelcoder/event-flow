@@ -5,7 +5,9 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -36,5 +38,9 @@
     "passport-google-oauth20": "^2.0.0",
     "qrcode": "^1.5.4",
     "qrcode-reader": "^1.0.4"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0",
+    "jest": "^30.1.1"
   }
 }
