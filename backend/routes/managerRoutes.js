@@ -62,6 +62,7 @@ router.get('/home', authenticateJWT, async (req, res) => {
   const manager = await User.findById({ _id: req.user.id});
  
   res.render('manager_Home', { user: req.user, event,name:manager.displayName });
+});
 
 router.get('/chat',authenticateJWT,(req,res)=>{
     res.render('manager_chat', { user: req.user });
