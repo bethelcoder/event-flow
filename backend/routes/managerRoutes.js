@@ -59,19 +59,50 @@ router.post('/venue/upload', authenticateJWT, VenueUpload.single('venueImage'), 
 
 // Home page
 router.get('/home', authenticateJWT, async (req, res) => {
-  const user = await User.findById(req.user.id);
-  const event = await Event.findOne({ 'organizer.id': user._id });
-  const manager = await User.findById({ _id: req.user.id});
- 
-  res.render('manager_Home', { user: req.user, event,name:manager.displayName });
+  try {
+    const user = await User.findById(req.user.id);
+
+    const manager = await User.findById(req.user.id, { displayName: 1 });
+   
+    const event = await Event.findOne({ 'organizer.id': user._id });
+
+    const chatDoc = await chat.findOne(
+      { managerId: req.user.id },
+      { members: 1, _id: 0 }
+    );
+
+    let membersList = [];
+    if (chatDoc && chatDoc.members && chatDoc.members.length > 0) {
+ s
+      const memberIds = chatDoc.members.map(m => m.userId);
+
+
+      membersList = await User.find(
+        { _id: { $in: memberIds } },
+        { displayName: 1, role: 1 }
+      );
+    }
+
+    res.render('manager_Home', {
+      user: req.user,
+      event,
+      name: manager.displayName,
+      membersList
+    });
+
+  } catch (error) {
+    console.error('Error loading manager home:', error);
+    res.status(500).send('Server error');
+  }
 });
 
-// Chat page
+
+
 router.get('/chat', authenticateJWT, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
 
-    // Get chat document for this manager
+
     const chatDoc = await chat.findOne(
       { managerId: req.user.id },
       { messages: 1, _id: 0 }
@@ -83,11 +114,10 @@ router.get('/chat', authenticateJWT, async (req, res) => {
     if (chatDoc && chatDoc.messages && chatDoc.messages.length > 0) {
       messages = chatDoc.messages;
 
-      // Get all unique sender IDs
+
       const senderIds = messages.map(m => m.senderId?.toString()).filter(Boolean);
       const uniqueSenderIds = [...new Set(senderIds)];
 
-      // Fetch sender details from User collection
       senders = await User.find({ _id: { $in: uniqueSenderIds } });
     }
 
@@ -114,7 +144,6 @@ router.get('/guest-invite',authenticateJWT, async (req,res)=>{
     res.render('manager_guests', { user: req.user, managerName });    
 });
 
-// Send guest invite
 router.post("/send-guest-invite", registerGuest);
 
 // Send staff invite
@@ -129,29 +158,29 @@ router.post("/send-staff-invite", async (req, res) => {
   }
 });
 
-// Program editor
+
 router.get('/program', authenticateJWT, async (req, res) => {
   const user = await User.findById(req.user.id);
   const event = await Event.findOne({ 'organizer.id': user._id });
   res.render('manager_program_editor', { user: req.user, event });
 });
 
-// Map page
+
 router.get('/map', authenticateJWT, (req, res) => {
   res.render('manager_map', { user: req.user });
 });
 
-// Announcements page
+
 router.get('/announcements', authenticateJWT, (req, res) => {
   res.render('manager_announcement', { user: req.user });
 });
 
-// Task assignment page
+
 router.get('/task_assignment', authenticateJWT, (req, res) => {
   res.render('manager_task', { user: req.user });
 });
 
-// Create event
+
 router.post('/create-event', authenticateJWT, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
