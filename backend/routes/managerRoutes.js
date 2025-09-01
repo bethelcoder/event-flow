@@ -1,17 +1,69 @@
 const express = require('express');
 const router = express.Router();
-const { authenticateJWT, redirectIfAuthenticated, onboardingJWT } = require('../middleware/authenticateJWT');
-const User = require('../models/User');
-const Event = require('../models/Event');
-const Session = require('../models/Session');
+const {authenticateJWT,redirectIfAuthenticated, onboardingJWT} = require('../middleware/authenticateJWT');
+const User=require('../models/User');
+const Event=require('../models/Event');
+const Session=require('../models/Session');
+const Venue=require('../models/Venue');
 const { sendStaffInvite } = require('../services/emailService');
 const { registerGuest } = require('../controllers/guestsController');
+const { findOne } = require('../models/Guest');
 const chat = require('../models/chat');
+
+const { cloudinary, VenueUpload } = require('../config/cloudinary');
+
+
+
+router.post('/venue/upload', authenticateJWT, VenueUpload.single('venueImage'), async (req, res) => {
+  const { name, address, capacity, facilities, city, rating, typeofvenue } = req.body;
+  try {
+    if (!req.file) return res.status(400).send('No file uploaded');
+
+    const streamUpload = (fileBuffer) => {
+      return new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+          { folder: 'venues', resource_type: 'image' },
+          (error, result) => {
+            if (error) reject(error);
+            else resolve(result);
+          }
+        );
+        stream.end(fileBuffer);
+      });
+    };
+
+    const result = await streamUpload(req.file.buffer);
+    const venue = new Venue({
+      name,
+      address,
+      capacity,
+      facilities,
+      city,
+      rating,
+      typeofvenue,
+      image: {
+        url: result.secure_url,
+        public_id: result.public_id
+      }
+    });
+
+    await venue.save();
+
+    res.status(201).redirect('/manager/venue-selection');
+  } catch (err) {
+    console.error('Upload error:', err);
+    res.status(500).send('Upload failed');
+  }
+});
+
 
 // Home page
 router.get('/home', authenticateJWT, async (req, res) => {
-  const manager = await User.findById(req.user.id);
-  res.render('manager_Home', { user: req.user, name: manager.displayName });
+  const user = await User.findById(req.user.id);
+  const event = await Event.findOne({ 'organizer.id': user._id });
+  const manager = await User.findById({ _id: req.user.id});
+ 
+  res.render('manager_Home', { user: req.user, event,name:manager.displayName });
 });
 
 // Chat page
@@ -45,16 +97,21 @@ router.get('/chat', authenticateJWT, async (req, res) => {
     res.status(500).send('Server error');
   }
 });
+  
 
-// Venue selection page
-router.get('/venue-selection', authenticateJWT, (req, res) => {
-  res.render('manager_venue', { user: req.user });
+router.get('/chat',authenticateJWT,(req,res)=>{
+    res.render('manager_chat', { user: req.user });
 });
 
-// Guest invite page
-router.get('/guest-invite', authenticateJWT, async (req, res) => {
-  const manager = await User.findById(req.user.id);
-  res.render('manager_guests', { user: req.user, managerName: manager.displayName });
+router.get('/venue-selection',authenticateJWT,async(req,res)=>{
+  const venues = await Venue.find();
+  res.render('manager_venue', { user: req.user, venues });
+});
+  
+router.get('/guest-invite',authenticateJWT, async (req,res)=>{
+    const manager = await User.findOne({ _id: req.user.id });
+    const managerName = manager.displayName;
+    res.render('manager_guests', { user: req.user, managerName });    
 });
 
 // Send guest invite
@@ -202,5 +259,38 @@ router.delete('/program/:sessionID', authenticateJWT, async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
+
+router.post('/select-venue',authenticateJWT,async(req,res)=>{
+ const {venue}=req.body;
+
+ try {
+   const user = await User.findById(req.user.id);
+   const event = await Event.findOne({ 'organizer.id': user._id });
+   const selectedVenue = await Venue.findOne({ name: venue });
+
+   if (!event) {
+     return res.status(404).json({ message: 'Event not found' });
+   }
+   event.venue = {
+    venueID: selectedVenue._id,
+    name: selectedVenue.name,
+    address: selectedVenue.address,
+    city: selectedVenue.city,
+    image: {
+      url: selectedVenue.image.url,
+      public_id: selectedVenue.image.public_id
+    }
+   };
+   await event.save();
+
+   res.status(200).redirect('/manager/home');
+ } catch (err) {
+   console.error(err);
+   res.status(500).json({ message: 'Server error' });
+ }
+});
+
+
+
 
 module.exports = router;
