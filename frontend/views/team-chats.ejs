@@ -2,62 +2,101 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Team Chats</title>
-  <link rel="stylesheet" href="/styles/footer.css">
   <link rel="stylesheet" href="/styles/staff-dashboard.css">
   <link rel="stylesheet" href="/styles/team-chats.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="../styles/manager_chat.css">
 </head>
 <body>
+    <section class="main_content" id="mainContent">
+        <section class="chat_system">
+            <section class="inbox">
+                <h4 class="heading">Staff Communication</h4>
 
-  
+                <section class="message_container">
+                    <% if(messages && messages.length) { %>
+                        <% messages.forEach(msg => { %>
+                            <% 
+                                // Find sender info
+                                const sender = senders.find(s => s._id.toString() === msg.senderId?.toString());
+                            %>
 
-  <section class="chat-container">
-    
-    <!-- Left: Chat Box -->
-    <section class="chat-box">
-      
-      <header class="chat-box-header">
-        <h2>Staff Communication</h2>
-      </header>
+                            <% if(msg.senderId.toString() === user._id.toString()) { %>
+                                <!-- Sent message -->
+                                <section class="message_sent">
+                                    <section class="profile">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                        </svg>
+                                        <p class="user_name"><%= user.displayName %></p>
+                                        <strong class="user_role"><%= user.role %></strong>
+                                        <p class="message_time">
+                                          <%= new Date(msg.timestamp).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) %>
+                                        </p>
+                                    </section>
+                                    <p class="text"><%= msg.content %></p>
+                                </section>
+                            <% } else { %>
+                                <!-- Received message -->
+                                <section class="message_received">
+                                    <section class="profile">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                        </svg>
+                                        <p class="user_name"><%= sender ? sender.displayName : "Unknown" %></p>
+                                        <strong class="user_role"><%= sender ? sender.role : "" %></strong>
+                                        <p class="message_time">
+                                          <%= new Date(msg.timestamp).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) %>
+                                        </p>
+                                    </section>
+                                    <p class="text"><%= msg.content %></p>
+                                </section>
+                            <% } %>
+                        <% }); %>
+                    <% } %>
+                </section>
 
-      <main class="messages">
-        <!-- Example messages -->
-        <article class="message sender">
-          Hello team, welcome to our chat 👋
-        </article>
-        <article class="message receiver">
-          Hi! Excited to start 🚀
-        </article>
-      </main>
+                <form class="input" id="form">
+                    <input type="text" class="input_message" id="input" autocomplete="off" placeholder="Type your message...">
+                    <button type="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="icon">
+                            <path d="M3.105 2.288a.75.75 0 0 0-.826.95l1.414 4.926A1.5 1.5 0 0 0 5.135 9.25h6.115a.75.75 0 0 1 0 1.5H5.135a1.5 1.5 0 0 0-1.442 1.086l-1.414 4.926a.75.75 0 0 0 .826.95 28.897 28.897 0 0 0 15.293-7.155.75.75 0 0 0 0-1.114A28.897 28.897 0 0 0 3.105 2.288Z" />
+                        </svg>
+                    </button>
+                </form>
+            </section>
 
-      <footer class="message-input">
-        <input type="text" placeholder="Type your message..." />
-        <button><i class="fa fa-paper-plane"></i></button>
-      </footer>
-
+            <section class="members">
+                <h4 class="heading">Staff Members</h4>
+                <% if(senders && senders.length) { %>
+                    <% senders.forEach(member => { %>
+                        <section class="profile">
+                            <section class="icon_frame">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                </svg>
+                            </section>
+                            <p class="user_name"><%= member.displayName %></p>
+                            <strong class="user_role"><%= member.role %></strong>
+                        </section>
+                    <% }); %>
+                <% } %>
+            </section>
+        </section>
     </section>
 
-    <!-- Right: Staff List -->
-    <aside class="staff-list">
-      <header>
-        <h3>Staff Members</h3>
-      </header>
-      <section class="staff">
-        <span class="avatar">TN</span>
-        <span>Thendo Nelufule</span>
-      </section>
-      <section class="staff">
-        <span class="avatar">LM</span>
-        <span>Lulimi</span>
-      </section>
-      <section class="staff">
-        <span class="avatar">VS</span>
-        <span>Vhafunzi na Siaga</span>
-      </section>
-    </aside>
-
-  </section>
-
+    <script>
+        const user = {
+            role: "<%= user.role %>",
+            Username: "<%= user.displayName %>",
+            _id: "<%= user._id %>",
+        }
+        const chatroom = {
+            managerId : "<%=chatroom.managerId%>"
+        }
+    </script>
+    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+    <script src="../scripts/staffSocket.js"></script>
 </body>
 </html>

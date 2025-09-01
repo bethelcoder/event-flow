@@ -1,7 +1,7 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
-const Chat = require('../models/Chat');
+const Chat = require('../models/chat');
 
 
 const staffRegpage = async (req, res) => {
@@ -81,11 +81,7 @@ const staffRegistration = async (req, res) => {
       await chatRoom.save();
     }
 
-    return res.status(201).json({
-      message: "Staff registered and added to chat successfully",
-      staff: staffUser,
-      chatRoom,
-    });
+    return res.status(201).redirect('/dashboard');
   } catch (err) {
     console.error("Error registering staff:", err);
     return res.status(500).json({ error: "Server error" });
