@@ -48,7 +48,7 @@ router.post('/submit-role', authenticateJWT, async (req, res) => {
       });
     } 
     else if (selectedRole === 'staff') {
-      res.status(200).redirect('/dashboard');
+      res.status(200).redirect('/staff/team-chats');
     }
   } catch (error) {
     console.error('Error setting role:', error);
