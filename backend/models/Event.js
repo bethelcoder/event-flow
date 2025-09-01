@@ -50,6 +50,16 @@ const EventSchema = new mongoose.Schema({
       taskStatus: String
     }
   ],
+  venue:{
+    venueID: { type: mongoose.Schema.Types.ObjectId, ref: 'Venue' },
+    name: String,
+    address: String,
+    city: String,
+    image: {
+      url: String,
+      public_id: String
+    }
+  },
 
   map: {
     url: String,

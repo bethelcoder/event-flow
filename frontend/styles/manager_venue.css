@@ -64,9 +64,73 @@ body {
   background: #f3f4f6;
   font-size: 0.95rem;
 }
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* Popup form */
+.pop_section {
+  background-color: #fff;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  width: 600px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+}
+#loading-screen {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.7); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+  }
+
+
+.pop_section section {
+  display: flex;
+  flex-direction: column;
+}
+
+.pop_section h5 {
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: #333;
+}
+
+.pop_section input,
+.pop_section select {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.pop_section input:focus,
+.pop_section select:focus {
+  border-color: #000000;
+  box-shadow: 0 0 5px rgba(91, 157, 249, 0.5);
+}
+
 
 /* Venue card design */
 .All_venues {
+  margin-top: 20px;
   display: flex;
   flex-wrap: wrap;       
   gap: 1.5rem;
@@ -84,7 +148,6 @@ body {
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     transition: transform 0.2s, box-shadow 0.2s;
     background-color: #fff;
-    margin: 20px;
 }
 
 .venue:hover {
@@ -98,6 +161,10 @@ body {
     height: 180px;
     object-fit: cover;
 }
+.venue .choose{
+  margin-top: auto;
+}
+
 
 /* Venue Name and Rating */
 .venue_name {
@@ -187,6 +254,7 @@ body {
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.2s;
+    
 }
 
 .btn_select:hover {
