@@ -73,7 +73,7 @@ router.get('/home', authenticateJWT, async (req, res) => {
 
     let membersList = [];
     if (chatDoc && chatDoc.members && chatDoc.members.length > 0) {
- s
+
       const memberIds = chatDoc.members.map(m => m.userId);
 
 
