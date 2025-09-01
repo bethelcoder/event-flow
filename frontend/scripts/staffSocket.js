@@ -52,7 +52,6 @@ function showMessage(message){
                         <p class="user_name">${message.Name}</p>
                         <strong class="user_role">${message.Role}</strong>
                         <p class="message_time">${new Date().toLocaleTimeString([],{hour: '2-digit',minute:'2-digit',hour12:'false'})}</p>
-                        <span class="status"></span>
                     </section>
                     <p class="text">${message.text}</p>`;
     document.querySelector('.message_container').appendChild(section);
