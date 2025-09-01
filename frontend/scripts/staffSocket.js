@@ -8,10 +8,8 @@ clientData = {
     userId: user._id,
     Name: user.Username,
     Role: user.role,
-
-    // I need to this check this out...waiting for tebogo
-    managerId: "68b46384834383dfb0ffdbea",
-    roomId: "68b46384834383dfb0ffdbea"
+    managerId: chatroom.managerId,
+    roomId : chatroom.managerId
 }
 
 form.addEventListener('submit',function(event){
@@ -35,7 +33,7 @@ socket.on('message',function(message){
 });
 
 //join the manager room
-socket.emit('staffJoin',clientData.managerId);
+socket.emit('staffJoin',clientData.roomId);
 
 //showing the message in the chat box
 function showMessage(message){

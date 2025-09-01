@@ -3,10 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Team Chats</title>
-  <link rel="stylesheet" href="/styles/footer.css">
   <link rel="stylesheet" href="/styles/staff-dashboard.css">
   <link rel="stylesheet" href="/styles/team-chats.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <link rel="stylesheet" href="../styles/manager_chat.css">
 </head>
 <body>
@@ -47,10 +45,12 @@
         const user = {
             role : "<%=user.role%>",
             Username : "<%= user.displayName%>",
-            UserId: "<%=user._id%>"
+            _id: "<%=user._id%>"
+        }
+        const chatroom = {
+            managerId : "<%=chatroom.managerId %>"
         }
     </script>
-    <script src="../scripts/sidebar.js"></script>
     <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
     <script src="../scripts/staffSocket.js"></script>
 </body>

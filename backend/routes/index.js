@@ -83,13 +83,15 @@ router.get('/logout', (req, res) => {
 
 router.get('/dashboard', authenticateJWT, async (req, res) => {
   const user = await User.findById(req.user.id);
-  res.render('dashboard',{user});
+  const chatroom = await chat.findOne({"members.userId": req.user.id});
+  res.render('dashboard',{user,chatroom});
 });
 
 // Staff Dashboard sub-pages
 router.get('/team-chats', authenticateJWT, async (req, res) => {
   const user = await User.findById(req.user.id);
-  res.render('team-chats',{user}); // Omega content only
+  const chatroom = await chat.findOne({"members.userId": req.user.id});
+  res.render('team-chats',{user,chatroom}); // Omega content only
 });
 
 router.get('/report-incident', authenticateJWT, (req, res) => {
