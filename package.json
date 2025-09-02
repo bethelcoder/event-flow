@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "test": "jest"
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -45,12 +46,14 @@
     "socket.io": "^4.8.1"
   },
   "devDependencies": {
-    "jest": "^30.1.2",
-    "supertest": "^7.1.4"
-  },
-  "jest": {
-    "setupFilesAfterEnv": [
-      "<rootDir>/backend/tests/setup.js"
-    ]
-  }
+  "jest": "^30.1.2",
+  "supertest": "^7.1.4",
+  "@playwright/test": "^1.55.0"
+},
+"jest": {
+  "setupFilesAfterEnv": [
+    "<rootDir>/backend/tests/setup.js"
+  ]
 }
+}
+
