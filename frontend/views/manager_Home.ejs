@@ -55,7 +55,7 @@
                     </section>
                     <section class="row">
                         <h4>Expected Attendees</h4>
-                        <input type="number" name="Expected" placeholder="Number of attendees" required>
+                        <input type="number" name="Expected" min="1" step="1" placeholder="Number of attendees" required>
                     </section>
                 </section>
                 <section class="row">
@@ -150,11 +150,11 @@
             <form class="add_popup" method="post" action="/manager/send-staff-invite">
                 <h3>Add New Staff Member</h3>
                 <h4>Full Name</h4>
-                <input type="text" placeholder="Enter staff member name" name="name"/>
+                <input type="text" placeholder="Enter staff member name" name="name" required/>
                 <h4>Email</h4>
-                <input type="email" placeholder="Enter email of staff member" name="email"/>
+                <input type="email" placeholder="Enter email of staff member" name="email" required/>
                 <h4>Role/Position</h4>
-                <input type="text" placeholder="e.g chef" name="role">
+                <input type="text" placeholder="e.g chef" name="role" required>
                 <input type ="hidden" name="managerName" value="<%= name %>" />
                 <input type ="hidden" name="managerId" value="<%= user.id %>" />
                 <button id="add" type="submit">
