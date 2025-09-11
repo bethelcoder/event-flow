@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+
 const ChatRoomSchema = new mongoose.Schema({
   managerId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -29,6 +30,5 @@ const ChatRoomSchema = new mongoose.Schema({
   ],
   createdAt: { type: Date, default: Date.now }
 });
-
 
 module.exports =  mongoose.models.Chat || mongoose.model('Chat', ChatRoomSchema);
