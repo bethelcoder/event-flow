@@ -9,52 +9,66 @@ const { sendStaffInvite } = require('../services/emailService');
 const { registerGuest } = require('../controllers/guestsController');
 const { findOne } = require('../models/Guest');
 const chat = require('../models/chat');
+const Annotation = require('../models/Annotation');
 
 const { cloudinary, VenueUpload } = require('../config/cloudinary');
 
 
 
-router.post('/venue/upload', authenticateJWT, VenueUpload.single('venueImage'), async (req, res) => {
-  const { name, address, capacity, facilities, city, rating, typeofvenue } = req.body;
-  try {
-    if (!req.file) return res.status(400).send('No file uploaded');
+router.post('/venue/upload',authenticateJWT,VenueUpload.fields([{ name: 'venueImage', maxCount: 1 },{ name: 'mapImage', maxCount: 1 }]),async (req, res) => {
+    const { name, address, capacity, facilities, city, rating, typeofvenue } = req.body;
 
-    const streamUpload = (fileBuffer) => {
-      return new Promise((resolve, reject) => {
-        const stream = cloudinary.uploader.upload_stream(
-          { folder: 'venues', resource_type: 'image' },
-          (error, result) => {
-            if (error) reject(error);
-            else resolve(result);
-          }
-        );
-        stream.end(fileBuffer);
-      });
-    };
-
-    const result = await streamUpload(req.file.buffer);
-    const venue = new Venue({
-      name,
-      address,
-      capacity,
-      facilities,
-      city,
-      rating,
-      typeofvenue,
-      image: {
-        url: result.secure_url,
-        public_id: result.public_id
+    try {
+      if (!req.files || !req.files.venueImage || !req.files.mapImage) {
+        return res.status(400).send('Both venue and map images are required');
       }
-    });
 
-    await venue.save();
+      const streamUpload = (fileBuffer, folderName) => {
+        return new Promise((resolve, reject) => {
+          const stream = cloudinary.uploader.upload_stream(
+            { folder: folderName, resource_type: 'image' },
+            (error, result) => {
+              if (error) reject(error);
+              else resolve(result);
+            }
+          );
+          stream.end(fileBuffer);
+        });
+      };
 
-    res.status(201).redirect('/manager/venue-selection');
-  } catch (err) {
-    console.error('Upload error:', err);
-    res.status(500).send('Upload failed');
+      // Upload venue image
+      const venueImageResult = await streamUpload(req.files.venueImage[0].buffer, 'venues');
+      // Upload map image
+      const mapImageResult = await streamUpload(req.files.mapImage[0].buffer, 'maps');
+
+      const venue = new Venue({
+        name,
+        address,
+        capacity,
+        facilities,
+        city,
+        rating,
+        typeofvenue,
+        image: {
+          url: venueImageResult.secure_url,
+          public_id: venueImageResult.public_id
+        },
+        map: {
+          url: mapImageResult.secure_url,
+          public_id: mapImageResult.public_id
+        }
+      });
+
+      await venue.save();
+
+      res.status(201).redirect('/manager/venue-selection');
+    } catch (err) {
+      console.error('Upload error:', err);
+      res.status(500).send('Upload failed');
+    }
   }
-});
+);
+
 
 
 // Home page
@@ -166,10 +180,38 @@ router.get('/program', authenticateJWT, async (req, res) => {
 });
 
 
-router.get('/map', authenticateJWT, (req, res) => {
-  res.render('manager_map', { user: req.user });
+// router.get('/map', authenticateJWT, (req, res) => {
+//   res.render('manager_map', { user: req.user });
+// });
+
+// Load annotations for the logged-in user
+router.get('/map', authenticateJWT, async (req, res) => {
+    try {
+        const userId = req.user.id; 
+        const event = await Event.findOne({ 'organizer.id': userId });
+        const annotations = await Annotation.find({ userId });
+        res.render('manager_map',{annotations,user:req.user,event});
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
+// Save annotations for the logged-in user
+router.post('/map/annotate', authenticateJWT, async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const annotations = JSON.parse(req.body.annotations);
+
+        await Annotation.deleteMany({ userId });
+
+        const annotatedData = annotations.map(a => ({ ...a, userId }));
+
+        await Annotation.insertMany(annotatedData);
+        res.redirect('/manager/map');
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
 
 router.get('/announcements', authenticateJWT, (req, res) => {
   res.render('manager_announcement', { user: req.user });
@@ -305,9 +347,14 @@ router.post('/select-venue',authenticateJWT,async(req,res)=>{
     name: selectedVenue.name,
     address: selectedVenue.address,
     city: selectedVenue.city,
+    mapPath: selectedVenue.mapPath,
     image: {
       url: selectedVenue.image.url,
       public_id: selectedVenue.image.public_id
+    },
+    map: {
+      url: selectedVenue.map.url,
+      public_id: selectedVenue.map.public_id     
     }
    };
    await event.save();
