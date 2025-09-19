@@ -58,6 +58,10 @@ const EventSchema = new mongoose.Schema({
     image: {
       url: String,
       public_id: String
+    },
+    map: {
+        url: String,
+        public_id: String
     }
   },
 

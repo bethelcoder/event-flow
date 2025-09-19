@@ -65,6 +65,7 @@ app.use('/api', api);
 //Swagger documentation route
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
+
 // Socket IO Initialisation
 
 const chat = require('./backend/models/chat.js');

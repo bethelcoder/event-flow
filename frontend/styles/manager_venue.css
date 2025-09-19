@@ -114,6 +114,7 @@ body {
 .pop_section input,
 .pop_section select {
   padding: 10px 12px;
+  width: 100%;
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 14px;
@@ -125,6 +126,9 @@ body {
 .pop_section select:focus {
   border-color: #000000;
   box-shadow: 0 0 5px rgba(91, 157, 249, 0.5);
+}
+.pop_section button{
+  margin-top: auto;
 }
 
 
