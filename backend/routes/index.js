@@ -6,6 +6,174 @@ const User=require('../models/User');
 const JWT_SECRET = process.env.JWT_SECRET;
 const chat = require('../models/chat');
 
+/**
+ * @swagger
+ * tags:
+ *   name: Index / Pages
+ *   description: Routes for landing pages, authentication pages, role selection, and staff dashboards
+ */
+
+/**
+ * @swagger
+ * /:
+ *   get:
+ *     summary: Redirect to welcome page if not authenticated
+ *     tags: [Index / Pages]
+ *     responses:
+ *       302:
+ *         description: Redirects to /welcome
+ */
+
+/**
+ * @swagger
+ * /welcome:
+ *   get:
+ *     summary: Landing page
+ *     tags: [Index / Pages]
+ *     responses:
+ *       200:
+ *         description: Renders the welcome page
+ */
+
+/**
+ * @swagger
+ * /signup:
+ *   get:
+ *     summary: Signup page
+ *     tags: [Index / Pages]
+ *     responses:
+ *       200:
+ *         description: Renders signup page
+ */
+
+/**
+ * @swagger
+ * /roles:
+ *   get:
+ *     summary: Roles selection page after onboarding
+ *     tags: [Index / Pages]
+ *     responses:
+ *       200:
+ *         description: Renders roles selection page
+ */
+
+/**
+ * @swagger
+ * /submit-role:
+ *   post:
+ *     summary: Submit selected role for authenticated user
+ *     tags: [Index / Pages]
+ *     security:
+ *       - ApiKeyAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/x-www-form-urlencoded:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               role:
+ *                 type: string
+ *                 enum: [manager, staff]
+ *                 description: Role selected by the user
+ *     responses:
+ *       200:
+ *         description: Role submitted and user redirected to manager or staff dashboard
+ *       500:
+ *         description: Server error
+ */
+
+/**
+ * @swagger
+ * /login:
+ *   get:
+ *     summary: Login page
+ *     tags: [Index / Pages]
+ *     responses:
+ *       200:
+ *         description: Renders login page
+ */
+
+/**
+ * @swagger
+ * /logout:
+ *   get:
+ *     summary: Logout user
+ *     tags: [Index / Pages]
+ *     responses:
+ *       200:
+ *         description: Session destroyed and redirected to login
+ *       500:
+ *         description: Logout failed
+ */
+
+/**
+ * @swagger
+ * /dashboard:
+ *   get:
+ *     summary: Staff dashboard with chatroom and messages
+ *     tags: [Index / Pages]
+ *     security:
+ *       - ApiKeyAuth: []
+ *     responses:
+ *       200:
+ *         description: Renders staff dashboard page
+ *       500:
+ *         description: Server error
+ */
+
+/**
+ * @swagger
+ * /team-chats:
+ *   get:
+ *     summary: Staff team chat page
+ *     tags: [Index / Pages]
+ *     security:
+ *       - ApiKeyAuth: []
+ *     responses:
+ *       200:
+ *         description: Renders team chat page with messages
+ *       500:
+ *         description: Server error
+ */
+
+/**
+ * @swagger
+ * /report-incident:
+ *   get:
+ *     summary: Report incident page
+ *     tags: [Index / Pages]
+ *     security:
+ *       - ApiKeyAuth: []
+ *     responses:
+ *       200:
+ *         description: Renders report incident page
+ */
+
+/**
+ * @swagger
+ * /my-tasks:
+ *   get:
+ *     summary: My tasks page for staff
+ *     tags: [Index / Pages]
+ *     security:
+ *       - ApiKeyAuth: []
+ *     responses:
+ *       200:
+ *         description: Renders staff tasks page
+ */
+
+/**
+ * @swagger
+ * /announcements:
+ *   get:
+ *     summary: Announcements page
+ *     tags: [Index / Pages]
+ *     responses:
+ *       200:
+ *         description: Renders announcements page
+ */
+
 
 router.get('/', redirectIfAuthenticated, (req, res) => {
   res.redirect('/welcome');
