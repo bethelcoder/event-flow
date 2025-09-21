@@ -1,0 +1,13 @@
+[
+  {
+    "name": "connect.sid",
+    "value": "s%3Ao_hYBMrGk0XaYzp9t_z3UNBbzqHXOL-C.lruhzHH2M3sWdX9fom4Ei7evqW3nxE4CWOsQGVylnDw",
+    "domain": "localhost",
+    "path": "/",
+    "httpOnly": true,
+    "secure": false
+  }
+]
+
+
+
