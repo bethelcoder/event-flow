@@ -61,7 +61,7 @@
 
             <section>
               <label for="capacity">Capacity</label>
-              <input id="capacity" name="capacity" type="number" placeholder="e.g. 500" required>
+              <input id="capacity" name="capacity" type="number" min="1" step="1" placeholder="e.g. 500" required>
             </section>
 
             <section>
@@ -82,6 +82,11 @@
             <section>
               <label for="venueImage">Upload Image</label>
               <input id="venueImage" name="venueImage" type="file" accept="image/*" required>
+            </section>
+
+            <section>
+              <label for="mapImage">Upload map</label>
+              <input id="mapImage" name="mapImage" type="file" accept="image/*" required>
             </section>
 
               <button class="btn_select" type="button" onclick="closeModal()">Cancel</button>

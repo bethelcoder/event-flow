@@ -4,17 +4,88 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/dashboard.css">
+    <link rel="stylesheet" href="../styles/map.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css"/>
     <title>Map</title>
 </head>
 <body>
     <%- include('partials/manager_navigation') %>
-    
     <section class="main_content" id="mainContent">
         <%- include('partials/topbar') %>
         <h1>Venue map</h1>
+        <section id="map" style="height:800px;"></section>
+        <form id="annotationForm" method="POST" action="/manager/map/annotate">
+            <input type="hidden" name="annotations" id="annotationsInput">
+            <button id="saveBtn" type="submit">Save Annotations</button>
+        </form>
     </section>
 
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
     <script src="../scripts/sidebar.js"></script>
-</body>
+    <script>
+        var savedAnnotations = <%- JSON.stringify(annotations) %>;
+    </script>
+    <script>
+        var map = L.map('map', { crs: L.CRS.Simple, minZoom: -1.4, maxZoom: 2 });
+        var w = 2000, h = 1500;
+        var bounds = [[0, 0], [h, w]];
+        map.fitBounds(bounds);
+        map.setMaxBounds(bounds);
 
+
+        // Load floor plan
+        <% if (event && event.venue && event.venue.map) { %>
+            L.imageOverlay("<%= event.venue.map.url %>", bounds).addTo(map);
+        <% } else { %>
+            L.imageOverlay("", bounds).addTo(map);
+        <% } %>
+
+        map.fitBounds(bounds);
+
+        var drawnItems = new L.FeatureGroup().addTo(map);
+
+        // Draw controls
+        var drawControl = new L.Control.Draw({
+            edit: { featureGroup: drawnItems, remove: true },
+            draw: { polygon: false, polyline: false, rectangle: false, circlemarker: false, circle: true, marker: true }
+        });
+        map.addControl(drawControl);
+
+        // Add drawn shapes to feature group
+        map.on(L.Draw.Event.CREATED, function(e) {
+            drawnItems.addLayer(e.layer);
+        });
+
+        
+
+        document.getElementById('annotationForm').addEventListener('submit', function(e) {
+            var data = [];
+            drawnItems.eachLayer(function(layer) {
+                if (layer instanceof L.Marker) {
+                    data.push({ type: 'marker', coords: layer.getLatLng() });
+                } else if (layer instanceof L.Circle) {
+                    data.push({ type: 'circle', center: layer.getLatLng(), radius: layer.getRadius() });
+                }
+            });
+
+            document.getElementById('annotationsInput').value = JSON.stringify(data);
+        });
+
+        // Add saved annotations to the map
+        savedAnnotations.forEach(a => {
+            if (a.type === 'marker' && a.coords) {
+                const marker = L.marker([a.coords.lat, a.coords.lng]);
+                drawnItems.addLayer(marker);
+            } else if (a.type === 'circle' && a.center && a.radius) {
+                const circle = L.circle([a.center.lat, a.center.lng], { radius: a.radius });
+                drawnItems.addLayer(circle);
+            }
+        });
+
+    </script>
+</body>
 </html>
