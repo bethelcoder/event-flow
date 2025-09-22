@@ -30,15 +30,15 @@
             <section class="top">
                 <section class="title">
                     <p>Title</p>
-                    <input type="text" placeholder="Announcement title">                
+                    <input type="text" name="title" placeholder="Announcement title" required>                
                 </section>
                 <section class="Priority">
                     <p>Priority</p>
-                    <select>
-                        <option>Low</option>
-                        <option>Medium</option>
-                        <option>High</option>
-                        <option>Urgent</option>
+                    <select name="priority" required>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                        <option value="urgent">Urgent</option>
                     </select>               
                 </section>
             </section>
@@ -46,18 +46,18 @@
             <section class="middle">
                 <section class="Audience">
                     <p>Audience</p>
-                    <select>
-                        <option>All (Staff & Guests)</option>
-                        <option>Staff only</option>
-                        <option>Guests only</option>
+                    <select name="audience" required>
+                        <option value="all">All (Staff & Guests)</option>
+                        <option value="staff">Staff only</option>
+                        <option value="guests">Guests only</option>
                     </select>               
                 </section>
                 <section class="Message">
                     <p>Message</p>
-                    <textarea rows="2" placeholder="Your announcement message.."></textarea>              
+                    <textarea rows="2" name="message" placeholder="Your announcement message.." required></textarea>              
                 </section>
             </section>
-            <section class="bottom">
+            <!-- <section class="bottom">
                 <p>Delivery Channels</p>
                 <section class="checkbox">
                     <input type="checkbox">
@@ -71,14 +71,14 @@
                     <input type="checkbox">
                     <p>Site Push: Site notification</p>
                 </section>
-            </section>
-            <button>
+            </section> -->
+            <button type="submit">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="icon2">
                 <path d="M3.105 2.288a.75.75 0 0 0-.826.95l1.414 4.926A1.5 1.5 0 0 0 5.135 9.25h6.115a.75.75 0 0 1 0 1.5H5.135a1.5 1.5 0 0 0-1.442 1.086l-1.414 4.926a.75.75 0 0 0 .826.95 28.897 28.897 0 0 0 15.293-7.155.75.75 0 0 0 0-1.114A28.897 28.897 0 0 0 3.105 2.288Z" />
                 </svg>
                 Send Now
             </button>
-            <button>
+            <button type="submit">
                 Save Draft
             </button>
             

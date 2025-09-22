@@ -45,6 +45,7 @@ const http = require('http');
 const server = http.createServer(app);
 const socketio = require('socket.io');
 const io = socketio(server);
+app.set('io', io);
 
 
 io.on('connection', function(socket){
@@ -78,7 +79,10 @@ io.on('connection', function(socket){
             console.log('cannor save',error);
         }
     });
-
+    socket.on('joinUserRoom', function(userId) {
+    socket.join(userId);
+    console.log(`User with joined room`);
+    });
     socket.on('managerJoin',function(managerID){
         socket.join(managerID);
         console.log("manager joined the room");

@@ -10,6 +10,7 @@ const { registerGuest } = require('../controllers/guestsController');
 const { findOne } = require('../models/Guest');
 const chat = require('../models/chat');
 const Annotation = require('../models/Annotation');
+const announcementController = require('../controllers/Announcement');
 
 const { cloudinary, VenueUpload } = require('../config/cloudinary');
 
@@ -365,6 +366,17 @@ router.post('/select-venue',authenticateJWT,async(req,res)=>{
    res.status(500).json({ message: 'Server error' });
  }
 });
+
+
+
+
+
+
+// Create and publish directly
+router.post('/publish', announcementController.createAndPublish);
+
+// Get all announcements
+router.get('/', announcementController.getAllAnnouncements);
 
 
 

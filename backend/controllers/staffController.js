@@ -2,6 +2,7 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const Chat = require('../models/chat');
+const Event = require('../models/Event');
 
 
 const staffRegpage = async (req, res) => {
@@ -60,6 +61,21 @@ const staffRegistration = async (req, res) => {
     let staffUser = await User.findById({_id: userId});
     if (!staffUser) {
       return res.status(400).json({ error: "Staff not found" });
+    }
+    //add staff to event staff list
+    const event = await Event.findOne({ organizer: { id: manager._id } });
+    if (!event) {
+      return res.status(404).json({ error: "No event found for this manager" });
+    }
+    const alreadyStaff = event.staff.some(
+      (s) => s.staffId.toString() === staffUser._id.toString()
+    );
+    if (!alreadyStaff) {
+      event.staff.push({
+        staffId: staffUser._id,
+        role: "staff",
+      });
+      await event.save();
     }
 
     // 4. Add staff to manager’s chat
