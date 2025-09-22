@@ -63,7 +63,8 @@ const staffRegistration = async (req, res) => {
       return res.status(400).json({ error: "Staff not found" });
     }
     //add staff to event staff list
-    const event = await Event.findOne({ organizer: { id: manager._id } });
+   const event = await Event.findOne({ "organizer.id": managerId });
+
     if (!event) {
       return res.status(404).json({ error: "No event found for this manager" });
     }
