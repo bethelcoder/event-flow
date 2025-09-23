@@ -31,7 +31,7 @@ socket.on('message',function(message){
     inbox.scrollTop = inbox.scrollHeight;
 
 });
-
+socket.emit('joinUserRoom', clientData.userId);
 //join the manager room
 socket.emit('staffJoin',clientData.roomId);
 
