@@ -218,7 +218,11 @@ router.post('/map/annotate', authenticateJWT, async (req, res) => {
 router.get('/announcements', authenticateJWT, async (req, res) => {
   const user = await User.findById(req.user.id);
   const event = await Event.findOne({ "organizer.id": user._id });
-  const announcements = await Announcement.find({ eventId: event._id }).sort({ createdAt: -1 });
+  const announcements = [];
+  if(event){
+     announcements = await Announcement.find({ eventId: event._id }).sort({ createdAt: -1 });
+  }
+
   const announcementCount = announcements.length;
 
   res.render('manager_announcement', { user, event, announcements, announcementCount });
