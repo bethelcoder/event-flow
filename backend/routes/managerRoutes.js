@@ -10,7 +10,7 @@ const { registerGuest } = require('../controllers/guestsController');
 const { findOne } = require('../models/Guest');
 const chat = require('../models/chat');
 const Annotation = require('../models/Annotation');
-
+const { managerHome, managerChat } = require('../controllers/managerController');
 const { cloudinary, VenueUpload } = require('../config/cloudinary');
 
 
@@ -72,87 +72,22 @@ router.post('/venue/upload',authenticateJWT,VenueUpload.fields([{ name: 'venueIm
 
 
 // Home page
-router.get('/home', authenticateJWT, async (req, res) => {
-  try {
-    const user = await User.findById(req.user.id);
-
-    const manager = await User.findById(req.user.id, { displayName: 1 });
-   
-    const event = await Event.findOne({ 'organizer.id': user._id });
-
-    const chatDoc = await chat.findOne(
-      { managerId: req.user.id },
-      { members: 1, _id: 0 }
-    );
-
-    let membersList = [];
-    if (chatDoc && chatDoc.members && chatDoc.members.length > 0) {
-
-      const memberIds = chatDoc.members.map(m => m.userId);
+router.get('/home', authenticateJWT, managerHome);
 
 
-      membersList = await User.find(
-        { _id: { $in: memberIds } },
-        { displayName: 1, role: 1 }
-      );
-    }
-
-    res.render('manager_Home', {
-      user: req.user,
-      event,
-      name: manager.displayName,
-      membersList
-    });
-
-  } catch (error) {
-    console.error('Error loading manager home:', error);
-    res.status(500).send('Server error');
-  }
-});
-
-
-
-router.get('/chat', authenticateJWT, async (req, res) => {
-  try {
-    const user = await User.findById(req.user.id);
-
-
-    const chatDoc = await chat.findOne(
-      { managerId: req.user.id },
-      { messages: 1, _id: 0 }
-    );
-
-    let messages = [];
-    let senders = [];
-
-    if (chatDoc && chatDoc.messages && chatDoc.messages.length > 0) {
-      messages = chatDoc.messages;
-
-
-      const senderIds = messages.map(m => m.senderId?.toString()).filter(Boolean);
-      const uniqueSenderIds = [...new Set(senderIds)];
-
-      senders = await User.find({ _id: { $in: uniqueSenderIds } });
-    }
-
-    res.render('manager_chat', { user, messages, senders });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Server error');
-  }
-});
+router.get('/chat', authenticateJWT, managerChat);
   
 
-router.get('/chat',authenticateJWT,(req,res)=>{
+router.get('/chat', authenticateJWT, (req,res)=>{
     res.render('manager_chat', { user: req.user });
 });
 
-router.get('/venue-selection',authenticateJWT,async(req,res)=>{
+router.get('/venue-selection', authenticateJWT, async(req,res)=>{
   const venues = await Venue.find();
   res.render('manager_venue', { user: req.user, venues });
 });
   
-router.get('/guest-invite',authenticateJWT, async (req,res)=>{
+router.get('/guest-invite', authenticateJWT, async (req,res)=>{
     const manager = await User.findOne({ _id: req.user.id });
     const managerName = manager.displayName;
     res.render('manager_guests', { user: req.user, managerName });    
