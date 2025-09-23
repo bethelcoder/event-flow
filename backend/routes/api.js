@@ -4,6 +4,7 @@ const router = express.Router();
 const apiKeyAuth = require('../middleware/apiKeyAuth');
 
 const User = require('../models/User'); // for staff
+const Venue = require('../models/Venue');
 const Event = require('../models/Event');
 const Guest = require('../models/Guest');
 
@@ -101,6 +102,17 @@ const Guest = require('../models/Guest');
  * @desc Get all events
  * @access API Key
  */
+
+router.get('/venues', apiKeyAuth, async (req, res) => {
+  try {
+    const venues = await Venue.find();
+    res.json({ success: true, data: venues });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+});
+
 router.get('/events', apiKeyAuth, async (req, res) => {
   try {
     const events = await Event.find();
