@@ -10,7 +10,11 @@ const { registerGuest } = require('../controllers/guestsController');
 const { findOne } = require('../models/Guest');
 const chat = require('../models/chat');
 const Annotation = require('../models/Annotation');
+const announcementController = require('../controllers/Announcement');
+
 const { cloudinary, VenueUpload } = require('../config/cloudinary');
+const Announcement = require('../models/Announcement');
+
 
 
 router.post('/venue/upload',authenticateJWT,VenueUpload.fields([{ name: 'venueImage', maxCount: 1 },{ name: 'mapImage', maxCount: 1 }]),async (req, res) => {
@@ -211,8 +215,13 @@ router.post('/map/annotate', authenticateJWT, async (req, res) => {
     }
 });
 
-router.get('/announcements', authenticateJWT, (req, res) => {
-  res.render('manager_announcement', { user: req.user });
+router.get('/announcements', authenticateJWT, async (req, res) => {
+  const user = await User.findById(req.user.id);
+  const event = await Event.findOne({ "organizer.id": user._id });
+  const announcements = await Announcement.find({ eventId: event._id }).sort({ createdAt: -1 });
+  const announcementCount = announcements.length;
+
+  res.render('manager_announcement', { user, event, announcements, announcementCount });
 });
 
 
@@ -365,6 +374,11 @@ router.post('/select-venue',authenticateJWT,async(req,res)=>{
 });
 
 
+// Create and publish directly
+router.post('/publish', announcementController.createAndPublish);
+
+// Get all announcements
+router.get('/', announcementController.getAllAnnouncements);
 
 
 module.exports = router;

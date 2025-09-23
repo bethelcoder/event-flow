@@ -45,12 +45,18 @@ function redirectIfAuthenticated(req, res, next) {
     return next(); 
   }
 
-  jwt.verify(token, JWT_SECRET, (err) => {
+  jwt.verify(token, JWT_SECRET, (err,decoded) => {
     if (err) {
       return next(); 
     }
-    
-    return res.redirect('/dashboard');//We can't send authenticated users back to login, send them to dashboard rather
+    ;
+   if(decoded.role=="manager"){
+    return res.redirect("/manager/home");
+   }
+   else if(decoded.role=="staff"){
+    return res.redirect("/dashboard");
+   }
+  //We can't send authenticated users back to login, send them to dashboard rather
   });
 }
 

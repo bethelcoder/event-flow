@@ -37,6 +37,7 @@ app.use('/manager', managerRoutes);
 app.use('/staff', staffRoutes);
 
 
+
 // Socket IO Initialisation
 
 const chat = require('./backend/models/chat.js');
@@ -44,6 +45,7 @@ const http = require('http');
 const server = http.createServer(app);
 const socketio = require('socket.io');
 const io = socketio(server);
+app.set('io', io);
 
 
 io.on('connection', function(socket){
@@ -77,7 +79,10 @@ io.on('connection', function(socket){
             console.log('cannor save',error);
         }
     });
-
+    socket.on('joinUserRoom', function(managerID) {
+        socket.join(managerID);
+        console.log(`User with ID ${managerID} joined room`);
+    });
     socket.on('managerJoin',function(managerID){
         socket.join(managerID);
         console.log("manager joined the room");

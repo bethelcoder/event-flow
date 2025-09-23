@@ -45,7 +45,7 @@ const EventSchema = new mongoose.Schema({
 
   staff: [
     {
-      staffId: { type: mongoose.Schema.Types.ObjectId, ref: 'Staff' },
+      staffId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
       role: String,
       taskStatus: String
     }
@@ -58,6 +58,10 @@ const EventSchema = new mongoose.Schema({
     image: {
       url: String,
       public_id: String
+    },
+    map: {
+        url: String,
+        public_id: String
     }
   },
 

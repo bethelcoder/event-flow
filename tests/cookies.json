@@ -1,0 +1,14 @@
+[
+  {
+    "name": "connect.sid",
+    "value": "s%3AfakeSessionId1234567890.randomMockSignatureValue",
+    "domain": "localhost",
+    "path": "/",
+    "httpOnly": true,
+    "secure": false
+  }
+]
+
+
+
+

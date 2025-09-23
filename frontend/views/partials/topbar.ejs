@@ -8,5 +8,23 @@
       <h3 class="heading">EventFlow</h3>
     </section>
   </section>
+  <section id="announcement-popup" class="announcement-container"></section>
   <h4 class="role">Manager</h4>
 </section>
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+  const socket = io();
+
+  socket.on('newAnnouncement', (a) => {
+    const div = document.createElement('div');
+    div.className = `announcement ${a.priority}`;
+    div.innerHTML = `<strong>${a.title}</strong>: ${a.message}`;
+
+    const container = document.getElementById('announcement-popup');
+    container.appendChild(div);
+
+    // auto-remove after 30s
+    setTimeout(() => div.remove(), 30000);
+  });
+</script>
