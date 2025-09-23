@@ -6,14 +6,63 @@ const User = require('../models/User');
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET;
 
+/**
+ *  * @swagger
+ * tags:
+ *   name: Auth
+ *   description: Authentication endpoints including Google OAuth login
+ */
 
-// router.get(
-//   '/google', (req, res, next) => {
-//     if (req.query.managerId) req.session.managerId = req.query.state;
-//     next();
-//   },
-//   passport.authenticate('google', { scope: ['profile', 'email'], state:  })
-// );
+/**
+ * @swagger
+ * /auth/google:
+ *   get:
+ *     summary: Initiate Google OAuth login
+ *     tags: [Auth]
+ *     parameters:
+ *       - in: query
+ *         name: state
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: Manager ID to link staff registration
+ *     responses:
+ *       302:
+ *         description: Redirects to Google OAuth consent page
+ */
+
+/**
+ * @swagger
+ * /auth/google/callback:
+ *   get:
+ *     summary: Google OAuth callback
+ *     tags: [Auth]
+ *     parameters:
+ *       - in: query
+ *         name: state
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: Manager ID for linking staff registration
+ *     responses:
+ *       302:
+ *         description: Redirects user after successful login
+ *         content:
+ *           application/json:
+ *             example:
+ *               token: "jwt_token_here"
+ *               role: "staff | manager | undefined"
+ *       401:
+ *         description: Unauthorized (Google auth failed)
+ *       500:
+ *         description: Server error
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Error in Google callback"
+ */
+
+
 router.get('/google', (req, res, next) => {
   const managerId = req.query.state; // or req.query
   passport.authenticate('google', { 

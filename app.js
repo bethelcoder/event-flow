@@ -11,9 +11,11 @@ const authRoutes = require('./backend/routes/auth');
 const indexRoutes = require('./backend/routes/index');
 const guestRoutes = require('./backend/routes/guestsRoutes.js');
 const checkInRoutes = require('./backend/routes/checkinRoutes.js');
-
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpec = require("./backend/services/swagger.js");
 const managerRoutes = require('./backend/routes/managerRoutes.js');
 const staffRoutes = require('./backend/routes/staffRoutes.js');
+const api = require('./backend/routes/api.js');
 const app = express();
 
 app.use(sessionMiddleware);
@@ -36,7 +38,10 @@ app.use('/checkin', checkInRoutes);
 app.use('/manager', managerRoutes);
 app.use('/staff', staffRoutes);
 
-
+//Expose API
+app.use('/api', api);
+//Swagger documentation route
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Socket IO Initialisation
 
@@ -95,4 +100,7 @@ io.on('connection', function(socket){
 
 
 const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+server.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+    console.log(`Swagger docs available at http://localhost:${PORT}/api-docs`);
+});
