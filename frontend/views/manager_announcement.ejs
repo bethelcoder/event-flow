@@ -25,7 +25,7 @@
          <button class="btn_link" onclick="openPage('form',this)">create Announcement</button>
          <button class="btn_link" onclick="openPage('history',this)">History</button>
         <form id="form" class="announce" method="post">
-             <input type="hidden" name="eventId" value="<%= event._id %>">
+             <input type="hidden" name="eventId" value="<%= event ? event._id : '' %>">
             <h4>New Announcement</h4>
             <section class="top">
                 <section class="title">
@@ -37,8 +37,7 @@
                     <select name="priority" required>
                         <option value="low">Low</option>
                         <option value="medium">Medium</option>
-                        <option value="high">High</option>
-                        <option value="urgent">Urgent</option>
+                        <option value="high">High</option>  
                     </select>               
                 </section>
             </section>
