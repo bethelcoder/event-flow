@@ -1,4 +1,4 @@
-const socket = io();
+// const socket = io();
 
 const form = document.getElementById('form');
 const input = document.getElementById('input');
@@ -31,6 +31,7 @@ socket.on('message',function(message){
     inbox.scrollTop = inbox.scrollHeight;
 
 });
+socket.emit('joinUserRoom', clientData.userId);
 
 // join the room
 socket.emit('managerJoin',clientData.userId);

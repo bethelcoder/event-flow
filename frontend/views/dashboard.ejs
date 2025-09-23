@@ -46,9 +46,11 @@
 
     </div>
 
-    <div class="beta-center">
+    <!-- <div class="beta-center">
       STAFF PORTAL
-    </div>
+    </div> -->
+      <section id="announcement-popup" class="announcement-container"></section>
+
 
     <div class="beta-right">
       <form action="/logout" method="get" class="logout-form">
@@ -113,6 +115,22 @@
       alpha.classList.remove('active');
       menuToggle.setAttribute('aria-expanded', 'false');
     }
+  });
+</script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  // const socket = io();
+
+  socket.on('newAnnouncement', (a) => {
+    const div = document.createElement('div');
+    div.className = `announcement ${a.priority}`;
+    div.innerHTML = `<strong>${a.title}</strong>: ${a.message}`;
+
+    const container = document.getElementById('announcement-popup');
+    container.appendChild(div);
+
+    // auto-remove after 30s
+    setTimeout(() => div.remove(), 30000);
   });
 </script>
 

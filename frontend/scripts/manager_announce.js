@@ -15,7 +15,28 @@ function openPage(pageId, button) {
     }
 }
 
-
 document.addEventListener('DOMContentLoaded', () => {
     openPage('form'); 
 });
+document.getElementById('form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  const data = Object.fromEntries(new FormData(e.target).entries());
+
+  const res = await fetch('/manager/publish', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
+
+  const result = await res.json();
+  if(result.success){
+    alert('Announcement sent!');
+    e.target.reset();
+  } else {
+    alert('Failed to send announcement');
+  }
+});
+
+// const socket = io();
+socket.emit('joinUserRoom', user._id); 
