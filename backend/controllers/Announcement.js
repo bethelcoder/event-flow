@@ -38,8 +38,7 @@ exports.createAndPublish = async (req, res) => {
 // Clean out null/undefined
 targetUserIds = targetUserIds.filter(Boolean);
     const io = req.app.get('io');
-    
-    io.to(user.id).emit('newAnnouncement', announcement);
+    io.to(user.id).emit('newAnnouncementManager', announcement);
     targetUserIds.forEach(userId => {
       io.to(userId).emit('newAnnouncement', announcement);
     });
