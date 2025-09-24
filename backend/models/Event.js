@@ -66,7 +66,7 @@ const EventSchema = new mongoose.Schema({
   },
 
   map: {
-    url: String,
+
     annotations: [
       {
         label: String,
