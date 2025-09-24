@@ -2,15 +2,18 @@ const Guest = require('../models/Guest');
 const QRCode = require('qrcode');
 const { encryptData, generateRefNumber } = require('../services/qrService');
 const { sendGuestQRCode } = require('../services/emailService');
+const Event = require('../models/Event');
 
 
 exports.registerGuest = async (req, res) => {
   try {
-    const { email, fullName, eventId } = req.body;
+    const { email, fullName} = req.body;
 
+    const managerId = req.body.manager.id;
+    const event = await Event.findOne({ 'organizer.id': managerId },{ _id: 1 }).lean();
+    const eventId = event?._id;
     // Generate reference number
     const refNumber = generateRefNumber("Event Flow", "Techno AI Conference - 2025 ");
-
     // Create encrypted QR payload
     const payload = { email, eventId, refNumber };
     const encryptedQR = encryptData(payload);//info encrypted by the qrCode

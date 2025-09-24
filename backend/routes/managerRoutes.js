@@ -608,7 +608,7 @@ router.get('/venue-selection', authenticateJWT, async(req,res)=>{
 router.get('/guest-invite', authenticateJWT, async (req,res)=>{
     const manager = await User.findOne({ _id: req.user.id });
     const managerName = manager.displayName;
-    res.render('manager_guests', { user: req.user, managerName });    
+    res.render('manager_guests', { user: req.user, managerName});    
 });
 
 router.post("/send-guest-invite", registerGuest);
@@ -658,7 +658,6 @@ router.post('/map/annotate', authenticateJWT, async (req, res) => {
         await Annotation.deleteMany({ userId });
 
         const annotatedData = annotations.map(a => ({ ...a, userId }));
-
         await Annotation.insertMany(annotatedData);
         res.redirect('/manager/map');
     } catch (err) {
@@ -827,10 +826,6 @@ router.post('/select-venue',authenticateJWT,async(req,res)=>{
    res.status(500).json({ message: 'Server error' });
  }
 });
-
-
-
-
 
 
 // Create and publish directly
