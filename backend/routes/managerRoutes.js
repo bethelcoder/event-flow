@@ -380,13 +380,12 @@ router.post('/select-venue',authenticateJWT,async(req,res)=>{
 
 
 
-
+router.delete('/announcement/:id', authenticateJWT,announcementController.DeleteAnnouncement);
 
 // Create and publish directly
-router.post('/publish', announcementController.createAndPublish);
+router.post('/publish', authenticateJWT,announcementController.createAndPublish);
 
-// Get all announcements
-router.get('/', announcementController.getAllAnnouncements);
+
 
 
 module.exports = router;

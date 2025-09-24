@@ -222,7 +222,7 @@ body {
 /* Priority Styles */
 .announcement.high { border-left-color: #ff3b3b; }
 .announcement.medium { border-left-color: #ff8800fb; }
-.announcement.low { border-left-color: #4f46e5; }
+.announcement.low { border-left-color: #153291; }
 
 .announcement strong {
     font-size: 1.15rem;
