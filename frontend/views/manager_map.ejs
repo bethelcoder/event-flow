@@ -8,6 +8,10 @@
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css"/>
+    <link rel="stylesheet" href="../styles/map.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css"/>
     <title>Map</title>
 </head>
 <body>
@@ -20,8 +24,16 @@
             <input type="hidden" name="annotations" id="annotationsInput">
             <button id="saveBtn" type="submit">Save Annotations</button>
         </form>
+        <section id="map" style="height:800px;"></section>
+        <form id="annotationForm" method="POST" action="/manager/map/annotate">
+            <input type="hidden" name="annotations" id="annotationsInput">
+            <button id="saveBtn" type="submit">Save Annotations</button>
+        </form>
     </section>
 
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
@@ -60,6 +72,7 @@
             drawnItems.addLayer(e.layer);
         });
 
+        
 
         document.getElementById('annotationForm').addEventListener('submit', function(e) {
             var data = [];
