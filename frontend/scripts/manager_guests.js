@@ -41,11 +41,13 @@ inviteBtn.addEventListener('click', async () => {
 
     errorSection.style.display = 'none';
 
-    const managerInput = document.getElementById("manager-id");
+    const managerInput = document.getElementById("manager-details");
+    const eventInput = document.getElementById("eventInput");
     const managerDetails = {
         id: managerInput.value,
-        name: managerInput.dataset.name
+        name: managerInput.dataset.name//manager name
     };
+  
 
     try {
         const res = await fetch("/manager/send-guest-invite", {
@@ -53,8 +55,8 @@ inviteBtn.addEventListener('click', async () => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 email: email,
-                fullName: name,
-                manager: managerDetails
+                guestName: name,
+                manager: managerDetails,
             })
         });
 

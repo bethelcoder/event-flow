@@ -1,0 +1,65 @@
+
+    <!-- Notification Modal -->
+    <div class="notification-overlay" id="notificationOverlay">
+        <div class="notification-modal <%= status %>" id="notificationModal">
+            <!-- Close Button -->
+            <button class="close-btn" id="closeBtn" aria-label="Close notification">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            
+            <!-- Icon -->
+            <div class="notification-icon">
+                <% if (status === 'success') { %>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                <% } else if (status === 'error') { %>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M10.29 3.86L1.82 18A2 2 0 0 0 3.24 21H20.76A2 2 0 0 0 22.18 18L13.71 3.86A2 2 0 0 0 10.29 3.86ZM12 9V13M12 17H12.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                <% } else if (status === 'warning') { %>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 9V13M12 17H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                <% } else { %>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M13 16H12V12H11M12 8H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                <% } %>
+            </div>
+            
+            <!-- Content -->
+            <div class="notification-content">
+                <h3 class="notification-title">
+                    <% if (status === 'success') { %>
+                        Success!
+                    <% } else if (status === 'error') { %>
+                        Error!
+                    <% } else if (status === 'warning') { %>
+                        Warning!
+                    <% } else { %>
+                        Information
+                    <% } %>
+                </h3>
+                <p class="notification-message"><%= message %></p>
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/scripts/error-success-state.js"></script>
+    <script>
+        // Pass server data to JavaScript
+        window.notificationData = {
+            status: '<%= status %>',
+            message: '<%= message %>',
+            duration: <%= typeof duration !== 'undefined' ? duration : 5000 %>,
+            autoClose: <%= typeof autoClose !== 'undefined' ? autoClose : true %>
+        };
+    </script>

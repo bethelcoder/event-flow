@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles/guest.css">
+    <link rel="stylesheet" href="/styles/guest.css">
     <title>Document</title>
 </head>
 <body>
@@ -147,8 +147,9 @@
             <h4>Venue Map & Direction</h4>
         </span>
         <section class="map">
-
+            <img src="<%=event.venue.map.url%>">
         </section>
+        
     </section>
 
     <section class="Report" id="report">
@@ -195,6 +196,7 @@
         </form>
     </section>
     
-    <script src="../scripts/guest.js"></script>
+    <script src="/scripts/guest.js"></script>
+    
 </body>
 </html>
