@@ -3,6 +3,7 @@ const QRCode = require('qrcode');
 const { encryptData, generateRefNumber } = require('../services/qrService');
 const { sendGuestQRCode } = require('../services/emailService');
 const Event = require('../models/Event');
+const Annotation = require('../models/Annotation');
 
 exports.registerGuest = async (req, res) => {
   try {
@@ -10,7 +11,8 @@ exports.registerGuest = async (req, res) => {
 
     const managerId = req.body.manager.id;
     const event = await Event.findOne({ 'organizer.id': managerId },{ _id: 1 }).lean();
-    const eventId = event?._id;
+    if(event){
+          const eventId = event?._id;
     // Generate reference number
     const refNumber = generateRefNumber("Event Flow", "Techno AI Conference - 2025 ");
 
@@ -34,12 +36,15 @@ exports.registerGuest = async (req, res) => {
 
     if(!guest) return res.json({"error": "There was a problem while registering the guest"});
     const guestId = guest._id;
-    console.log(guestId);
 
     // 📩 Send email with QR code
     await sendGuestQRCode(email, guestName, refNumber, qrCodeUrl, guestId);
 
     res.redirect("/manager/home");
+    }
+    else{
+      res.status(400).json({ message: "create event first"});
+    }
   } catch (err) {
     console.error(err);
     res.status(500).json({ success: false, error: err.message });
@@ -47,11 +52,19 @@ exports.registerGuest = async (req, res) => {
 };
 
 exports.guestAccess = async (req, res) => {
-  const { guestId } = req.params;
-
-  // If you used MongoDB ObjectId
-  const guest = await Guest.findById(guestId).lean();
-  if (!guest) return res.status(404).send('Guest not found.');
-  if(!guest.checkedIn) return res.render("guest-error.ejs");
-  res.render("guest.ejs");
+  try{
+    const { guestId } = req.params;
+    // If you used MongoDB ObjectId
+    const guest = await Guest.findById(guestId).lean();
+    const event = await Event.findOne({ '_id': guest.eventId});
+    const managerId = event.organizer.id.toString();
+    const annotations = await Annotation.find({userId: managerId});
+    if (!guest) return res.status(404).send('Guest not found.');
+    if(!guest.checkedIn) return res.render("guest-error.ejs");
+    res.render("guest.ejs",{event,annotations});
+  }
+  catch(err){
+    console.error(err);
+    res.status(500).json({ success: false, error: err.message });
+  }
 }
