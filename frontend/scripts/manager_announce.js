@@ -39,7 +39,7 @@ document.getElementById('form').addEventListener('submit', async (e) => {
 
 // const socket = io();
 socket.emit('joinUserRoom', user._id); 
-socket.on('newAnnouncement', function (announcement) {
+socket.on('newAnnouncementManager', function (announcement) {
     const count= document.getElementById('Count');
     if(count){
         let currentCount = parseInt(count.textContent);

@@ -46,9 +46,9 @@
 
     </div>
 
-    <!-- <div class="beta-center">
+    <div class="beta-center">
       STAFF PORTAL
-    </div> -->
+    </div>
       <section id="announcement-popup" class="announcement-container"></section>
 
 
@@ -122,6 +122,7 @@
   // const socket = io();
 
   socket.on('newAnnouncement', (a) => {
+    console.log('Received newAnnouncement:', a);
     const div = document.createElement('div');
     div.className = `announcement ${a.priority}`;
     div.innerHTML = `<strong>${a.title}</strong>: ${a.message}`;
