@@ -293,8 +293,20 @@ form.announce button:last-of-type:hover {
     font-weight: 600;
     padding: 2px 8px;
     border-radius: 10px;
-    background: #e74c3c;
     color: #fff;
+}
+
+
+.priority-high {
+    background: #ff3b3b; 
+}
+
+.priority-medium {
+    background: #ff8800fb; 
+}
+
+.priority-low {
+    background: #153291;
 }
 
 .description {
