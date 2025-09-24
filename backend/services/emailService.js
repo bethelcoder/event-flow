@@ -1,5 +1,6 @@
 // services/emailService.js
 const nodemailer = require("nodemailer");
+require('dotenv').config();
 
 const transporter = nodemailer.createTransport({
   service: 'gmail', // do not use SSL directly
@@ -19,16 +20,19 @@ const transporter = nodemailer.createTransport({
  * @param {string} refNumber - Reference number
  * @param {string} qrCodeUrl - Base64 QR code string
  */
-const sendGuestQRCode = async (to, name, refNumber, qrCodeUrl) => {
+const sendGuestQRCode = async (to, name, refNumber, qrCodeUrl, guestId) => {
   const html = `
     <h2>🎉 Welcome to the Event!</h2>
     <p>Hi <b>${name}</b>,</p>
-    <p>Thank you for registering for our event.</p>
+    <p>You have been invited to .</p>
     <p><b>Your Reference Number:</b> ${refNumber}</p>
     <p>Please present the QR code below at the entrance:</p>
     <br/>
+    <p>Below is a your link to access the above event management platfrom:</p>
+    <p>${process.env.WEBSITE_URL}/guests/access/${guestId}</p>
     <img src="cid:qrcode" alt="QR Code" />
     <br/><br/>
+    
     <p>We look forward to seeing you!</p>
   `;
 

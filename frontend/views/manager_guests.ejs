@@ -9,7 +9,7 @@
 </head>
 <body>
     <%- include('partials/manager_navigation') %>
-    
+
     <section class="main_content" id="mainContent">
         <%- include('partials/topbar') %>
         <section class="top">
@@ -45,11 +45,13 @@
                         <input type="email" placeholder="Email address" id="Guest_email"/>
                         <input 
                             type="hidden" 
-                            id="manager-id" 
+                            id="manager-details" 
                             value="<%= user.id %>"
                             name = "managerId"
                             data-name="<%= managerName %>" 
                         />
+                       
+
                         <h3 id="errorSection">etqrrg</h3>
                         <button id="sendInvite">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
@@ -121,6 +123,7 @@
             </section>
     </section>
 
+    
     <script src="../scripts/sidebar.js"></script>
     <script src="../scripts/manager_guests.js"></script>
 </body>
