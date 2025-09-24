@@ -828,11 +828,15 @@ router.post('/select-venue',authenticateJWT,async(req,res)=>{
 });
 
 
-// Create and publish directly
-router.post('/publish', announcementController.createAndPublish);
 
-// Get all announcements
-router.get('/', announcementController.getAllAnnouncements);
+
+
+router.delete('/announcement/:id', authenticateJWT,announcementController.DeleteAnnouncement);
+
+// Create and publish directly
+router.post('/publish', authenticateJWT,announcementController.createAndPublish);
+
+
 
 
 module.exports = router;

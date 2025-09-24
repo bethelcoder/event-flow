@@ -1,4 +1,5 @@
 const Announcement = require('../models/Announcement');
+const User = require('../models/User');
 
 
 
@@ -18,8 +19,8 @@ exports.createAndPublish = async (req, res) => {
       status: 'published',
       publishedAt: new Date()
     });
-  
-   
+
+    const user= await User.findById(req.user.id);
     const event = await Event.findById(eventId);
     let targetUserIds = [];
     
@@ -37,7 +38,7 @@ exports.createAndPublish = async (req, res) => {
 // Clean out null/undefined
 targetUserIds = targetUserIds.filter(Boolean);
     const io = req.app.get('io');
-    
+    io.to(user.id).emit('newAnnouncementManager', announcement);
     targetUserIds.forEach(userId => {
       io.to(userId).emit('newAnnouncement', announcement);
     });
@@ -49,6 +50,19 @@ targetUserIds = targetUserIds.filter(Boolean);
   }
 };
 
+exports.DeleteAnnouncement =async(req,res)=>{
+  try{
+    const user= await User.findById(req.user.id);
+    const io = req.app.get('io');
+    const {id}=req.params;
+    await Announcement.findByIdAndDelete(id);
+    io.to(user.id).emit('announcementDeleted', id);
+    res.status(204).send();
+  }catch(err){
+    console.error(err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+};
 
 // Get all announcements (draft + published)
 exports.getAllAnnouncements = async (req, res) => {
