@@ -160,12 +160,13 @@ body {
 }
 
 .alpha.active ~ .omega { margin-left: var(--sidebar-w); }
-
+/*
 .omega-scroll {
   padding: 20px;
   max-height: calc(100vh - var(--nav-h));
   overflow-y: auto;
 }
+  */
 .logo {
   display: flex;
   align-items: center;

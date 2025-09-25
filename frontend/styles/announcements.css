@@ -9,6 +9,8 @@
   max-width: 1300px;
   margin: 0 auto;
   box-sizing: border-box;
+    overflow: visible; /* ensure it doesn’t scroll on its own */
+  height: auto;      /* let omega handle the height */
 }
 
 /* Section Headers */
