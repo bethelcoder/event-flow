@@ -6,7 +6,7 @@ const Event = require('../models/Event');
 
 exports.registerGuest = async (req, res) => {
   try {
-    const { email, guestName} = req.body;
+    const { email, guestName } = req.body;
 
     const managerId = req.body.manager.id;
     const event = await Event.findOne({ 'organizer.id': managerId },{ _id: 1 }).lean();
@@ -21,7 +21,7 @@ exports.registerGuest = async (req, res) => {
     // Generate QR image
     const qrCodeUrl = await QRCode.toDataURL(encryptedQR);
     const existingGuest = await Guest.findOne({ email });
-    if(existingGuest) return res.status(400).json({ message: "Guest already exists"});
+    if(existingGuest) return res.status(400).json({ message: "Guest already exists" });
     const guest = await Guest.create({
       email,
       fullName: guestName,
@@ -32,7 +32,7 @@ exports.registerGuest = async (req, res) => {
     });
     await guest.save();
 
-    if(!guest) return res.json({"error": "There was a problem while registering the guest"});
+    if(!guest) return res.json({ "error": "There was a problem while registering the guest" });
     const guestId = guest._id;
     console.log(guestId);
 
