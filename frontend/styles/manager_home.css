@@ -423,7 +423,7 @@ progress::-moz-progress-bar {
     }
 
     .member {
-        flex-direction: column;
+        flex-direction: row;
         align-items: flex-start;
         gap: 5px;
     }

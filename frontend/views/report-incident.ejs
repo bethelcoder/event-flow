@@ -1,134 +1,117 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Report Incident</title>
-  <link rel="stylesheet" href="/styles/footer.css">
-  <link rel="stylesheet" href="/styles/staff-dashboard.css">
-  <link rel="stylesheet" href="/styles/report-incident.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-</head>
-<body>
+<!-- report-incident.ejs partial -->
+<section class="toggle-wrapper">
 
-  <section class="toggle-wrapper">
+  <!-- Page Header -->
+  <header class="page-header">
+    <h2><i class="fas fa-triangle-exclamation"></i> Incident Reporting</h2>
 
-    <!-- Page Header -->
-    <header class="page-header">
-      <h2><i class="fas fa-triangle-exclamation"></i> Incident Reporting</h2>
+    <!-- Incident summary stats: only Total -->
+    <div class="incident-stats">
+      <span class="stat-box total"><i class="fas fa-triangle-exclamation"></i> Total: 0</span>
+    </div>
+  </header>
 
-      <!-- Incident summary stats (static placeholders for now) -->
-      <div class="incident-stats">
-        <span class="stat-box total"><i class="fas fa-triangle-exclamation"></i> Total: 0</span>
-        <span class="stat-box open"><i class="fas fa-folder-open"></i> Open: 0</span>
-        <span class="stat-box progress"><i class="fas fa-spinner"></i> In Progress: 0</span>
-        <span class="stat-box resolved"><i class="fas fa-check-circle"></i> Resolved: 0</span>
-      </div>
+  <!-- Hidden radios -->
+  <input type="radio" name="incident-toggle" id="report" checked>
+  <input type="radio" name="incident-toggle" id="myreports">
+
+  <!-- Toggle buttons -->
+  <div class="toggle-buttons">
+    <label for="report"><i class="fas fa-triangle-exclamation"></i> Report Incident</label>
+    <label for="myreports"><i class="fas fa-clipboard-list"></i> My Reports</label>
+  </div>
+
+  <!-- ================== REPORT INCIDENT FORM ================== -->
+  <section class="incident-container" id="report-incident-container">
+    <header class="incident-header">
+      <h2><i class="fas fa-triangle-exclamation"></i> Report New Incident</h2>
+    </header>
+    <form class="incident-form">
+
+      <!-- Row 1: Title + Priority -->
+      <section class="form-row">
+        <section class="form-group">
+          <label for="incident-title">Incident Title</label>
+          <input type="text" id="incident-title" name="incident-title" placeholder="Enter incident title">
+        </section>
+        <section class="form-group">
+          <label for="priority">Priority Level</label>
+          <select id="priority" name="priority">
+            <option value="">Select priority</option>
+            <option>Low</option>
+            <option>Medium</option>
+            <option>High</option>
+            <option>Critical</option>
+          </select>
+        </section>
+      </section>
+
+      <!-- Row 2: Category + Location -->
+      <section class="form-row">
+        <section class="form-group">
+          <label for="category">Category</label>
+          <select id="category" name="category">
+            <option value="">Select category</option>
+            <option>Technical</option>
+            <option>Security</option>
+            <option>Logistics</option>
+            <option>Other</option>
+          </select>
+        </section>
+        <section class="form-group">
+          <label for="location">Location</label>
+          <input type="text" id="location" name="location" placeholder="Enter location of incident">
+        </section>
+      </section>
+
+      <!-- Row 3: Description -->
+      <section class="form-group full-width">
+        <label for="description">Detailed Description</label>
+        <textarea id="description" name="description" rows="5" placeholder="Provide detailed description..."></textarea>
+      </section>
+
+      <!-- Row 4: Photo evidence -->
+      <section class="form-group full-width">
+        <label for="photo">Add Photo Evidence (optional)</label>
+        <div class="photo-upload-container">
+          <i class="fas fa-camera"></i>
+          <p>Take or upload a photo</p>
+          <button type="button" class="photo-upload-btn">
+            <i class="fas fa-upload"></i> Upload
+          </button>
+          <input type="file" id="photo" name="photo" accept="image/*" capture="environment">
+        </div>
+      </section>
+
+      <!-- Row 5: Buttons -->
+      <section class="form-actions">
+        <button type="submit" class="submit-btn">
+          <i class="fa fa-paper-plane"></i> Submit Report
+        </button>
+        <button type="button" class="draft-btn">
+          <i class="fa fa-save"></i> Save Draft
+        </button>
+      </section>
+
+    </form>
+  </section>
+
+  <!-- ================== MY REPORTS ================== -->
+  <section class="incident-container" id="my-reports-container">
+    <header class="incident-header">
+      <h2><i class="fas fa-clipboard-list"></i> My Incident Reports</h2>
     </header>
 
-    <!-- Hidden radios -->
-    <input type="radio" name="incident-toggle" id="report" checked>
-    <input type="radio" name="incident-toggle" id="myreports">
-
-    <!-- Toggle buttons -->
-    <div class="toggle-buttons">
-      <label for="report"><i class="fas fa-triangle-exclamation"></i> Report Incident</label>
-      <label for="myreports"><i class="fas fa-clipboard-list"></i> My Reports</label>
-    </div>
-
-    <!-- ================== REPORT INCIDENT FORM ================== -->
-    <section class="incident-container" id="report-incident-container">
-      <header class="incident-header">
-        <h2><i class="fas fa-triangle-exclamation"></i> Report New Incident</h2>
-      </header>
-      <form class="incident-form">
-
-        <!-- Row 1: Title + Priority -->
-        <section class="form-row">
-          <section class="form-group">
-            <label for="incident-title">Incident Title</label>
-            <input type="text" id="incident-title" name="incident-title" placeholder="Enter incident title">
-          </section>
-          <section class="form-group">
-            <label for="priority">Priority Level</label>
-            <select id="priority" name="priority">
-              <option value="">Select priority</option>
-              <option>Low</option>
-              <option>Medium</option>
-              <option>High</option>
-              <option>Critical</option>
-            </select>
-          </section>
-        </section>
-
-        <!-- Row 2: Category + Location -->
-        <section class="form-row">
-          <section class="form-group">
-            <label for="category">Category</label>
-            <select id="category" name="category">
-              <option value="">Select category</option>
-              <option>Technical</option>
-              <option>Security</option>
-              <option>Logistics</option>
-              <option>Other</option>
-            </select>
-          </section>
-          <section class="form-group">
-            <label for="location">Location</label>
-            <input type="text" id="location" name="location" placeholder="Enter location of incident">
-          </section>
-        </section>
-
-        <!-- Row 3: Description -->
-        <section class="form-group full-width">
-          <label for="description">Detailed Description</label>
-          <textarea id="description" name="description" rows="5" placeholder="Provide detailed description..."></textarea>
-        </section>
-
-<!-- Row 4: Photo evidence -->
-<section class="form-group full-width">
-  <label for="photo">Add Photo Evidence (optional)</label>
-  <div class="photo-upload-container">
-    <i class="fas fa-camera"></i>
-    <p>Take or upload a photo</p>
-    <button type="button" class="photo-upload-btn">
-      <i class="fas fa-upload"></i> Upload
-    </button>
-    <input type="file" id="photo" name="photo" accept="image/*" capture="environment">
-  </div>
-</section>
-
-
-        <!-- Row 5: Buttons -->
-        <section class="form-actions">
-          <button type="submit" class="submit-btn">
-            <i class="fa fa-paper-plane"></i> Submit Report
-          </button>
-          <button type="button" class="draft-btn">
-            <i class="fa fa-save"></i> Save Draft
-          </button>
-        </section>
-
-      </form>
-    </section>
-
-    <!-- ================== MY REPORTS ================== -->
-    <section class="incident-container" id="my-reports-container">
-      <header class="incident-header">
-        <h2><i class="fas fa-clipboard-list"></i> My Incident Reports</h2>
-      </header>
-      <section class="report-box">
-        <h3>Spilled drink in VIP area</h3>
-        <p class="small-info"><strong>Priority:</strong> Medium • <strong>Status:</strong> In-progress</p>
-        <p>Large coffee spill near VIP seating section. Needs immediate cleanup to prevent slipping hazards.</p>
-        <p class="small-info">
-          <i class="fas fa-map-marker-alt"></i> VIP Section A &nbsp;•&nbsp;
-          <i class="fas fa-clock"></i> 10:15 AM &nbsp;•&nbsp;
-          Safety/Cleanup &nbsp;•&nbsp; Assigned to: Cleaning Team
-        </p>
-      </section>
+    <!-- Example report box -->
+    <section class="report-box">
+      <h3>Spilled drink in VIP area</h3>
+      <p class="small-info">
+        <i class="fas fa-map-marker-alt"></i> VIP Section A &nbsp;•&nbsp;
+        <i class="fas fa-clock"></i> 10:15 AM
+      </p>
+      <p>Large coffee spill near VIP seating section. Needs immediate cleanup to prevent slipping hazards.</p>
     </section>
 
   </section>
 
-</body>
-</html>
+</section>

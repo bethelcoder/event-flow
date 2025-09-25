@@ -6,6 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   
   <link rel="stylesheet" href="/styles/staff-dashboard.css" />
+  <link rel="stylesheet" href="/styles/announcements.css" />
+  <link rel="stylesheet" href="/styles/report-incident.css" />
+  <link rel="stylesheet" href="/styles/my-tasks.css">
+
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
@@ -73,14 +78,25 @@
 <script>
   const alpha = document.getElementById('alpha');
   const menuToggle = document.getElementById('menu-toggle');
+  const betaRight = document.querySelector('.beta-right');
+
   const omegaContent = document.getElementById('omega-content');
   const alphaButtons = document.querySelectorAll('.alpha-btn');
 
   // Toggle sidebar
+  // menuToggle.addEventListener('click', () => {
+  //   const isActive = alpha.classList.toggle('active');
+  //   menuToggle.setAttribute('aria-expanded', String(isActive));
+  // });
   menuToggle.addEventListener('click', () => {
-    const isActive = alpha.classList.toggle('active');
-    menuToggle.setAttribute('aria-expanded', String(isActive));
-  });
+  // toggle sidebar
+  const isActive = alpha.classList.toggle('active');
+  menuToggle.setAttribute('aria-expanded', String(isActive));
+
+  // toggle logout menu on small screens
+  betaRight.classList.toggle('active');
+});
+
 
   // Load content dynamically into omega
   function loadIntoOmega(url) {
