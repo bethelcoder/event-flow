@@ -1,146 +1,119 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>My Tasks</title>
-  <link rel="stylesheet" href="/styles/footer.css">
-  <link rel="stylesheet" href="/styles/staff-dashboard.css">
-  <link rel="stylesheet" href="/styles/my-tasks.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-</head>
-<body>
+<section class="tasks-wrapper">
 
-<!-- =================== Scrollable Wrapper =================== -->
-<section class="tasks-container-wrapper">
-
-  <!-- Header with task stats -->
+  <!-- =================== Header with task stats =================== -->
   <section class="tasks-header">
     <h2>My Tasks</h2>
-    <div class="task-summary-buttons">
-      <button>Total No: 10</button>
-      <button>Pending: 4</button>
-      <button>In Progress: 3</button>
-      <button>Completed: 3</button>
+    <div class="task-summary-boxes">
+      <div class="summary-box">
+        <span class="summary-title">Total</span>
+        <span class="summary-number total-no">0</span>
+      </div>
+      <div class="summary-box">
+        <span class="summary-title">Pending</span>
+        <span class="summary-number pending-no">0</span>
+      </div>
+      <div class="summary-box">
+        <span class="summary-title">In Progress</span>
+        <span class="summary-number inprogress-no">0</span>
+      </div>
+      <div class="summary-box">
+        <span class="summary-title">Completed</span>
+        <span class="summary-number completed-no">0</span>
+      </div>
     </div>
   </section>
 
-  <!-- =================== Today's Progress Box =================== -->
-  <section class="progress-box">
+  <!-- =================== Progress Bar =================== -->
+  <section class="progress-section">
     <h3>Today's Progress</h3>
     <div class="progress-bar-wrapper">
       <div class="progress-bar">
-        <div class="progress-fill" style="width: 60%;"></div>
+        <div class="progress-fill" style="width: 0%;"></div>
       </div>
-      <span class="progress-percentage">60%</span>
-    </div>
-    <div class="progress-stats">
-      <div>Pending: 4</div>
-      <div>In Progress: 3</div>
-      <div>Completed: 3</div>
-      <div>Overdue: 0</div>
-    </div>
-  </section>
-
-  <!-- =================== Filter Buttons =================== -->
-  <section class="task-filter-wrapper">
-    <div class="task-filter-buttons">
-      <button data-filter="all"><i class="fas fa-list"></i> All Tasks (10)</button>
-      <button data-filter="pending"><i class="fas fa-hourglass-start"></i> Pending (4)</button>
-      <button data-filter="inprogress"><i class="fas fa-spinner"></i> In Progress (3)</button>
-      <button data-filter="completed"><i class="fas fa-check-circle"></i> Completed (3)</button>
+      <span class="progress-percentage">0%</span>
     </div>
   </section>
 
   <!-- =================== Tasks List =================== -->
   <section class="tasks-container">
-    <!-- Example task box -->
     <section class="task-box" data-status="pending">
       <div class="task-header">
         <span class="task-title">Test all microphones on main stage</span>
-        <span class="task-priority"><i class="fas fa-exclamation-circle"></i> High</span>
-        <span class="task-status inprogress"><i class="fas fa-spinner"></i> In Progress</span>
-        <span class="task-overdue"><i class="fas fa-calendar-times"></i> Overdue</span>
-      </div>
-      <div class="task-body">
-        <span><i class="fas fa-user"></i> Assigned by: John Doe</span> &nbsp;&nbsp;
-        <span><i class="fas fa-calendar-alt"></i> Due: 25 Aug, 5 PM</span>
-      </div>
-      <div class="task-footer">
-        <button class="task-action-btn">Start Task</button>
-      </div>
-    </section>
-
-    <!-- Add more tasks here -->
-    <section class="task-box" data-status="pending">
-      <div class="task-header">
-        <span class="task-title">Check all lighting in hall</span>
-        <span class="task-priority"><i class="fas fa-exclamation-circle"></i> Medium</span>
+        <span class="task-category">Priority: High</span>
         <span class="task-status pending"><i class="fas fa-hourglass-start"></i> Pending</span>
       </div>
       <div class="task-body">
-        <span><i class="fas fa-user"></i> Assigned by: Jane Smith</span> &nbsp;&nbsp;
-        <span><i class="fas fa-calendar-alt"></i> Due: 26 Aug, 3 PM</span>
+        <p>Description: Test all microphones and sound system on main stage to ensure proper volume and clarity.</p>
+        <p>Due Date: 25 Aug, 5 PM</p>
+        <p>Estimated Time: 2 hrs</p>
+        <p>Category : Technical</p>
       </div>
       <div class="task-footer">
         <button class="task-action-btn">Start Task</button>
       </div>
     </section>
 
+    <section class="task-box" data-status="pending">
+      <div class="task-header">
+        <span class="task-title">Check all lighting in hall</span>
+        <span class="task-category">Priority: High</span>
+        <span class="task-status pending"><i class="fas fa-hourglass-start"></i> Pending</span>
+      </div>
+      <div class="task-body">
+        <p>Description: Ensure all lighting fixtures in the hall are functional and positioned correctly.</p>
+        <p>Due Date: 26 Aug, 3 PM</p>
+        <p>Estimated Time: 1.5 hrs</p>
+        <p>Category : Catering</p>
+      </div>
+      <div class="task-footer">
+        <button class="task-action-btn">Start Task</button>
+      </div>
+    </section>
   </section>
 
 </section>
 
-<!-- =================== Script =================== -->
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-  // Filter buttons
-  const filterButtons = document.querySelectorAll('.task-filter-buttons button');
   const tasks = document.querySelectorAll('.tasks-container .task-box');
 
-  filterButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const filter = btn.getAttribute('data-filter');
-      tasks.forEach(task => {
-        if (filter === 'all' || task.dataset.status === filter) {
-          task.style.display = 'block';
-        } else {
-          task.style.display = 'none';
-        }
-      });
-    });
-  });
+  tasks.forEach(task => {
+    const btn = task.querySelector('.task-action-btn');
+    const statusEl = task.querySelector('.task-status');
 
-  // Task action buttons
-  const taskActionButtons = document.querySelectorAll('.task-action-btn');
-  taskActionButtons.forEach(btn => {
     btn.addEventListener('click', () => {
-      const parent = btn.closest('.task-box');
-      const statusEl = parent.querySelector('.task-status');
-
       if (btn.textContent === 'Start Task') {
         btn.textContent = 'Mark Complete';
-        parent.dataset.status = 'inprogress';
-        if (statusEl) {
-          statusEl.innerHTML = '<i class="fas fa-spinner"></i> In Progress';
-          statusEl.className = 'task-status inprogress';
-        }
+        task.dataset.status = 'inprogress';
+        statusEl.innerHTML = '<i class="fas fa-spinner"></i> In Progress';
+        statusEl.className = 'task-status inprogress';
       } else if (btn.textContent === 'Mark Complete') {
-        const report = prompt("Enter completion report (optional):");
-        if (report !== null) {
-          alert("Completion report saved:\n" + report);
-        }
         btn.textContent = 'Completed';
-        parent.dataset.status = 'completed';
-        if (statusEl) {
-          statusEl.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
-          statusEl.className = 'task-status completed';
-        }
+        task.dataset.status = 'completed';
+        statusEl.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
+        statusEl.className = 'task-status completed';
         btn.disabled = true;
       }
+      updateSummary();
     });
   });
+
+  function updateSummary() {
+    const total = tasks.length;
+    const pending = document.querySelectorAll('.task-box[data-status="pending"]').length;
+    const inprogress = document.querySelectorAll('.task-box[data-status="inprogress"]').length;
+    const completed = document.querySelectorAll('.task-box[data-status="completed"]').length;
+    const progressPercent = Math.round((completed / total) * 100);
+
+    document.querySelector('.total-no').textContent = total;
+    document.querySelector('.pending-no').textContent = pending;
+    document.querySelector('.inprogress-no').textContent = inprogress;
+    document.querySelector('.completed-no').textContent = completed;
+
+    document.querySelector('.progress-fill').style.width = progressPercent + '%';
+    document.querySelector('.progress-percentage').textContent = progressPercent + '%';
+  }
+
+  updateSummary();
 });
 </script>
-
-</body>
-</html>

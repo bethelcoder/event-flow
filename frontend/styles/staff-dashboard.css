@@ -5,7 +5,7 @@
   --sidebar-w-sm: 240px;
   --brand: #3b5bdb;       /* blue */
   --accent: #ff7f50;      /* orange */
-  --text: #fff;            /* white text for sidebar */
+  --text: #f9f9f9fc;            /* white text for sidebar */
   --bg: #f9f9f9;
   --white: #fff;
   --border: #e6e6e6;
@@ -58,7 +58,7 @@ body {
   align-items: center;
   gap: 10px;
   text-decoration: none;
-  color: #fcfdff; /* WHITE text */
+  color: #f9f9f9fc; /* WHITE text */
   font-size: 15px;
   padding: 8px 10px;
   border-radius: 8px;
@@ -160,12 +160,13 @@ body {
 }
 
 .alpha.active ~ .omega { margin-left: var(--sidebar-w); }
-
+/*
 .omega-scroll {
   padding: 20px;
   max-height: calc(100vh - var(--nav-h));
   overflow-y: auto;
 }
+  */
 .logo {
   display: flex;
   align-items: center;
@@ -245,3 +246,63 @@ body {
   .beta-dashboard-title { font-size: 16px; }
   .beta-center { font-size: 14px; }
 }
+
+
+/* ------------------- MOBILE HAMBURGER (<=600px) ------------------- */
+/* Hide logout by default on very small screens */
+@media (max-width: 600px) {
+  .beta-right {
+    display: none;          /* hide initially */
+    position: absolute;     /* float below top bar */
+    top: var(--nav-h);
+    right: 0;
+    background: var(--white);
+    width: 100%;
+    padding: 10px 16px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    z-index: 1200;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .beta-right.active {
+    display: flex;          /* show when active */
+  }
+}
+
+
+/* Shift Staff Portal to far right when logout hidden */
+@media (max-width: 600px) {
+  .beta-center {
+    position: absolute;  /* allow positioning */
+    right: 16px;         /* push it to far right */
+    left: auto;          /* remove left constraint */
+    text-align: right;
+    font-size: 16px;     /* optional: slightly smaller */
+  }
+  
+  .beta-left {
+    gap: 8px;            /* optional: reduce gap between hamburger & logo */
+  }
+}
+
+/* ------------------- EXTRA SMALL MOBILE: <=330px ------------------- */
+@media (max-width: 330px) {
+  /* Stack EventFlow and Staff Portal vertically */
+  .beta-left,
+  .beta-center {
+    position: static;    /* reset absolute positioning */
+    width: 100%;
+    text-align: center;
+  }
+
+  .beta-left {
+    margin-bottom: 6px;  /* spacing between EventFlow and Staff Portal */
+    justify-content: center;
+  }
+
+  .beta-center {
+    font-size: 14px;     /* smaller font for very small screens */
+  }
+}
+
