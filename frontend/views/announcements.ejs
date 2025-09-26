@@ -1,57 +1,56 @@
-<section class="announcements-container">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../styles/dashboard.css">
+  <link rel="stylesheet" href="../styles/announcements.css">
+  <title>Announcement</title>
+</head>
+<body>
+  <%- include('partials/staff_navigation') %>
+  <section class="main_content" id="mainContent">
+    <%- include('partials/staff_topbar') %>
 
-  <!-- Announcements Header Section -->
-  <section class="announcements-header">
-    <h2><i class="fas fa-bell"></i> Announcements</h2>
-    <div class="header-actions">
-      <button class="info-btn urgent">Urgent: No</button>
-      <button class="info-btn unread">Unread: No</button>
-      <button class="mark-all-read"><i class="fas fa-check-circle"></i> Mark All Read</button>
-    </div>
-  </section>
+    <section class="announce_heading">
+      <span>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5" />
+        </svg>
+      </span>
+      <section>
+        <h2>Announcements</h2>
+        <p>Stay updated with the latest event information</p>
+      </section>
+    </section>
 
-  <hr>
+    <!-- announcements -->
 
-  <!-- Latest Announcements Text -->
-  <section class="latest-announcements">
-    <p>Latest announcements:</p>
-
-    <article class="announcement">
-      <header>
-        <span class="title">System Maintenance</span>
-        <div class="meta">
-          <span class="priority">Priority: High</span>
-          <span class="time"><i class="fas fa-clock"></i> 09:15</span>
-        </div>
-      </header>
-      <p>The system will undergo scheduled maintenance tonight from 10 PM to 12 AM.</p>
-      <footer><button class="mark-read">Mark Read</button></footer>
-    </article>
-
-    <article class="announcement">
-      <header>
-        <span class="title">Guest Lecture</span>
-        <div class="meta">
-          <span class="priority">Priority: Medium</span>
-          <span class="time"><i class="fas fa-clock"></i> 11:30</span>
-        </div>
-      </header>
-      <p>A guest lecturer will be speaking on innovation and technology this Friday.</p>
-      <footer><button class="mark-read">Mark Read</button></footer>
-    </article>
-
-    <article class="announcement">
-      <header>
-        <span class="title">Security Drill</span>
-        <div class="meta">
-          <span class="priority">Priority: Low</span>
-          <span class="time"><i class="fas fa-clock"></i> 14:00</span>
-        </div>
-      </header>
-      <p>Please be aware of a scheduled security drill taking place across campus this afternoon.</p>
-      <footer><button class="mark-read">Mark Read</button></footer>
-    </article>
+    <section class="announcements">
+      <article class="update">
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5" />
+          </svg>
+          <h4>update heading</h4>
+        </span>
+        <section class="update_header">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+          </svg>
+          <strong>Event Manager</strong>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+          </svg>
+          09:51 AM
+        </section>
+        <section class="update_messsage">
+          <p>This is simulated real-time announcement to demostrate live updates</p>
+        </section>
+      </article>
+    </section>
 
   </section>
-
-</section>
+  <script src="../scripts/sidebar.js"></script>
+</body>
+</html>

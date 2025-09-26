@@ -135,7 +135,7 @@ router.get(
       if(user.role === 'manager'){
         res.status(200).redirect('/manager/home');
       } else if(user.role === 'staff'){
-        res.status(200).redirect('/dashboard');
+        res.status(200).redirect('/staff/chat');
       }
       
     }

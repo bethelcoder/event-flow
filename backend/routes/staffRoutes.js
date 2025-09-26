@@ -174,16 +174,18 @@ router.get('/chat',authenticateJWT , async function(req,res){
         }
 });
 
-router.get('/report-incident', authenticateJWT, (req, res) => {
+router.get('/incidents', authenticateJWT, (req, res) => {
   res.render('report-incident');
 });
 
-router.get('/my-tasks', authenticateJWT, (req, res) => {
+router.get('/tasks', authenticateJWT, (req, res) => {
   res.render('my-tasks');
 });
 router.get('/announcements', (req, res) => {
-  res.render('announcement');
-  console.log('Hendaa');
+  res.render('announcements');
+});
+router.get('/map', authenticateJWT, (req, res) => {
+  res.render('staff_map');
 });
 
 module.exports = router;
