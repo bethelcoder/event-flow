@@ -1,117 +1,186 @@
-<!-- report-incident.ejs partial -->
-<section class="toggle-wrapper">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../styles/dashboard.css">
+  <link rel="stylesheet" href="../styles/report-incident.css">
+  <title>Incidents</title>
+</head>
+<body>
+  <%- include('partials/staff_navigation') %>
+  <section class="main_content" id="mainContent">
+    <%- include('partials/staff_topbar') %>
+    <h1>Incident Reporting</h1>
+    <section class="tablink">
+      <button class="btn_tablink" onclick="openPage('report',this)">Report Incident</button>
+      <button class="btn_tablink" onclick="openPage('my_reports',this)">My Reports</button>
+      <button class="btn_tablink" onclick="openPage('staff_issues',this)">Staff Issues</button>
+      <button class="btn_tablink" onclick="openPage('guest_issues',this)">Guest Issues</button>
+    </section>
 
-  <!-- Page Header -->
-  <header class="page-header">
-    <h2><i class="fas fa-triangle-exclamation"></i> Incident Reporting</h2>
-
-    <!-- Incident summary stats: only Total -->
-    <div class="incident-stats">
-      <span class="stat-box total"><i class="fas fa-triangle-exclamation"></i> Total: 0</span>
-    </div>
-  </header>
-
-  <!-- Hidden radios -->
-  <input type="radio" name="incident-toggle" id="report" checked>
-  <input type="radio" name="incident-toggle" id="myreports">
-
-  <!-- Toggle buttons -->
-  <div class="toggle-buttons">
-    <label for="report"><i class="fas fa-triangle-exclamation"></i> Report Incident</label>
-    <label for="myreports"><i class="fas fa-clipboard-list"></i> My Reports</label>
-  </div>
-
-  <!-- ================== REPORT INCIDENT FORM ================== -->
-  <section class="incident-container" id="report-incident-container">
-    <header class="incident-header">
-      <h2><i class="fas fa-triangle-exclamation"></i> Report New Incident</h2>
-    </header>
-    <form class="incident-form">
-
-      <!-- Row 1: Title + Priority -->
-      <section class="form-row">
-        <section class="form-group">
-          <label for="incident-title">Incident Title</label>
-          <input type="text" id="incident-title" name="incident-title" placeholder="Enter incident title">
+    <!-- page where the staff reports incidents -->
+    <section id="report">
+      <span>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="iconx">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+      </svg>
+      <p>Report New Incident</p>
+      </span>
+      <section>
+        <section class="inputs">
+          <strong>Incident Title</strong>
+          <input type="text" placeholder="Brief description of the issue" required>
         </section>
-        <section class="form-group">
-          <label for="priority">Priority Level</label>
-          <select id="priority" name="priority">
-            <option value="">Select priority</option>
-            <option>Low</option>
-            <option>Medium</option>
-            <option>High</option>
-            <option>Critical</option>
+
+        <section class="inputs">
+          <strong>Priority Level</strong>
+          <select>
+            <option>Low- Minor issue</option>
+            <option>Medium - Moderate impact</option>
+            <option>High - Urgent attention needed</option>
           </select>
         </section>
-      </section>
 
-      <!-- Row 2: Category + Location -->
-      <section class="form-row">
-        <section class="form-group">
-          <label for="category">Category</label>
-          <select id="category" name="category">
-            <option value="">Select category</option>
+
+        <section class="inputs">
+          <strong>Category</strong>
+          <select>
+            <option>safety/Cleanup</option>
             <option>Technical</option>
             <option>Security</option>
-            <option>Logistics</option>
+            <option>Guest Services</option>
+            <option>Catering</option>
+            <option>Comfort</option>
             <option>Other</option>
           </select>
         </section>
-        <section class="form-group">
-          <label for="location">Location</label>
-          <input type="text" id="location" name="location" placeholder="Enter location of incident">
+
+        <section class="inputs">
+          <strong>Location</strong>
+          <input type="text" placeholder="where did this occur?" required>
+        </section>
+
+        <section class="inputs">
+          <strong>Detailed description</strong>
+          <textarea rows="3" placeholder="Provide detailed information about the incident..." required></textarea>
+        </section>
+
+      </section>
+
+      <section class="upload">
+        <section>
+          <button class="report">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="iconx">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+            </svg>
+            Submit Report
+          </button>
         </section>
       </section>
-
-      <!-- Row 3: Description -->
-      <section class="form-group full-width">
-        <label for="description">Detailed Description</label>
-        <textarea id="description" name="description" rows="5" placeholder="Provide detailed description..."></textarea>
-      </section>
-
-      <!-- Row 4: Photo evidence -->
-      <section class="form-group full-width">
-        <label for="photo">Add Photo Evidence (optional)</label>
-        <div class="photo-upload-container">
-          <i class="fas fa-camera"></i>
-          <p>Take or upload a photo</p>
-          <button type="button" class="photo-upload-btn">
-            <i class="fas fa-upload"></i> Upload
-          </button>
-          <input type="file" id="photo" name="photo" accept="image/*" capture="environment">
-        </div>
-      </section>
-
-      <!-- Row 5: Buttons -->
-      <section class="form-actions">
-        <button type="submit" class="submit-btn">
-          <i class="fa fa-paper-plane"></i> Submit Report
-        </button>
-        <button type="button" class="draft-btn">
-          <i class="fa fa-save"></i> Save Draft
-        </button>
-      </section>
-
-    </form>
-  </section>
-
-  <!-- ================== MY REPORTS ================== -->
-  <section class="incident-container" id="my-reports-container">
-    <header class="incident-header">
-      <h2><i class="fas fa-clipboard-list"></i> My Incident Reports</h2>
-    </header>
-
-    <!-- Example report box -->
-    <section class="report-box">
-      <h3>Spilled drink in VIP area</h3>
-      <p class="small-info">
-        <i class="fas fa-map-marker-alt"></i> VIP Section A &nbsp;•&nbsp;
-        <i class="fas fa-clock"></i> 10:15 AM
-      </p>
-      <p>Large coffee spill near VIP seating section. Needs immediate cleanup to prevent slipping hazards.</p>
     </section>
 
-  </section>
+    <!-- The current staff reports -->
+    <section id="my_reports">
+      <span>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="iconx">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+        </svg>
+        <p>My Incident Reports</p>
+      </span>
+      
+      <article class="reports">
+        <section>
+        <h3 id="report_title">Spilled drink in VIP area</h3>
+        <span id="priority">low</span>
+        </section>
+        <p>large coffe spill near VIP seating section</p>
+        <section>
+          <p id="location">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="iconx">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+            </svg>
+            VIP Section A
+          </p>
+          <p id="time">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="iconx">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+            10:15 AM
+          </p>
+          <p id="category">Satey/Cleanup</p>
+        </section>
+      </article>
+    </section>
 
-</section>
+    <!-- other staff issues -->
+    <section id="staff_issues">
+      <span>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="iconx">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+        </svg>
+        <p>Staff Incidents Reports</p>
+      </span>
+      <article class="reports">
+        <section>
+        <h3 id="report_title">Spilled drink in VIP area</h3>
+        <span id="priority">low</span>
+        </section>
+        <p>large coffe spill near VIP seating section</p>
+        <section>
+          <p id="location">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="iconx">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+            </svg>
+            VIP Section A
+          </p>
+          <p id="time">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="iconx">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+            10:15 AM
+          </p>
+          <p id="category">Satey/Cleanup</p>
+        </section>
+      </article>
+    </section>
+
+    <!-- Guest issues -->
+    <section id="guest_issues">
+      <span>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="iconx">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+        </svg>
+        <P>Guest Issues</P>
+      </span>
+      <article class="issues">
+        <section>
+        <h3 id="issue_title">Guest Issue</h3>
+        <span id="priority">low</span>
+        </section>
+        <p id="description">large coffe spill near VIP seating section</p>
+        <section>
+          <p id="location">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="iconx">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+            </svg>
+            VIP Section A
+          </p>
+          <p id="time">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="iconx">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+            10:15 AM
+          </p>
+          <p id="issue_type">Satey/Cleanup</p>
+        </section>
+      </article>
+    </section>
+  </section>
+  <script src="../scripts/staff_incident.js"></script>
+  <script src="../scripts/sidebar.js"></script>
+</body>
+</html>

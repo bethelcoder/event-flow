@@ -54,7 +54,7 @@ function redirectIfAuthenticated(req, res, next) {
     return res.redirect("/manager/home");
    }
    else if(decoded.role=="staff"){
-    return res.redirect("/dashboard");
+    return res.redirect("/staff/chat");
    }
   //We can't send authenticated users back to login, send them to dashboard rather
   });

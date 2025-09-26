@@ -1,157 +1,229 @@
-.tasks-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  color: #153291;
-  background: #f9f9f9fc;
+/* Reset & global styles */
+* {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
-  max-height: 100%;
-  overflow-y: auto; /* only one scrollbar */
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Header and horizontal summary boxes */
-.tasks-header h2 {
-  font-size: 1.8rem;
-  margin-bottom: 15px;
+body {
+  background-color: #f7f9fc;
+  color: #222;
+  line-height: 1.6;
 }
 
-.task-summary-boxes {
+.main_content {
+    transition: margin-left 0.3s ease;
+    margin-left: 250px;
+}
+.main_content.expanded {
+    margin-left: 0px;
+}
+
+
+/* Task Header Spans */
+.task_header {
   display: flex;
-  gap: 15px;
+  gap: 1rem;
+  align-items: center;
   justify-content: space-between;
+  margin-bottom: 1.5rem;
   flex-wrap: wrap;
 }
 
-.summary-box {
-  flex: 1;
-  min-width: 100px;
-  text-align: center;
-  padding: 15px;
-  background: #f5f5f5;
-  border: 3px solid #153291;
-  border-radius: 10px;
-  transition: 0.3s;
+.task_header span {
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  color: #fff;
 }
 
-.summary-box:hover {
+/* Specific colors */
+.task_header span:nth-child(1) {
+  background: #4a90e2;
+}
+
+.task_header span:nth-child(2) {
+  background: #f39c12; 
+}
+
+.task_header span:nth-child(3) { 
+  background: #0bc20b;
+}
+
+
+.task_header h2 {
+  font-size: 1.8rem;
+  color: #ff8800fb;
+}
+
+
+/* Tab buttons */
+.tablink {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.btn_tablink {
+  flex: 1;
+  padding: 0.7rem 1rem;
+  background: #e9edf5;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  color: #2c3e50;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn_tablink:hover {
+  background: #d6def0;
+}
+
+.btn_tablink.active {
   background: #153291;
   color: #fff;
 }
 
-.summary-title {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-.summary-number {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-/* Progress bar */
-.progress-section {
-  border: 3px solid #153291;
-  border-radius: 10px;
-  padding: 15px 20px;
+/* Task Card */
+.task {
   background: #fff;
+  border-radius: 10px;
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 1.2rem;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.progress-bar-wrapper {
+.task:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+}
+
+/* Task Title Row */
+.task_title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.task_title h3 {
+  font-size: 1.2rem;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.task_title .priority {
+  padding: 0.3rem 0.7rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+
+.task_title .status_pending {
+  padding: 0.3rem 0.7rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  background: #f39c12;
+  color: #fff;
+}
+.status_complete{
+  padding: 0.3rem 0.7rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  background: #0bc20b;
+  color: #fff;
+}
+
+/* Description */
+#description {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+/* Assigner and Due Section */
+.assigner {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.assigner span {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.3rem;
 }
 
-.progress-bar {
-  flex: 1;
-  height: 20px;
-  background: #ddd;
-  border-radius: 10px;
-  overflow: hidden;
+.assigner .icon {
+  width: 18px;
+  height: 18px;
+  color: #153291;
 }
 
-.progress-fill {
-  height: 100%;
-  background: #4caf50;
-  transition: width 0.5s;
-}
-
-.progress-percentage {
-  font-weight: bold;
-  min-width: 40px;
-  text-align: right;
-}
-
-/* Task container */
-.tasks-container {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-/* Task box */
-.task-box {
-  border: 2px solid #153291;
-  border-radius: 10px;
-  padding: 15px 20px;
-  background: #f9f9f9;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.task-box:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-
-.task-header {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  flex-wrap: wrap;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.task-category {
-  font-style: italic;
-  color: #555;
-}
-
-.task-body p {
-  margin: 5px 0;
+/* Done Button - subtle redesign */
+button.done {
+  align-self: flex-end;
+  padding: 0.5rem 1rem;
+  border: 2px;
+  border-radius: 8px;
   font-size: 0.9rem;
-  color: #555;
-}
-
-.task-footer {
-  margin-top: 10px;
-}
-
-.task-action-btn {
-  padding: 6px 12px;
-  border-radius: 6px;
-  border: 2px solid #153291;
-  background: #fff;
-  font-weight: bold;
+  font-weight: 500;
   cursor: pointer;
-  transition: 0.3s;
+  background: #ff8800fb;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.3s ease;
 }
 
-.task-action-btn:hover {
-  background: #153291;
+button.done:hover {
+  background: #cc720afb;
   color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
-.task-status.pending { color: blue; }
-.task-status.inprogress { color: blue; }
-.task-status.completed { color: green; }
+button.done .icon {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor; /* makes icon match text color */
+}
 
 /* Responsive */
 @media (max-width: 768px) {
-  .task-summary-boxes { flex-direction: column; }
-  .task-header { flex-direction: column; gap: 5px; }
-  .progress-bar-wrapper { flex-direction: column; align-items: flex-start; }
+  .tablink {
+    flex-direction: column;
+  }
+  .btn_tablink {
+    flex: unset;
+    width: 100%;
+  }
+  .assigner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  button.done {
+    width: 100%;
+    justify-content: center;
+  }
 }
