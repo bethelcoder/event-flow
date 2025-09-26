@@ -182,7 +182,8 @@ router.get('/my-tasks', authenticateJWT, (req, res) => {
   res.render('my-tasks');
 });
 router.get('/announcements', (req, res) => {
-  res.render('announcements');
+  res.render('announcement');
+  console.log('Hendaa');
 });
 
 module.exports = router;

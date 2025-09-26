@@ -1,24 +1,15 @@
 // services/emailService.js
-const nodemailer = require("nodemailer");
-require('dotenv').config();
+const SibApiV3Sdk = require("sib-api-v3-sdk");
+require("dotenv").config();
 
-const transporter = nodemailer.createTransport({
-  service: 'gmail', // do not use SSL directly
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-  tls: {
-    rejectUnauthorized: false // ⚠️ only for development
-  }
-});
+const defaultClient = SibApiV3Sdk.ApiClient.instance;
+const apiKey = defaultClient.authentications["api-key"];
+apiKey.apiKey = process.env.BREVO_API_KEY;
+
+const tranEmailApi = new SibApiV3Sdk.TransactionalEmailsApi();
 
 /**
  * Sends a guest their QR Code via email
- * @param {string} to - Recipient email
- * @param {string} name - Full name of guest
- * @param {string} refNumber - Reference number
- * @param {string} qrCodeUrl - Base64 QR code string
  */
 const sendGuestQRCode = async (to, name, refNumber, qrCodeUrl, guestId) => {
   const html = `
@@ -28,64 +19,62 @@ const sendGuestQRCode = async (to, name, refNumber, qrCodeUrl, guestId) => {
     <p><b>Your Reference Number:</b> ${refNumber}</p>
     <p>Please present the QR code below at the entrance:</p>
     <br/>
-    <p>Below is a your link to access the above event management platfrom:</p>
+    <p>Below is your link to access the above event management platform:</p>
     <p>${process.env.WEBSITE_URL}/guests/access/${guestId}</p>
     <img src="cid:qrcode" alt="QR Code" />
     <br/><br/>
-    
     <p>We look forward to seeing you!</p>
   `;
 
-  await transporter.sendMail({
-    from: `"Event Flow" <${process.env.EMAIL_USER}>`,
-    to,
+  const sendSmtpEmail = {
+    to: [{ email: to }],
+    sender: { email: process.env.EMAIL_USER, name: "Event Flow" },
     subject: "Your Event QR Code 🎟️",
-    html,
-    attachments: [
+    htmlContent: html,
+    attachment: [
       {
-        filename: "qrcode.png",
-        content: qrCodeUrl.split("base64,")[1],
-        encoding: "base64",
-        cid: "qrcode", // same as used in <img src="cid:qrcode" />
+        name: "qrcode.png",
+        content: qrCodeUrl.split("base64,")[1], // base64 only
       },
     ],
-  });
+  };
+
+  await tranEmailApi.sendTransacEmail(sendSmtpEmail);
 };
 
+/**
+ * Sends a staff invitation email
+ */
 const sendStaffInvite = async (to, staffName, managerName, managerId) => {
   const registrationLink = `${process.env.WEBSITE_URL}/staff/signup?managerId=${managerId}`;
 
   const html = `
     <h2>👋 Invitation to Join Our Event Staff</h2>
     <p>Hi <b>${staffName}</b>,</p>
-    
     <p>${managerName} has invited you to join the staff team for an upcoming event.</p>
-    
     <p><b>Event Details:</b></p>
     <p><b>To be available once signed in</b></p>
-
     <p>To confirm your participation, please register using the special link below:</p>
-    
     <p style="margin:20px 0;">
       <a href="${registrationLink}" 
          style="background:#4CAF50;color:#fff;padding:12px 20px;text-decoration:none;border-radius:6px;">
         Register as Staff
       </a>
     </p>
-
     <p>This link is unique to you and will automatically connect your profile with <b>${managerName}</b>.</p>
-
     <br/>
     <p>We’re excited to have you on the team!</p>
     <p>– Event Flow Team</p>
   `;
 
-  await transporter.sendMail({
-    from: `"Event Flow" <${process.env.EMAIL_USER}>`,
-    to,
-    subject: `You're Invited to Join the event's Staff 🎟️`,
-    html,
-  });
+  const sendSmtpEmail = {
+    to: [{ email: to }],
+    sender: { email: process.env.EMAIL_USER, name: "Event Flow" },
+    subject: `You're Invited to Join the Event's Staff 🎟️`,
+    htmlContent: html,
+  };
+
+  await tranEmailApi.sendTransacEmail(sendSmtpEmail);
 };
 
 module.exports = { sendGuestQRCode, sendStaffInvite };
