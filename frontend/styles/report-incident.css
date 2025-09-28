@@ -1,367 +1,281 @@
-/* =========================
-   Incident Reporting Page
-   ========================= */
-
-/* Wrapper like announcements (keeps footer safe) */
-.toggle-wrapper {
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  background: #f9f9f9fc;
-  color: #153291;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-/* Page header: Title left + Stats right */
-.page-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-}
-
-.page-header h2 {
+/* Reset & global styles */
+* {
   margin: 0;
-  font-size: 1.8rem;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* Incident stats (right side) */
-.incident-stats {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.stat-box {
-  border: 2px solid white;
-  border-radius: 6px;
-  padding: 6px 12px;
-  font-weight: bold;
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: #fff;
-}
-
-/* Only Total box style needed */
-.stat-box.total { border-color: #000; }
-
-/* Toggle Buttons */
-.toggle-wrapper input[type="radio"] { display: none; }
-
-.toggle-buttons {
-  display: flex;
-  gap: 15px;
-  margin: 15px 0 25px;
-  justify-content: flex-start; /* left aligned */
-}
-
-.toggle-buttons label {
-  padding: 10px 18px;
-  border: 2px solid #000;
-  border-radius: 6px;
-  background: #fff;
-  font-weight: bold;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: 0.2s;
-}
-
-.toggle-buttons label:hover {
-  background: #153291;
-  color: #fff;
-}
-
-#report:checked ~ .toggle-buttons label[for="report"],
-#myreports:checked ~ .toggle-buttons label[for="myreports"] {
-  background: #153291;
-  color: #fff;
-}
-
-/* Show/hide containers */
-#report-incident-container,
-#my-reports-container { display: none; }
-
-#report:checked ~ #report-incident-container { display: block; }
-#myreports:checked ~ #my-reports-container { display: block; }
-
-/* =========================
-   Incident Form + Boxes
-   ========================= */
-.incident-container {
-  background: #f9f9f9;
-  border: 2px solid #000;
-  border-radius: 10px;
-  width: 95%;
-  max-width: 1200px;
-  margin: 0 auto 40px;
-  padding: 20px;
+  padding: 0;
   box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.incident-header h2 {
-  margin: 0 0 20px 0;
-  font-size: 1.5rem;
+body {
+  background-color: #f7f9fc;
+  color: #222;
+  line-height: 1.6;
+}
+
+.main_content {
+    transition: margin-left 0.3s ease;
+    margin-left: 250px;
+}
+.main_content.expanded {
+    margin-left: 0px;
+}
+
+/* Heading */
+.main_content h1 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #ff8800fb;
+}
+
+/* Tab buttons */
+.tablink {
   display: flex;
-  align-items: center;
-  gap: 10px;
+  gap: 1rem;
+  margin-bottom: 2rem;
 }
 
-.incident-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.form-row {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.form-group {
+.btn_tablink {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-width: 200px;
-}
-
-.form-group label {
-  font-weight: bold;
-  margin-bottom: 6px;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-  padding: 10px;
-  border: 2px solid #000;
-  border-radius: 6px;
-  background: #fff;
-  font-size: 1rem;
-}
-
-textarea { resize: vertical; }
-
-.form-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 15px;
-}
-
-button {
-  padding: 10px 20px;
+  padding: 0.75rem 1rem;
+  background: #e9edf5;
   border: none;
-  border-radius: 6px;
-  font-size: 1rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.submit-btn { background: #ff8800fb; color: #fff; }
-.submit-btn:hover { background: #ff8800fb; }
-
-.draft-btn { background: #ff8800fb; color: #fff; }
-.draft-btn:hover { background: #ff8800fb; }
-
-/* My Reports box */
-.report-box {
-  border: 2px solid #000;
   border-radius: 8px;
-  background: #fff;
-  padding: 15px 20px;
-  margin-bottom: 15px;
-  transition: transform 0.2s, box-shadow 0.2s;
+  font-weight: 600;
+  color: #2c3e50;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.report-box:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+.btn_tablink:hover {
+  background: #d6def0;
 }
 
-.report-box h3 { margin: 0 0 10px 0; }
-
-.report-box .small-info {
-  font-size: 0.9rem;
-  color: #555;
-  margin-bottom: 10px;
+.btn_tablink.active {
+  background: #153291;
+  color: #fff;
 }
 
-.report-box i { margin-right: 5px; }
+/* Section icon + title */
+#report > span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  color: #ff0000;
+}
 
-/* Photo Upload Box */
-.photo-upload-container {
+#report > span .iconx {
+  width: 28px;
+  height: 28px;
+}
+
+#my_reports > span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  color: #153291;
+}
+
+#my_reports > span .iconx {
+  width: 28px;
+  height: 28px;
+}
+
+#staff_issues > span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  color: #153291;
+}
+
+#staff_issues > span .iconx {
+  width: 28px;
+  height: 28px;
+}
+#guest_issues > span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  color: #153291;
+}
+
+#guest_issues > span .iconx {
+  width: 28px;
+  height: 28px;
+}
+
+/* Input sections */
+.inputs {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: 2px dashed #000;
-  border-radius: 10px;
-  padding: 30px;
-  gap: 15px;
-  text-align: center;
-  background: #fafafa;
-  position: relative;
+  gap: 0.5rem;
+  margin-bottom: 1.2rem;
 }
 
-.photo-upload-container i.fas.fa-camera {
-  font-size: 2.5rem;
-  color: #555;
-}
-
-.photo-upload-container p {
-  margin: 0;
-  font-size: 1rem;
-  color: #555;
-}
-
-.photo-upload-btn {
-  padding: 8px 20px;
-  border: none;
-  border-radius: 6px;
-  background: #000;
-  color: #fff;
+.inputs strong {
   font-size: 0.95rem;
+  color: #444;
+}
+
+.inputs input,
+.inputs select,
+.inputs textarea {
+  padding: 0.7rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  font-size: 0.95rem;
+  transition: border 0.2s;
+}
+
+.inputs input:focus,
+.inputs select:focus,
+.inputs textarea:focus {
+  border-color: #153291;
+}
+
+/* Upload section */
+.upload {
+  margin-top: 1.5rem;
+}
+
+.upload strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.upload span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #153291;
   cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.upload span .iconx {
+  width: 22px;
+  height: 22px;
+}
+
+button.report {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #d48a34fb;
+  color: #fff;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+button.report:hover {
+  background: #ff8800fb;
+}
+
+button.report .iconx {
+  width: 20px;
+  height: 20px;
+}
+
+/* Report / Issue cards */
+.reports,
+.issues {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1.2rem 1.5rem;
+  margin-top: 1rem;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-left: 6px solid #153291; /* Ribbon edge */
+}
+
+.reports:hover,
+.issues:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Report header */
+.reports section:first-child,
+.issues section:first-child {
   display: flex;
   align-items: center;
-  gap: 6px;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;
 }
 
-.photo-upload-btn:hover {
-  background: #333;
+#report_title,
+#issue_title {
+  font-size: 1.2rem;
+  color: #2c3e50;
+  font-weight: 600;
 }
 
-/* Hide the actual file input, click handled by button */
-.photo-upload-container input[type="file"] {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  opacity: 0;
-  cursor: pointer;
+#priority {
+  padding: 0.3rem 0.7rem;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: capitalize;
+
 }
 
-/* =========================
-   Mobile Responsiveness < 700px
-   ========================= */
-@media (max-width: 700px) {
-  /* Page header stacks vertically */
-  .page-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
-  }
-
-  /* Incident stats stacks vertically */
-  .incident-stats {
-    flex-direction: column;
-    width: 100%;
-    gap: 10px;
-  }
-
-  .stat-box {
-    width: 100%;
-    justify-content: flex-start;
-  }
-
-  /* Toggle buttons stack vertically */
-  .toggle-buttons {
-    flex-direction: column;
-    width: 100%;
-    gap: 10px;
-  }
-
-  /* Incident form adjustments */
-  .incident-container {
-    width: 95%;
-    padding: 15px;
-  }
-
-  .form-row {
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .form-group {
-    width: 100%;
-  }
-
-  .form-actions {
-    flex-direction: column;
-    gap: 10px;
-    align-items: stretch;
-  }
-
-  button {
-    width: 100%;
-    justify-content: center;
-  }
-
-  /* Photo upload box responsive */
-  .photo-upload-container {
-    padding: 20px;
-    gap: 10px;
-  }
-
-  .photo-upload-btn {
-    width: 100%;
-    justify-content: center;
-  }
-
-  /* Report boxes full width */
-  .report-box {
-    width: 100%;
-    padding: 15px;
-  }
+/* Priority colors */
+#priority:contains("Low") {
+  background: #2ecc71;
+}
+#priority:contains("medium") {
+  background: #f39c12;
+}
+#priority:contains("high") {
+  background: #e74c3c;
 }
 
+/* Description */
+.reports p,
+.issues p {
+  margin-bottom: 0.8rem;
+  color: #555;
+}
 
-/* =========================
-   Ultra-small screen adjustments
-   ========================= */
-@media (max-width: 500px) {
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
-    padding: 8px;
-    font-size: 0.9rem;
+/* Footer info */
+.reports section:last-child,
+.issues section:last-child {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.reports section:last-child p,
+.issues section:last-child p {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.iconx {
+  width: 18px;
+  height: 18px;
+  color: #153291;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .tablink {
+    flex-direction: column;
   }
-
-  button {
-    padding: 8px;
-    font-size: 0.9rem;
-  }
-
-  .photo-upload-container {
-    padding: 15px;
-  }
-
-  .photo-upload-container p {
-    font-size: 0.9rem;
-  }
-
-  .toggle-buttons label {
-    padding: 8px 12px;
-    font-size: 0.9rem;
-  }
-
-  .page-header h2 {
-    font-size: 1.4rem;
-  }
-
-  .stat-box {
-    font-size: 0.85rem;
-    padding: 5px 8px;
+  .btn_tablink {
+    flex: unset;
+    width: 100%;
   }
 }

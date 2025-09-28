@@ -86,7 +86,6 @@ io.on('connection', function(socket){
     });
     socket.on('joinUserRoom', function(managerID) {
         socket.join(managerID);
-        console.log(`User with ID ${managerID} joined room`);
     });
     socket.on('managerJoin',function(managerID){
         socket.join(managerID);

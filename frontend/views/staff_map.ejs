@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/dashboard.css">
+    <title>map</title>
+</head>
+<body>
+          <script>
+        const user = {
+            role: "<%= user.role %>",
+            Username: "<%= user.displayName %>",
+            _id: "<%= user._id %>",
+        }
+    </script>
+       <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+    <script src="../scripts/socket.js"></script>
+    <%- include('partials/staff_navigation',{ notifcount }) %>
+    <section class="main_content" id="mainContent">
+        <%- include('partials/staff_topbar') %>
+        <section class="map">
+            <h1>Map</h1>
+        </section>
+
+    </section>
+
+    <script src="../scripts/sidebar.js"></script>
+</body>
+</html>

@@ -4,12 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Team Chats</title>
-  <link rel="stylesheet" href="/styles/staff-dashboard.css">
-  <link rel="stylesheet" href="/styles/team-chats.css">
+  <link rel="stylesheet" href="../styles/dashboard.css">
   <link rel="stylesheet" href="../styles/manager_chat.css">
 </head>
 <body>
+
+    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+    <script src="../scripts/socket.js"></script>
+
+    <%- include('partials/staff_navigation',{ notifcount }) %>
     <section class="main_content" id="mainContent">
+        <%- include('partials/staff_topbar') %>
         <section class="chat_system">
             <section class="inbox">
                 <h4 class="heading">Staff Communication</h4>
@@ -96,7 +101,7 @@
             managerId : "<%=chatroom.managerId%>"
         }
     </script>
-    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+    <script src="../scripts/sidebar.js"></script>
     <script src="../scripts/staffSocket.js"></script>
 </body>
 </html>

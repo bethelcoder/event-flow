@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const Chat = require('../models/chat');
 const Event = require('../models/Event');
+const Announcement = require('../models/Announcement');
 
 
 const staffRegpage = async (req, res) => {
@@ -104,5 +105,26 @@ const staffRegistration = async (req, res) => {
     return res.status(500).json({ error: "Server error" });
   }
 };
+const GetAnnouncementsforStaff= async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    const event= await Event.findOne({ "staff.staffId": req.user.id });
+    if (!event) {
+      return res.status(404).send('No event found for this staff member');
+    }
+    await Announcement.updateMany(
+      { eventId: event._id, ReadBy: { $ne: user._id} },
+      { $push: { ReadBy: user._id} }
+    );
+    const announcements = await Announcement.find({ eventId: event._id }).sort({ createdAt: -1 });
+    const notifcount = announcements.filter(a => !a.ReadBy.includes(user._id)).length;
+    res.render('announcements', { announcements ,user, notifcount });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error');
+  }
+}; 
 
-module.exports = { staffRegpage, staffRegistration };
+
+
+module.exports = { staffRegpage, staffRegistration,GetAnnouncementsforStaff};

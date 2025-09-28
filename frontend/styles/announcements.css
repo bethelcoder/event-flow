@@ -1,169 +1,144 @@
-/* announcements.css */
-
-/* Main container */
-.announcements-container {
-  padding: 25px;
-  font-family: Arial, sans-serif;
-  background: #f9f9f9fc;
-  color: #153291;
-  max-width: 1300px;
-  margin: 0 auto;
+/* Reset & global styles */
+* {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
-    overflow: visible; /* ensure it doesn’t scroll on its own */
-  height: auto;      /* let omega handle the height */
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Section Headers */
-.announcements-header h2 {
-  font-size: 1.8em;
-  font-weight: bold;
+body {
+  background-color: #f7f9fc;
+  color: #222;
+  line-height: 1.6;
+}
+
+.main_content {
+    transition: margin-left 0.3s ease;
+    margin-left: 250px;
+}
+.main_content.expanded {
+    margin-left: 0px;
+}
+
+/* Announcements header */
+.announce_heading {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 15px;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  background-color: #fff;
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
 }
 
-/* Header Actions */
-.header-actions {
+.announce_heading .icon {
+  width: 40px;
+  height: 40px;
+  color: #153291;
+}
+
+.announce_heading h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.2rem;
+  color: #ff8800fb;
+}
+
+.announce_heading p {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+/* Announcements section */
+.announcements {
   display: flex;
-  gap: 12px;
-  margin-top: 10px;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-.info-btn {
-  border: 1px solid #ccc;
-  background: #f8f8f8;
-  color: #000;
-  padding: 7px 14px;
-  border-radius: 6px;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: background 0.2s ease;
+/* Single update card */
+.update {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  background-color: #fff;
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.info-btn:hover {
-  background: #eee;
+.update:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-.urgent {
-  color: #153291;
-  font-weight: bold;
-  
-}
 
-.unread {
-  color: #153291;
-  font-weight: bold;
-  
-}
-
-.mark-all-read {
-  border: none;
-  
-  color: #153291;
-  padding: 7px 14px;
-  border-radius: 6px;
-  font-size: 0.85rem;
-  cursor: pointer;
+.update > span {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 0.5rem;
 }
 
-.mark-all-read:hover {
-  background: #ff8800fb;
-}
-
-/* Horizontal line */
-hr {
-  border: none;
-  border-top: 1px solid #ccc;
-  margin: 20px 0;
-}
-
-/* Latest Announcements Text */
-.latest-announcements p {
-  font-size: 1rem;
-  font-weight: 500;
-  margin-bottom: 20px;
+.update > span .icon {
+  width: 30px;
+  height: 30px;
   color: #153291;
-  width: 100%;
 }
 
-/* Announcements List */
-.latest-announcements {
+.update > span h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+
+.update_header {
   display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-/* Individual Announcement Cards */
-.announcement {
-
-
-  padding: 25px;
-  font-family: Arial, sans-serif;
-  background: #f9f9f9fc;
-  color: #000;
-  max-width: 1300px;
-  margin: 0 auto;
-  box-sizing: border-box;
-}
-
-.announcement:hover {
-  transform: translateY(-2px);
-  box-shadow: 0px 6px 18px rgba(0,0,0,0.12);
-}
-
-.announcement header {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 12px;
-}
-
-.announcement header .title {
-  font-weight: bold;
-  font-size: 1.2em;
-  margin-bottom: 6px;
-}
-
-.announcement .meta {
-  font-size: 0.85em;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
   color: #555;
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-  margin-bottom: 10px;
 }
 
-.announcement p {
-  margin: 8px 0;
-  font-size: 0.95em;
-  line-height: 1.5;
-  display: block;
-  width: 100%; /* ensures full width of card */
+.update_header .icon {
+  width: 20px;
+  height: 20px;
 }
 
-/* Mark Read Button */
-.announcement footer .mark-read {
-  margin-top: 10px;
-  border: none;
-  background: #ff8800fb;
-  color: #fff;
-  padding: 6px 14px;
-  border-radius: 6px;
-  font-size: 0.85rem;
-  cursor: pointer;
+.update_header strong {
+  font-weight: 600;
+  margin-right: auto;
 }
 
-.announcement footer .mark-read:hover {
-  background: #333;
+.update_header svg:last-child {
+  width: 18px;
+  height: 18px;
+  color: #888;
+}
+
+.update_messsage p {
+  color: #333;
+  font-size: 0.95rem;
+  margin-left: 2rem;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .header-actions {
+  .main_content {
+    padding: 1rem;
+  }
+
+  .announce_heading {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .update {
+    flex-direction: column;
+  }
+
+  .update_messsage p {
+    margin-left: 0;
   }
 }

@@ -1,0 +1,14 @@
+.notif-count {
+  display: inline-block;             
+  background: red;          
+  color: white;                
+  font-size: 12px;           
+  font-weight: bold;
+  border-radius: 50%;          
+  width: 18px;
+  height: 18px;
+  line-height: 18px;           
+  text-align: center;
+  margin-left: 6px;           
+  vertical-align: middle;
+}
