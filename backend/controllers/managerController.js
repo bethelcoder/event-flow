@@ -8,6 +8,7 @@ const { findOne } = require('../models/Guest');
 const chat = require('../models/chat');
 const Annotation = require('../models/Annotation');
 const { cloudinary, VenueUpload } = require('../config/cloudinary');
+const Incidents = require('../models/Incidents');
 
 const managerHome = async (req, res) => {
   try {
@@ -77,7 +78,22 @@ const managerChat = async (req, res) => {
     res.status(500).send('Server error');
   }
 };
+const managerincidents = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    const event = await Event.findOne({ 'organizer.id': user._id });
+    if (!event) {
+      return res.status(404).send('No event found for this manager');
+    }
+      const staffincidents = await Incidents.find({ eventId: event._id, staffId: { $exists: true, $ne: null } }).sort({ createdAt: -1 });
+      const incidents = await Incidents.find({ eventId: event._id }).sort({ createdAt: -1 });
+      const guestincidents = await Incidents.find({ eventId: event._id, guestId: { $exists: true, $ne: null } }).sort({ createdAt: -1 });
+      res.render('manager_incident',{user, staffincidents, guestincidents});
+      } catch (err) {
+        console.error(err);
+        res.status(500).send('Server error');
+      }
+    };
 
 
-
-module.exports = { managerHome, managerChat };
+module.exports = { managerHome, managerChat,managerincidents };
