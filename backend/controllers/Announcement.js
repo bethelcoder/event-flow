@@ -35,7 +35,6 @@ exports.createAndPublish = async (req, res) => {
     targetUserIds = (event.guests || []).map(g => g.guestId?.toString());
     }
 
-// Clean out null/undefined
 targetUserIds = targetUserIds.filter(Boolean);
     const io = req.app.get('io');
     io.to(user.id).emit('newAnnouncementManager', announcement);

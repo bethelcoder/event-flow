@@ -19,6 +19,7 @@ const announcementSchema = new mongoose.Schema({
     enum: ['draft', 'published'],
     default: 'draft'
   },
+  ReadBy:[{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   createdAt: { type: Date, default: Date.now },
   publishedAt: { type: Date } // null if draft
 });

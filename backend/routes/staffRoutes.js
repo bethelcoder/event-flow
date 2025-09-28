@@ -4,8 +4,10 @@ const {authenticateJWT,redirectIfAuthenticated, onboardingJWT} = require('../mid
 const User=require('../models/User');
 const Event=require('../models/Event');
 const Session=require('../models/Session');
-const { staffRegpage, staffRegistration } = require('../controllers/staffController');
+const { staffRegpage, staffRegistration} = require('../controllers/staffController');
+const staffController = require('../controllers/staffController');  
 const chat = require('../models/chat');
+const Announcement = require('../models/Announcement');
 
 /**
  * @swagger
@@ -147,11 +149,17 @@ router.get('/chat',authenticateJWT , async function(req,res){
     try {
           const user = await User.findById(req.user.id);
           const chatroom = await chat.findOne({"members.userId": req.user.id});
+          const event= await Event.findOne({ "staff.staffId": req.user.id });
+              if (!event) {
+                return res.status(404).send('No event found for this staff member');
+              }
           // Get chat document for this staff
           const chatDoc = await chat.findOne(
             { "members.userId": req.user.id },
             { messages: 1, _id: 0 }
           );
+          const announcements = await Announcement.find({ eventId: event._id }).sort({ createdAt: -1 });
+          const notifcount = announcements.filter(a => !a.ReadBy.includes(user._id)).length;
       
           let messages = [];
           let senders = [];
@@ -166,26 +174,52 @@ router.get('/chat',authenticateJWT , async function(req,res){
             // Fetch sender details from User collection
             senders = await User.find({ _id: { $in: uniqueSenderIds } });
           }
+          
       
-          res.render('team-chats', { user, messages, senders ,chatroom});
+          res.render('team-chats', { user, messages, senders ,chatroom,notifcount});
         } catch (err) {
           console.error(err);
           res.status(500).send('Server error');
         }
 });
 
-router.get('/incidents', authenticateJWT, (req, res) => {
-  res.render('report-incident');
+router.get('/incidents',authenticateJWT, async(req, res) => {
+  const user = await User.findById(req.user.id);
+  const event= await Event.findOne({ "staff.staffId": req.user.id });
+  if (!event) {
+    return res.status(404).send('No event found for this staff member');
+  }
+  const announcements = await Announcement.find({ eventId: event._id }).sort({ createdAt: -1 });
+  const notifcount = announcements.filter(a => !a.ReadBy.includes(user._id)).length;
+  console.log("Notification Count:", notifcount);
+  
+  res.render('report-incident',{user, notifcount});
 });
 
-router.get('/tasks', authenticateJWT, (req, res) => {
-  res.render('my-tasks');
+router.get('/tasks', authenticateJWT, async (req, res) => {
+  const user = await User.findById(req.user.id);
+  const event= await Event.findOne({ "staff.staffId": req.user.id });
+  if (!event) {
+    return res.status(404).send('No event found for this staff member');
+  }
+  const announcements = await Announcement.find({ eventId: event._id }).sort({ createdAt: -1 });
+  const notifcount = announcements.filter(a => !a.ReadBy.includes(user._id)).length;
+  res.render('my-tasks',{user, notifcount});
 });
-router.get('/announcements', (req, res) => {
-  res.render('announcements');
+router.get('/announcements',authenticateJWT,staffController.GetAnnouncementsforStaff,async (req, res) => {
 });
-router.get('/map', authenticateJWT, (req, res) => {
-  res.render('staff_map');
+router.get('/map', authenticateJWT, async(req, res) => {
+   const user =await User.findById(req.user.id);
+  const event= await Event.findOne({ "staff.staffId": req.user.id });
+  if (!event) {
+    return res.status(404).send('No event found for this staff member');
+  }
+      const announcements = await Announcement.find({ eventId: event._id }).sort({ createdAt: -1 });
+      const notifcount = announcements.filter(a => !a.ReadBy.includes(user._id)).length;
+ 
+  res.render('staff_map',{user, notifcount});
 });
+
+
 
 module.exports = router;

@@ -8,7 +8,11 @@
   <link rel="stylesheet" href="../styles/manager_chat.css">
 </head>
 <body>
-    <%- include('partials/staff_navigation') %>
+
+    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+    <script src="../scripts/socket.js"></script>
+
+    <%- include('partials/staff_navigation',{ notifcount }) %>
     <section class="main_content" id="mainContent">
         <%- include('partials/staff_topbar') %>
         <section class="chat_system">
@@ -98,7 +102,6 @@
         }
     </script>
     <script src="../scripts/sidebar.js"></script>
-    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
     <script src="../scripts/staffSocket.js"></script>
 </body>
 </html>

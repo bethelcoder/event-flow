@@ -37,7 +37,6 @@ document.getElementById('form').addEventListener('submit', async (e) => {
   }
 });
 
-// const socket = io();
 socket.emit('joinUserRoom', user._id); 
 socket.on('newAnnouncementManager', function (announcement) {
     const count= document.getElementById('Count');

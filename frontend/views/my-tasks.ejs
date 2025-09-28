@@ -8,7 +8,16 @@
   <title>Tasks</title>
 </head>
 <body>
-  <%- include('partials/staff_navigation') %>
+      <script>
+        const user = {
+            role: "<%= user.role %>",
+            Username: "<%= user.displayName %>",
+            _id: "<%= user._id %>",
+        }
+    </script>
+       <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+    <script src="../scripts/socket.js"></script>
+  <%- include('partials/staff_navigation',{ notifcount }) %>
   <section class="main_content" id="mainContent">
     <%- include('partials/staff_topbar') %>
     <section class="task_header">

@@ -8,16 +8,25 @@
   <title>Announcement</title>
 </head>
 <body>
-  <%- include('partials/staff_navigation') %>
+      <script>
+        const user = {
+            role: "<%= user.role %>",
+            Username: "<%= user.displayName %>",
+            _id: "<%= user._id %>",
+        }
+    </script>
+  <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+  <script src="../scripts/socket.js"></script>
+  <%- include('partials/staff_navigation',{ notifcount }) %>
   <section class="main_content" id="mainContent">
     <%- include('partials/staff_topbar') %>
 
     <section class="announce_heading">
-      <span>
+      <!-- <span>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
           <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5" />
         </svg>
-      </span>
+      </span> -->
       <section>
         <h2>Announcements</h2>
         <p>Stay updated with the latest event information</p>
@@ -27,12 +36,19 @@
     <!-- announcements -->
 
     <section class="announcements">
+
+      <% if(announcements.length === 0) { %>
+      <p class="no_announcement">No announcements yet</p>
+      <% } %>
+
+
+      <% announcements.forEach(announcement => { %>
       <article class="update">
         <span>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
             <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5" />
           </svg>
-          <h4>update heading</h4>
+          <h4><%= announcement.title %></h4>
         </span>
         <section class="update_header">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
@@ -42,12 +58,14 @@
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
           </svg>
-          09:51 AM
+          <%= announcement.createdAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) %>
         </section>
         <section class="update_messsage">
-          <p>This is simulated real-time announcement to demostrate live updates</p>
+          <p><%= announcement.message %></p>
         </section>
       </article>
+      <% }) %>
+
     </section>
 
   </section>
