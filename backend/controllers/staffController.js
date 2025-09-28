@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const Chat = require('../models/chat');
 const Event = require('../models/Event');
 const Announcement = require('../models/Announcement');
+const Incidents = require('../models/Incidents');
 
 
 const staffRegpage = async (req, res) => {
@@ -125,6 +126,47 @@ const GetAnnouncementsforStaff= async (req, res) => {
   }
 }; 
 
+const SubmitIncidentReport= async(req,res)=>{
+  try {
+    const user = await User.findById(req.user.id);
+    const event= await Event.findOne({ "staff.staffId": req.user.id });
+    if (!event) {
+      return res.status(404).send('No event found for this staff member');
+    }
+    const incident = new Incident({
+      eventId: event._id,
+      staffId: user._id,
+      title: req.body.title,
+      priority: req.body.priority,
+      category: req.body.category,
+      location: req.body.location,
+      description: req.body.description
+    });
+    await incident.save();
+    res.redirect('/staff/incidents');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error');
+  }
+};
+const getincidents= async(req,res)=>{
+  try {
+  const user = await User.findById(req.user.id);
+  const event= await Event.findOne({ "staff.staffId": req.user.id });
+  if (!event) {
+    return res.status(404).send('No event found for this staff member');
+  }
+  const announcements = await Announcement.find({ eventId: event._id }).sort({ createdAt: -1 });
+  const notifcount = announcements.filter(a => !a.ReadBy.includes(user._id)).length;
+  const staffincidents = await Incidents.find({ eventId: event._id, staffId: { $exists: true, $ne: null } }).sort({ createdAt: -1 });
+  const incidents = await Incidents.find({ eventId: event._id }).sort({ createdAt: -1 });
+  const myIncidents = incidents.filter(inc => inc.staffId.toString() === user._id.toString());
+  const guestincidents = await Incidents.find({ eventId: event._id, guestId: { $exists: true, $ne: null } }).sort({ createdAt: -1 });
+  res.render('report-incident',{user, notifcount, myIncidents, staffincidents, guestincidents});
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error');
+  }
+};
 
-
-module.exports = { staffRegpage, staffRegistration,GetAnnouncementsforStaff};
+module.exports = { staffRegpage, staffRegistration,GetAnnouncementsforStaff,SubmitIncidentReport,getincidents };

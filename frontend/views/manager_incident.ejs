@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../styles/dashboard.css">
+  <link rel="stylesheet" href="../styles/report-incident.css">
+  <title>Incidents</title>
+</head>
+<body>
+  <%- include('partials/manager_navigation') %>
+  <section class="main_content" id="mainContent">
+    <%- include('partials/topbar') %>
+    <h1>Incidents</h1>
+    <section class="tablink">
+      <button class="btn_tablink" onclick="openPage('staff_issues',this)">Staff Issues</button>
+      <button class="btn_tablink" onclick="openPage('guest_issues',this)">Guest Issues</button>
+    </section>
+    <!-- other staff issues -->
+    <section id="staff_issues">
+      <span>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="iconx">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+        </svg>
+        <p>Staff Incidents Reports</p>
+      </span>
+      <%if(staffincidents.length === 0){%>
+        <p style="text-align: center; margin-top: 20px;">No staff incidents reported yet.</p>
+      <% } else { %>
+      <% staffincidents.forEach(incident => { %>
+        <article class="reports">
+          <section>
+            <h3 id="report_title"><%= incident.title %></h3>
+            <span id="priority"><%= incident.priority %></span>
+          </section>
+        <p><%= incident.description %></p>
+        <section>
+          <p id="location">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="iconx">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+            </svg>
+            <%= incident.location %>
+          </p>
+          <p id="time">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="iconx">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+          <%= incident.createdAt.toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' }) %>
+          </p>
+          <p id="category"><%= incident.category %></p>
+          
+        </section>
+      </article>
+      <% }) %>
+      <% } %> 
+    </section>
+
+    <!-- Guest issues -->
+    <section id="guest_issues">
+      <span>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="iconx">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+        </svg>
+        <P>Guest Issues</P>
+      </span>
+      <%if(guestincidents.length === 0){%>
+        <p style="text-align: center; margin-top: 20px;">No guest incidents reported yet.</p>
+      <% } else { %>
+      <% guestincidents.forEach(incident => { %>
+        <article class="issues">
+          <section>
+          <h3 id="issue_title"><%= incident.title %></h3>
+          <span id="priority"><%= incident.priority %></span>
+          </section>
+          <p id="description"><%= incident.description %></p>
+          <section>
+            <p id="location">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="iconx">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+              </svg>
+              <%= incident.location %>
+            </p>
+            <p id="time">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="iconx">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+              </svg>
+              <%= incident.createdAt.toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' }) %>
+            </p>
+            <p id="issue_type"><%= incident.category %></p>
+            
+          </section>
+        </article>
+      <% }) %>
+      <% } %>
+    </section>
+  </section>
+  <script src="../scripts/manager_incident.js"></script>
+  <script src="../scripts/sidebar.js"></script>
+</body>
+</html>

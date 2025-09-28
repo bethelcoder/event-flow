@@ -11,7 +11,7 @@ const { findOne } = require('../models/Guest');
 const chat = require('../models/chat');
 const Annotation = require('../models/Annotation');
 const announcementController = require('../controllers/Announcement');
-
+const managercontroller = require('../controllers/managerController');
 const { managerHome, managerChat } = require('../controllers/managerController');
 const { cloudinary, VenueUpload } = require('../config/cloudinary');
 const Announcement = require('../models/Announcement');
@@ -604,6 +604,7 @@ router.get('/venue-selection', authenticateJWT, async(req,res)=>{
   const venues = await Venue.find();
   res.render('manager_venue', { user: req.user, venues });
 });
+router.get('/incidents', authenticateJWT,managercontroller.managerincidents);
   
 router.get('/guest-invite', authenticateJWT, async (req,res)=>{
     const manager = await User.findOne({ _id: req.user.id });
