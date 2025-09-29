@@ -64,7 +64,6 @@ const EventSchema = new mongoose.Schema({
         public_id: String
     }
   },
-
   map: {
 
     annotations: [

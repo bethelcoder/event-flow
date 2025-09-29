@@ -26,6 +26,11 @@ body {
     margin-bottom: 1rem;
 }
 
+.guest-event {
+  width: 45rem;
+  height: 30rem;
+  border-radius: 2rem;
+}
 .guest_heading .heading h2 {
   font-size: 1.4rem;
 }
