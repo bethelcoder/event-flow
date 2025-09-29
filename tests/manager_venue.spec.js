@@ -16,7 +16,7 @@ test.describe('Manager Venue Page - Independent Functional Tests', () => {
     await page.goto(`${baseURL}/manager/venue-selection`);
   });
 
-  test('4️⃣ Verify that the "Add New Venue" button is visible and functional', async ({ page }) => {
+  test('1️⃣ Verify that the "Add New Venue" button is visible and functional', async ({ page }) => {
     const addVenueButton = page.locator('button', { hasText: 'Add New Venue' });
     await addVenueButton.waitFor({ state: 'visible', timeout: 5000 });
     await expect(addVenueButton).toBeVisible();
@@ -27,17 +27,17 @@ test.describe('Manager Venue Page - Independent Functional Tests', () => {
     await expect(venueModal).toBeVisible();
   });
 
-  test('5️⃣ Verify that at least one "Select" button exists for choosing a venue', async ({ page }) => {
+  test('2️⃣ Verify that at least one "Select" button exists for choosing a venue', async ({ page }) => {
     const selectButton = page.locator('button', { hasText: 'select' });
     await selectButton.first().waitFor({ state: 'visible', timeout: 5000 });
     await expect(selectButton.first()).toBeVisible();
   });
 
-  test('6️⃣ Verify all input fields exist in the "Add New Venue" modal', async ({ page }) => {
+  test('3️⃣ Verify all input fields exist in the "Add New Venue" modal', async ({ page }) => {
     await page.locator('button', { hasText: 'Add New Venue' }).click();
     const fields = [
       '#name', '#typeofvenue', '#address', '#capacity',
-      '#facilities', '#city', '#rating', '#venueImage'
+      '#facilities', '#city', '#rating', '#venueImage', '#mapImage'
     ];
 
     for (const selector of fields) {
@@ -46,15 +46,14 @@ test.describe('Manager Venue Page - Independent Functional Tests', () => {
     }
   });
 
-  test('7️⃣ Modal cancel button closes the modal', async ({ page }) => {
+  test('4️⃣ Modal cancel button closes the modal', async ({ page }) => {
     await page.locator('button', { hasText: 'Add New Venue' }).click();
     await page.click('#venueForm button', { hasText: 'Cancel' });
     const venueModal = page.locator('#venueModal');
     await expect(venueModal).toHaveAttribute('aria-hidden', 'true');
   });
 
-  // ✅ Updated test 8: Add a new test venue
-  test('8️⃣ Add a new test venue and verify it appears in the list', async ({ page }) => {
+  test('5️⃣ Add a new test venue and verify it appears in the list', async ({ page }) => {
     await page.locator('button', { hasText: 'Add New Venue' }).click();
 
     const testVenueName = `Test Venue ${Date.now()}`;
@@ -67,7 +66,10 @@ test.describe('Manager Venue Page - Independent Functional Tests', () => {
 
     // Image now in the same folder as this test file
     const testImage = path.resolve(__dirname, 'background.jpg');
+    const testMapImage = path.resolve(__dirname, 'background.jpg'); // reuse same picture for map
+
     await page.setInputFiles('#venueImage', testImage);
+    await page.setInputFiles('#mapImage', testMapImage);
 
     await page.fill('#name', testVenueName);
     await page.fill('#typeofvenue', testType);
@@ -88,7 +90,7 @@ test.describe('Manager Venue Page - Independent Functional Tests', () => {
     await expect(lastVenue.locator('h3')).toHaveText(new RegExp(testVenueName));
   });
 
-  test('9️⃣ Verify clicking "Select" submits the form', async ({ page }) => {
+  test('6️⃣ Verify clicking "Select" submits the form', async ({ page }) => {
     const selectButton = page.locator('.All_venues .venue button', { hasText: 'select' }).first();
     await selectButton.waitFor({ state: 'visible', timeout: 5000 });
 
@@ -101,7 +103,7 @@ test.describe('Manager Venue Page - Independent Functional Tests', () => {
     await selectButton.click();
   });
 
-  test('🔟 Modal cannot submit with empty required fields', async ({ page }) => {
+  test('7️⃣ Modal cannot submit with empty required fields', async ({ page }) => {
     await page.locator('button', { hasText: 'Add New Venue' }).click();
 
     const fields = ['#name', '#typeofvenue', '#address', '#capacity', '#facilities', '#city', '#rating'];

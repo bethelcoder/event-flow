@@ -1,0 +1,209 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - heading "Dashboard" [level=3] [ref=e3]
+    - link "Staff Chat" [ref=e4] [cursor=pointer]:
+      - /url: /staff/chat
+      - img [ref=e5] [cursor=pointer]
+      - text: Staff Chat
+    - link "Announcements" [ref=e7] [cursor=pointer]:
+      - /url: /staff/announcements
+      - img [ref=e8] [cursor=pointer]
+      - text: Announcements
+    - link "Task" [ref=e10] [cursor=pointer]:
+      - /url: /staff/tasks
+      - img [ref=e11] [cursor=pointer]
+      - text: Task
+    - link "Incidents" [ref=e13] [cursor=pointer]:
+      - /url: /staff/incidents
+      - img [ref=e14] [cursor=pointer]
+      - text: Incidents
+    - link "Venue Map" [ref=e16] [cursor=pointer]:
+      - /url: /staff/map
+      - img [ref=e17] [cursor=pointer]
+      - text: Venue Map
+  - generic [ref=e19]:
+    - generic [ref=e20]:
+      - generic [ref=e21]:
+        - button "☰" [ref=e22] [cursor=pointer]
+        - generic [ref=e23]:
+          - img [ref=e24]
+          - heading "EventFlow" [level=3] [ref=e26]
+      - button "Logout" [ref=e29]
+    - generic [ref=e31]:
+      - heading "Announcements" [level=2] [ref=e32]
+      - paragraph [ref=e33]: Stay updated with the latest event information
+    - generic [ref=e34]:
+      - article [ref=e35]:
+        - generic [ref=e36]:
+          - img [ref=e37]
+          - heading "Automated Test Announcement" [level=4] [ref=e39]
+        - generic [ref=e40]:
+          - img [ref=e41]
+          - strong [ref=e43]: Event Manager
+          - img [ref=e44]
+          - text: 00:32
+        - paragraph [ref=e47]: This is a test message created via Playwright.
+      - article [ref=e48]:
+        - generic [ref=e49]:
+          - img [ref=e50]
+          - heading "Automated Test Announcement" [level=4] [ref=e52]
+        - generic [ref=e53]:
+          - img [ref=e54]
+          - strong [ref=e56]: Event Manager
+          - img [ref=e57]
+          - text: 00:27
+        - paragraph [ref=e60]: This is a test message created via Playwright.
+      - article [ref=e61]:
+        - generic [ref=e62]:
+          - img [ref=e63]
+          - heading "Automated Test Announcement" [level=4] [ref=e65]
+        - generic [ref=e66]:
+          - img [ref=e67]
+          - strong [ref=e69]: Event Manager
+          - img [ref=e70]
+          - text: 23:29
+        - paragraph [ref=e73]: This is a test message created via Playwright.
+      - article [ref=e74]:
+        - generic [ref=e75]:
+          - img [ref=e76]
+          - heading "Automated Test Announcement" [level=4] [ref=e78]
+        - generic [ref=e79]:
+          - img [ref=e80]
+          - strong [ref=e82]: Event Manager
+          - img [ref=e83]
+          - text: 23:25
+        - paragraph [ref=e86]: This is a test message created via Playwright.
+      - article [ref=e87]:
+        - generic [ref=e88]:
+          - img [ref=e89]
+          - heading "Automated Test Announcement" [level=4] [ref=e91]
+        - generic [ref=e92]:
+          - img [ref=e93]
+          - strong [ref=e95]: Event Manager
+          - img [ref=e96]
+          - text: 23:21
+        - paragraph [ref=e99]: This is a test message created via Playwright.
+      - article [ref=e100]:
+        - generic [ref=e101]:
+          - img [ref=e102]
+          - heading "Automated Test Announcement" [level=4] [ref=e104]
+        - generic [ref=e105]:
+          - img [ref=e106]
+          - strong [ref=e108]: Event Manager
+          - img [ref=e109]
+          - text: 23:19
+        - paragraph [ref=e112]: This is a test message created via Playwright.
+      - article [ref=e113]:
+        - generic [ref=e114]:
+          - img [ref=e115]
+          - heading "Automated Test Announcement" [level=4] [ref=e117]
+        - generic [ref=e118]:
+          - img [ref=e119]
+          - strong [ref=e121]: Event Manager
+          - img [ref=e122]
+          - text: 23:14
+        - paragraph [ref=e125]: This is a test message created via Playwright.
+      - article [ref=e126]:
+        - generic [ref=e127]:
+          - img [ref=e128]
+          - heading "Automated Test Announcement" [level=4] [ref=e130]
+        - generic [ref=e131]:
+          - img [ref=e132]
+          - strong [ref=e134]: Event Manager
+          - img [ref=e135]
+          - text: 23:13
+        - paragraph [ref=e138]: This is a test message created via Playwright.
+      - article [ref=e139]:
+        - generic [ref=e140]:
+          - img [ref=e141]
+          - heading "Automated Test Announcement" [level=4] [ref=e143]
+        - generic [ref=e144]:
+          - img [ref=e145]
+          - strong [ref=e147]: Event Manager
+          - img [ref=e148]
+          - text: 23:11
+        - paragraph [ref=e151]: This is a test message created via Playwright.
+      - article [ref=e152]:
+        - generic [ref=e153]:
+          - img [ref=e154]
+          - heading "Automated Test Announcement" [level=4] [ref=e156]
+        - generic [ref=e157]:
+          - img [ref=e158]
+          - strong [ref=e160]: Event Manager
+          - img [ref=e161]
+          - text: 23:10
+        - paragraph [ref=e164]: This is a test message created via Playwright.
+      - article [ref=e165]:
+        - generic [ref=e166]:
+          - img [ref=e167]
+          - heading "Automated Test Announcement" [level=4] [ref=e169]
+        - generic [ref=e170]:
+          - img [ref=e171]
+          - strong [ref=e173]: Event Manager
+          - img [ref=e174]
+          - text: 22:53
+        - paragraph [ref=e177]: This is a test message created via Playwright.
+      - article [ref=e178]:
+        - generic [ref=e179]:
+          - img [ref=e180]
+          - heading "Automated Test Announcement" [level=4] [ref=e182]
+        - generic [ref=e183]:
+          - img [ref=e184]
+          - strong [ref=e186]: Event Manager
+          - img [ref=e187]
+          - text: 22:52
+        - paragraph [ref=e190]: This is a test message created via Playwright.
+      - article [ref=e191]:
+        - generic [ref=e192]:
+          - img [ref=e193]
+          - heading "Automated Test Announcement" [level=4] [ref=e195]
+        - generic [ref=e196]:
+          - img [ref=e197]
+          - strong [ref=e199]: Event Manager
+          - img [ref=e200]
+          - text: 22:49
+        - paragraph [ref=e203]: This is a test message created via Playwright.
+      - article [ref=e204]:
+        - generic [ref=e205]:
+          - img [ref=e206]
+          - heading "ndaa" [level=4] [ref=e208]
+        - generic [ref=e209]:
+          - img [ref=e210]
+          - strong [ref=e212]: Event Manager
+          - img [ref=e213]
+          - text: 22:45
+        - paragraph [ref=e216]: ndaa
+      - article [ref=e217]:
+        - generic [ref=e218]:
+          - img [ref=e219]
+          - heading "Automated Test Announcement" [level=4] [ref=e221]
+        - generic [ref=e222]:
+          - img [ref=e223]
+          - strong [ref=e225]: Event Manager
+          - img [ref=e226]
+          - text: 22:44
+        - paragraph [ref=e229]: This is a test message created via Playwright.
+      - article [ref=e230]:
+        - generic [ref=e231]:
+          - img [ref=e232]
+          - heading "Automated Test Announcement" [level=4] [ref=e234]
+        - generic [ref=e235]:
+          - img [ref=e236]
+          - strong [ref=e238]: Event Manager
+          - img [ref=e239]
+          - text: 22:35
+        - paragraph [ref=e242]: This is a test message created via Playwright.
+      - article [ref=e243]:
+        - generic [ref=e244]:
+          - img [ref=e245]
+          - heading "Tea" [level=4] [ref=e247]
+        - generic [ref=e248]:
+          - img [ref=e249]
+          - strong [ref=e251]: Event Manager
+          - img [ref=e252]
+          - text: 19:36
+        - paragraph [ref=e255]: come drink tea
+```

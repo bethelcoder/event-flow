@@ -35,7 +35,7 @@ test.describe('Manager Chat Page - Independent Functional Tests', () => {
     await expect(chatInput).toBeVisible();
 
     // Type a test message
-    const testMessage = `Playwright test message ${Date.now()}`;
+    const testMessage = `This is an automated message from Playwright testing: ${Date.now()}`;
     await chatInput.fill(testMessage);
 
     // Click the send button (form submit)
