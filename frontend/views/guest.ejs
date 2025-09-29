@@ -9,10 +9,9 @@
 <body>
     <section class="guest_heading">
         <section class="heading">
-            <h2>Welcome, Guest</h2>
-            <p>Event name</p>
+            <h2>Welcome, <%= guestName %></h2>
+            <p><%= eventName%></p>
         </section>
-        <span>Guest Access</span>
     </section>
     <section class="pages">
         <button class="btn_tablink" onclick="openPage('qr',this)">
@@ -54,9 +53,9 @@
                     <h4>Your Event pass</h4>
                 </span>
                 <section class="code">
-                    <img src="../../visuals/qrcode.png">
-                    <strong>Reference: </strong>
-                    <p>Present this QR code at entry points for varification</p>
+                    <img src="<%= venueImage %>" alt="Venue Image" class="guest-event">
+                    <strong>Venue </strong>
+                    <p>One of our prestigious venues at your service</p>
                 </section>
             </section>
 
@@ -68,7 +67,10 @@
                     </svg>
                     <section class="detail">
                         <strong>Event Date</strong>
-                        <p>March 15,2025</p>
+                        <p><%= new Date(eventDate).toLocaleString('en-GB', { 
+                               day: '2-digit', month: 'short', year: 'numeric', 
+                               hour: '2-digit', minute: '2-digit' 
+                           }) %></p>
                     </section>
                 </section>
                 <section class="row">
@@ -78,7 +80,7 @@
                     </svg>
                     <section class="detail"> 
                         <strong>Venue</strong>
-                        <p>Hall 29</p>
+                        <p><%= eventVenue %></p>
                     </section>
                 </section>
                 <section class="row">
@@ -87,7 +89,7 @@
                     </svg>
                     <section class="detail">
                         <strong>Registerd Email</strong>
-                        <p>lilimumualusi37@gmail.com</p>
+                        <p><%= guestEmail %></p>
                     </section>
                 </section>
                 <section class="Emergency">
@@ -99,44 +101,34 @@
     </section>
 
 
-    <section class="Program" id="program">
-        <span class="Headings">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="guest_icon">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
-            </svg>
-            <h4>Event Program</h4>
-        </span>
+<section class="Program" id="program">
+    <span class="Headings">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="guest_icon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+        </svg>
+        <h4>Event Program</h4>
+    </span>
+
+    <% sessions.forEach(session => { %>
         <section class="event_program">
             <section class="time">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="guest_icon">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                 </svg>
-                09:00 AM
+                <%= new Date(session.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) %>
             </section>
             <section class="program_details">
                 <section>
-                    <h4>Registration & Welcome Coffee</h4>
-                    <p>Check-in and networking breakfast</p>
+                    <h4><%= session.title %></h4>
+                    <p><%= session.description %></p>
+                    <small>Speaker: <%= session.speaker %></small>
                 </section>
-                <span>Main Lobby</span>
+                <span><%= session.location %></span>
             </section>
         </section>
-        <section class="event_program">
-            <section class="time">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="guest_icon">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                </svg>
-                09:30 AM
-            </section>
-            <section class="program_details">
-                <section>
-                    <h4>Purpose of the event</h4>
-                    <p>why we made this event</p>
-                </section>
-                <span>Main Lobby</span>
-            </section>
-        </section>
-    </section>
+    <% }) %>
+</section>
+
 
 
     <section class="Venue" id="venue">
@@ -153,7 +145,7 @@
     </section>
 
     <section class="Report" id="report">
-        <form class="issue" method="post">
+        <form class="issue" method="post" action="/guests/report-issue/<%=guestId %>">
             <span class="Headings">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="guest_icon">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 3v1.5M3 21v-6m0 0 2.77-.693a9 9 0 0 1 6.208.682l.108.054a9 9 0 0 0 6.086.71l3.114-.732a48.524 48.524 0 0 1-.005-10.499l-3.11.732a9 9 0 0 1-6.085-.711l-.108-.054a9 9 0 0 0-6.208-.682L3 4.5M3 15V4.5" />
@@ -163,22 +155,22 @@
             <section class="Row1">
                 <section class="column">
                     <h5>Issue Type</h5>
-                    <input type="text" placeholder="e.g, Technical problem, Safety, Concern, Lost Item">
+                    <input type="text" name="issue_type" placeholder="e.g, Technical problem, Safety, Concern, Lost Item">
                 </section>
                 <section class="column">
                     <h5>Location</h5>
-                    <input type="text" placeholder="e.g, Main Auditorium, Lobby, Room A">
+                    <input type="text" name="incident_setting" placeholder="e.g, Main Auditorium, Lobby, Room A">
                 </section>
             </section>
             <section class="column">
                 <h5>Description</h5>
-                <textarea rows="5" placeholder="Please provide detailed information about the issue..."></textarea>
+                <textarea rows="5" name="issue_description" placeholder="Please provide detailed information about the issue..."></textarea>
             </section>
             <h5>Priority Level</h5>
-            <select>
-                <option>Low - General enquiry</option>
-                <option>Medium - Needs attention</option>
-                <option>High - Urgent issue</option>
+            <select id="priority" name="priority">
+                <option value="Low">Low - General enquiry</option>
+                <option value="Medium">Medium - Needs attention</option>
+                <option value="High">High - Urgent issue</option>
             </select>
             <button type="submit">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="guest_icon">
