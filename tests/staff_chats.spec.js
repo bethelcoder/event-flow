@@ -12,7 +12,7 @@ test.describe('Staff Chats Page - Functional Tests', () => {
     await page.context().addCookies(cookies);
 
     // Go to staff chats page
-    await page.goto(`${baseURL}/staff/announcements`);
+    await page.goto(`${baseURL}/staff/chat`);
     await page.waitForLoadState('networkidle');
   });
 
