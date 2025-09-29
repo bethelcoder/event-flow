@@ -133,7 +133,7 @@ const SubmitIncidentReport= async(req,res)=>{
     if (!event) {
       return res.status(404).send('No event found for this staff member');
     }
-    const incident = new Incident({
+    const incident = new Incidents({
       eventId: event._id,
       staffId: user._id,
       title: req.body.title,
