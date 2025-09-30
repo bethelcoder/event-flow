@@ -1,4 +1,5 @@
 const User=require('../models/User');
+const mongoose = require('mongoose');
 const Event=require('../models/Event');
 const Session=require('../models/Session');
 const Venue=require('../models/Venue');
@@ -9,6 +10,7 @@ const chat = require('../models/chat');
 const Annotation = require('../models/Annotation');
 const { cloudinary, VenueUpload } = require('../config/cloudinary');
 const Incidents = require('../models/Incidents');
+const Task = require('../models/Task');
 
 const managerHome = async (req, res) => {
   try {
@@ -94,6 +96,92 @@ const managerincidents = async (req, res) => {
         res.status(500).send('Server error');
       }
     };
+const GetTask = async (req, res) => {
+  try {
+   
+    const user = await User.findById(req.user.id);
+
+ 
+    const event = await Event.findOne({ 'organizer.id': user._id });
+    if (!event) return res.status(404).send('No event found for this manager');
+
+  
+    const assignedStaffIds = event.staff.map(s => s.staffId);
+
+    
+    const availableStaff = await User.find({ 
+      role: 'staff',
+      _id: { $in: assignedStaffIds }
+    });
+
+    const tasks= await Task.find({eventId: event._id}).sort({createdAt:-1});
+    const activeTasks = await Task.aggregate([
+      {
+        $match: {
+          eventId: event._id,
+          status: { $in: ["Pending"] }
+        }
+      },
+      {
+        $group: {
+          _id: "$staffId",
+          count: { $sum: 1 }
+        }
+      }
+    ]);
+
+   
+    const staffWithCounts = await Promise.all(
+      activeTasks.map(async (t) => {
+        const staffUser = await User.findById(t._id);
+        return {
+          staffId: t._id,
+          staffName: staffUser ? staffUser.displayName : "Unknown",
+          activeTaskCount: t.count
+        };
+      })
+    );
+
+    
+    res.render('manager_task', { user, availableStaff, tasks, staffWithCounts });
+
+  } catch (error) {
+    console.error('Error fetching available staff:', error);
+    res.status(500).send('Server error');
+  }
+};
 
 
-module.exports = { managerHome, managerChat,managerincidents };
+const SubmitTask = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+   
+ 
+    
+
+    const event = await Event.findOne({ 'organizer.id': user._id });
+
+    if (!event) return res.status(404).send('No event found for this manager');
+    const staffuser=await User.findById(req.body.assignee);
+    const task = new Task({
+      title: req.body.title,
+      category: req.body.category,
+      description: req.body.description,
+      priority: req.body.priority,
+      estimatedHours: req.body.estimatedHours,
+      dueDate: req.body.dueDate,
+      status: req.body.status,
+      staffId: req.body.assignee,
+      staffname: staffuser.displayName,
+      eventId: event._id
+    });
+
+    await task.save();
+    res.redirect('/manager/task_assignment');
+  } catch (error) {
+    console.error('Error submitting task:', error);
+    res.status(500).send('Server error');
+  }
+};
+
+module.exports = { managerHome, managerChat, managerincidents, GetTask, SubmitTask };

@@ -617,7 +617,7 @@ router.post("/send-guest-invite", registerGuest);
 // Send staff invite
 router.post("/send-staff-invite", async (req, res) => {
   try {
-    const { email, name, managerName, managerId } = req.body;
+    const { email, name, managerName, managerId} = req.body;
     await sendStaffInvite(email, name, managerName, managerId);
     res.redirect("/manager/home");
   } catch (err) {
@@ -680,9 +680,7 @@ router.get('/announcements', authenticateJWT, async (req, res) => {
 });
 
 
-router.get('/task_assignment', authenticateJWT, (req, res) => {
-  res.render('manager_task', { user: req.user });
-});
+router.get('/task_assignment', authenticateJWT, managercontroller.GetTask);
 
 
 router.post('/create-event', authenticateJWT, async (req, res) => {
@@ -836,6 +834,8 @@ router.delete('/announcement/:id', authenticateJWT,announcementController.Delete
 
 // Create and publish directly
 router.post('/publish', authenticateJWT,announcementController.createAndPublish);
+
+router.post('/create-task', authenticateJWT, managercontroller.SubmitTask);
 
 
 
