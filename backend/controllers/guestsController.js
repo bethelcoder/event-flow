@@ -66,6 +66,7 @@ exports.guestAccess = async (req, res) => {
     const eventDate = event.dateTime;
     const eventVenue = event.venue.address;
     const eventPlaceName = event.venue.name;
+    const eventDescription = event.description;
     const venueImage = event.venue.image.url;
     const sessions = event.sessions;
     const map = event.venue.map;
@@ -73,7 +74,7 @@ exports.guestAccess = async (req, res) => {
     const annotations = await Annotation.find({ userId: managerId });
     if (!guest) return res.status(404).send('Guest not found.');
     if(!guest.checkedIn) return res.render("guest-error.ejs");
-    res.render("guest.ejs", {event, guestName, guestId, guestEmail, eventName,eventDate, eventVenue, annotations, sessions, venueImage,map,eventPlaceName});
+    res.render("guest.ejs", {event, guestName, guestId, guestEmail, eventName,eventDate, eventVenue, annotations, sessions, venueImage,map,eventPlaceName,eventDescription});
   }
   catch(err){
     console.error(err);
