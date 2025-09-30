@@ -1,6 +1,7 @@
 // tests/manager_chat.spec.js
 const { test, expect } = require('@playwright/test');
 const fs = require('fs');
+const { startCoverage, stopAndSaveCoverage } = require('./coverageHelper');
 
 const baseURL = 'http://localhost:3000';
 
@@ -13,6 +14,14 @@ test.describe('Manager Chat Page - Independent Functional Tests', () => {
 
     // Navigate to the manager chat page
     await page.goto(`${baseURL}/manager/chat`);
+
+    // Start JS coverage collection
+    await startCoverage(page);
+  });
+
+  test.afterEach(async ({ page }) => {
+    // Stop JS coverage and save to frontend-coverage.json
+    await stopAndSaveCoverage(page);
   });
 
   test('1️⃣ Verify chat page loads successfully with correct URL', async ({ page }) => {
