@@ -5,6 +5,7 @@ const Chat = require('../models/chat');
 const Event = require('../models/Event');
 const Announcement = require('../models/Announcement');
 const Incidents = require('../models/Incidents');
+const Task = require('../models/Task');
 
 
 const staffRegpage = async (req, res) => {
@@ -169,4 +170,32 @@ const getincidents= async(req,res)=>{
   }
 };
 
-module.exports = { staffRegpage, staffRegistration,GetAnnouncementsforStaff,SubmitIncidentReport,getincidents };
+const getMyTasks= async(req,res)=>{
+  try {
+    const user = await User.findById(req.user.id);
+     const event= await Event.findOne({ "staff.staffId": req.user.id });
+     if (!event) {
+       return res.status(404).send('No event found for this staff member');
+     }
+     const announcements = await Announcement.find({ eventId: event._id }).sort({ createdAt: -1 });
+     const notifcount = announcements.filter(a => !a.ReadBy.includes(user._id)).length;
+     const mytasks= await Task.find({staffId:user._id,status:"Pending"}).sort({createdAt:-1});
+     const completedtasks= await Task.find({staffId:user._id,status:"Completed"}).sort({createdAt:-1});
+     res.render('my-tasks',{user, notifcount, mytasks, completedtasks});
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error');
+  }
+};
+
+const completeTask = async (req, res) => {
+  try {
+    await Task.findByIdAndUpdate(req.params.id, { status: "Completed" });
+    res.redirect('/staff/tasks'); 
+  } catch (error) {
+    console.error("Error completing task:", error);
+    res.status(500).send("Server error");
+  }
+};
+
+module.exports = { staffRegpage, staffRegistration,GetAnnouncementsforStaff,SubmitIncidentReport,getincidents,getMyTasks,completeTask };

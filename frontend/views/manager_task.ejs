@@ -25,65 +25,57 @@
             </button>
         </section>
         <section class="overview">
-            <article class="summary"><span>3</span>Total Tasks</article>
-            <article class="summary"><span>0</span>Pending</article>
-            <article class="summary"><span>3</span>In Progress</article>
-            <article class="summary"><span>1</span>Completed</article>
-            <article class="summary"><span>2</span>Overdue</article>
+            <article class="summary"><span><%= tasks.length %></span>Total Tasks</article>
+            <article class="summary"><span><%= tasks.filter(t => t.status === 'Pending').length %></span>Pending</article>
+            <article class="summary"><span><%= tasks.filter(t => t.status === 'Completed').length %></span>Completed</article>
         </section>
         <button class="btn_tablink" onclick="openPage('management',this)">Task Management</button>
         <button class="btn_tablink" onclick="openPage('workload',this)">Team Workload</button>
-        <section class="search">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon1">
-                <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-            </svg>
 
-            <input type="search" placeholder="Search tasks...">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon1">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z" />
-            </svg>
-            <select>
-                <option>All Tasks</option>
-                <option>Pending</option>
-                <option>In Progress</option>
-                <option>Completed</option>
-                <option>Overdue</option>
-            </select>
-        </section>
         <section class="tasks" id="management">
+            <% if(tasks && tasks.length >0) { %>
+                <% tasks.forEach(function(task){ %>
             <section class="Task">
-                <h4 class="title">Set up registration desk</h4>
-                <p>Prepare registration area with welcome materials, name badges, and check-in system</p>
+                <h4 class="title"><%= task.title %></h4>
+                <p><%= task.description %></p>
                 <section class="details">
                     <span class="Assignee">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon1">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
                         </svg>
-                        Siaga
+                        <%= task.staffname %>
                     </span>
                     <span class="due_date">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
                         </svg>
-                        Mar 15, 2025
+                        <%= task.dueDate.toISOString().split('T')[0] %>
                     </span>
                     <span class="time_esitmated">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>
-                        2h estimated
+                        <% if (task.estimatedHours === 1) { %>
+                            <%= task.estimatedHours %> hr
+                        <% } else { %>
+                            <%= task.estimatedHours %> hrs
+                        <% } %>
                     </span>
                     <span class="type">
-                        setup
+                        <%= task.category %>
                     </span>
                     <span class="prority">
-                        High
+                        <%= task.priority %>
                     </span>
                     <span class="status overdue">
-                        <p>overdue</p>
+                        <p><%= task.status %></p>
                     </span>
                 </section>
             </section>
+                <% }); %>
+            <% } else { %>
+                <p>No tasks available.</p>
+            <% } %>
         </section>
         <section class="Workload" id="workload">
             <section class="head">
@@ -92,24 +84,30 @@
                 </svg>
                 <h4>Team Workload Overview</h4>
             </section>
+            <% if(staffWithCounts && staffWithCounts.length>0){ %>
+                <% staffWithCounts.forEach(function(staff){ %>
             <section class="staff_task">
                 <section class="task_profile">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon1">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                     </svg>
                     <span>
-                        <h5 class="name">Tebogo</h5>
-                        <p class="task_type">Operations</p>
+                        <h5 class="name"><%= staff.staffName %></h5>
                     </span>
                 </section>
                 <span class="active_tasks">
-                    <strong>1 active task</strong>
+                    <strong><%= staff.activeTaskCount %> active task(s)</strong>
                 </span>
             </section>
+                <% }); %>
+            <% } else { %>
+                <p>No staff members available.</p>
+            <% } %>
+
             
         </section>
         <section class="modal" id="popup" style="display: none;">
-             <form class="popup_form" method="post">
+             <form class="popup_form" method="post" action="/manager/create-task">
                 <section>
                     <h3>Assign new Task</h3>
                     <p>Please provide the details for the new task</p>
@@ -117,11 +115,11 @@
                 <section class="top_row">
                     <section>
                         <h4>Task Title</h4>
-                        <input type="text" placeholder="Enter task title">
+                        <input type="text" name="title" placeholder="Enter task title" required>
                     </section>
                     <section>
                         <h4>Category</h4>
-                        <select>
+                        <select name="category" required>
                             <option>Setup</option>
                             <option>Technical</option>
                             <option>Catering</option>
@@ -135,34 +133,35 @@
                 
                 <section class="description">
                     <h4>Description</h4>
-                    <input type="text" placeholder="Describe the tasj details...">
+                    <input type="text" name="description" placeholder="Describe the task details..." required>
                 </section>
                 <section class="bottom_row">
                     <section>
                         <h4>Assign To</h4>
-                        <select>
-                            <option>siaga</option>
-                            <option>thendo</option>
-                            <option>tebogo</option>
-                        </select>
+                        <% if (availableStaff && availableStaff.length > 0) { %>
+                            <select name="assignee" required>
+                                <% availableStaff.forEach(function(staff) { %>
+                                    <option value="<%= staff._id %>"><%= staff.displayName %></option>
+                                <% }); %>
+                            </select>
+                        <% } %>
                     </section>
                     <section>
-                        <h4>Prority</h4>
-                        <select>
-                            <option>Low</option>
-                            <option>Medium</option>
-                            <option>High</option>
-                            <option>Urgent</option>
+                        <h4>Priority</h4>
+                        <select name="priority" required>
+                            <option value="Low">Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High">High</option>
                         </select>
                     </section>
                     <section>
                         <h4>Estimated Hours</h4>
-                        <input type="number" placeholder="enter time">
+                        <input type="number" name="estimatedHours" placeholder="enter time" required>
                     </section>
                 </section>
                 <section class="date">
                     <h4>Due Date</h4>
-                    <input type="date">
+                    <input type="date" name="dueDate" required>
                 </section>
                 <button class="cancel" type="button" onclick="closeForm()">cancel</button>
                 <button type="submit">

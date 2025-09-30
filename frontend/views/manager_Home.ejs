@@ -75,7 +75,7 @@
 
                     <section class="big-idea">
                               <section>
-                            <img src="<%= event.venue.image.url %>" alt="Venue Image" class="responsive-img">
+                            <img src="<%= event.venue.image && event.venue.image.url ? event.venue.image.url : '../../../../visuals/venuedefault.png' %>" alt="Venue Image" class="responsive-img">
                     </section>
             
 
