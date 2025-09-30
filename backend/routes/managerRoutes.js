@@ -798,9 +798,13 @@ router.post('/select-venue',authenticateJWT,async(req,res)=>{
    const user = await User.findById(req.user.id);
    const event = await Event.findOne({ 'organizer.id': user._id });
    const selectedVenue = await Venue.findOne({ name: venue });
-
+   const eventCapacity = await Event.expectedAttendees;
    if (!event) {
      return res.status(404).json({ message: 'Event not found' });
+   }
+
+   if(eventCapacity > selectedVenue.capacity) {
+     return res.status(404).json({ message: 'Venue space too small for your audience' });
    }
    event.venue = {
     venueID: selectedVenue._id,
