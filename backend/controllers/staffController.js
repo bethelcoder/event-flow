@@ -100,7 +100,7 @@ const staffRegistration = async (req, res) => {
       await chatRoom.save();
     }
 
-    return res.status(201).redirect('/dashboard');
+    return res.status(201).redirect('/staff/chat');
   } catch (err) {
     console.error("Error registering staff:", err);
     return res.status(500).json({ error: "Server error" });
