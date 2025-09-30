@@ -64,16 +64,16 @@ exports.guestAccess = async (req, res) => {
     const event = await Event.findOne({ '_id': guest.eventId});
     const eventName = event.name;
     const eventDate = event.dateTime;
-    const eventVenue = event.location.name;
+    const eventVenue = event.venue.address;
+    const eventPlaceName = event.venue.name;
     const venueImage = event.venue.image.url;
     const sessions = event.sessions;
-    console.log(eventVenue);
-
+    const map = event.venue.map;
     const managerId = event.organizer.id.toString();
     const annotations = await Annotation.find({ userId: managerId });
     if (!guest) return res.status(404).send('Guest not found.');
     if(!guest.checkedIn) return res.render("guest-error.ejs");
-    res.render("guest.ejs", {event, guestName, guestId, guestEmail, eventName,eventDate, eventVenue, annotations, sessions, venueImage});
+    res.render("guest.ejs", {event, guestName, guestId, guestEmail, eventName,eventDate, eventVenue, annotations, sessions, venueImage,map,eventPlaceName});
   }
   catch(err){
     console.error(err);
