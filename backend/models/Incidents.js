@@ -9,7 +9,7 @@ const incidentSchema = new mongoose.Schema({
   staffId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: true
+    required: false
   },
   guestId: {
     type: mongoose.Schema.Types.ObjectId,

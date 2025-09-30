@@ -8,6 +8,7 @@ const { staffRegpage, staffRegistration} = require('../controllers/staffControll
 const staffController = require('../controllers/staffController');  
 const chat = require('../models/chat');
 const Announcement = require('../models/Announcement');
+const Annotations = require('../models/Annotation');
 
 /**
  * @swagger
@@ -185,33 +186,25 @@ router.get('/chat',authenticateJWT , async function(req,res){
 
 router.get('/incidents',authenticateJWT,staffController.getincidents);
 
-router.get('/tasks', authenticateJWT, async (req, res) => {
-  const user = await User.findById(req.user.id);
-  const event= await Event.findOne({ "staff.staffId": req.user.id });
-  if (!event) {
-    return res.status(404).send('No event found for this staff member');
-  }
-  const announcements = await Announcement.find({ eventId: event._id }).sort({ createdAt: -1 });
-  const notifcount = announcements.filter(a => !a.ReadBy.includes(user._id)).length;
-  res.render('my-tasks',{user, notifcount});
-});
-router.get('/announcements',authenticateJWT,staffController.GetAnnouncementsforStaff,async (req, res) => {
-});
+router.get('/tasks', authenticateJWT, staffController.getMyTasks);
+router.get('/announcements',authenticateJWT,staffController.GetAnnouncementsforStaff);
 router.get('/map', authenticateJWT, async(req, res) => {
-   const user =await User.findById(req.user.id);
+  const user =await User.findById(req.user.id);
   const event= await Event.findOne({ "staff.staffId": req.user.id });
+  const map = event.venue.map;
+  const annotations = await Annotations.find({userId:event.organizer.id});
   if (!event) {
     return res.status(404).send('No event found for this staff member');
   }
-      const announcements = await Announcement.find({ eventId: event._id }).sort({ createdAt: -1 });
-      const notifcount = announcements.filter(a => !a.ReadBy.includes(user._id)).length;
+    const announcements = await Announcement.find({ eventId: event._id }).sort({ createdAt: -1 });
+    const notifcount = announcements.filter(a => !a.ReadBy.includes(user._id)).length;
  
-  res.render('staff_map',{user, notifcount});
+  res.render('staff_map',{user, notifcount,map,annotations});
 });
 
 router.post('/report-incident', authenticateJWT, staffController.SubmitIncidentReport);
 
-
+router.post('/:id/complete', authenticateJWT, staffController.completeTask);
 
 
 

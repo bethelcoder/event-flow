@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const passport = require('passport');
 const path = require('path');
-
+const cors = require('cors');
 require('./backend/config/db.js');
 require('./backend/config/passport');
 
@@ -23,7 +23,9 @@ app.use(sessionMiddleware);
 app.set('view engine', 'ejs');
 app.set('views', 'frontend/views');
 app.set('trust proxy', 1);
-
+app.use(cors({
+    origin: '*'
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
@@ -86,6 +88,7 @@ io.on('connection', function(socket){
     });
     socket.on('joinUserRoom', function(managerID) {
         socket.join(managerID);
+        console.log(`User with ID ${managerID} joined room`);
     });
     socket.on('managerJoin',function(managerID){
         socket.join(managerID);

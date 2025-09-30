@@ -4,6 +4,7 @@ const { encryptData, generateRefNumber } = require('../services/qrService');
 const { sendGuestQRCode } = require('../services/emailService');
 const Event = require('../models/Event');
 const Annotation = require('../models/Annotation');
+const Incidents = require('../models/Incidents');
 
 exports.registerGuest = async (req, res) => {
   try {
@@ -54,17 +55,59 @@ exports.registerGuest = async (req, res) => {
 exports.guestAccess = async (req, res) => {
   try{
     const { guestId } = req.params;
-    // If you used MongoDB ObjectId
+    
+    // Fetching guest details
     const guest = await Guest.findById(guestId).lean();
+    const guestName = guest.fullName;
+    const guestEmail = guest.email;
+    //fetching associated event's details
     const event = await Event.findOne({ '_id': guest.eventId});
+    const eventName = event.name;
+    const eventDate = event.dateTime;
+    const eventVenue = event.venue.address;
+    const eventPlaceName = event.venue.name;
+    const eventDescription = event.description;
+    const venueImage = event.venue.image.url;
+    const sessions = event.sessions;
+    const map = event.venue.map;
     const managerId = event.organizer.id.toString();
-    const annotations = await Annotation.find({userId: managerId});
+    const annotations = await Annotation.find({ userId: managerId });
     if (!guest) return res.status(404).send('Guest not found.');
     if(!guest.checkedIn) return res.render("guest-error.ejs");
-    res.render("guest.ejs",{event,annotations});
+    res.render("guest.ejs", {event, guestName, guestId, guestEmail, eventName,eventDate, eventVenue, annotations, sessions, venueImage,map,eventPlaceName,eventDescription});
   }
   catch(err){
     console.error(err);
     res.status(500).json({ success: false, error: err.message });
+  }
+}
+
+exports.guestReport = async (req, res) => {
+  const { guestId } = req.params;
+  const guest = await Guest.findById(guestId).lean();
+  const eventId = guest.eventId;
+  
+  if(!guest) return res.status(501).json({"success": "Guest not registered"});
+
+  try {
+    const { issue_type, incident_setting, issue_description, priority} = req.body;
+
+    if(!issue_type || !incident_setting || !issue_description || !priority) return res.json({"message": "Please fill in all the details of the form"});
+
+    const guestIncident = await Incidents.create({
+      eventId,
+      guestId,
+      title: "Mr",
+      priority,
+      eventId,
+      category: issue_type,
+      location: "Woodlands Avenue",
+      description: issue_description,
+    });
+
+    if(!guestIncident) return res.json({ "error": "There was a problem while logging your report" });
+    res.status(200).json({"message": "Issue reported successfully!"});
+  } catch (error) {
+    
   }
 }

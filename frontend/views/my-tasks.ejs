@@ -23,9 +23,9 @@
     <section class="task_header">
       <h2>My tasks</h2>
       <section>
-        <span>2 Total</span>
-        <span>1 Pending</span>
-        <span>1 completed</span>
+        <span><%= mytasks.length + completedtasks.length %> Total</span>
+        <span><%= mytasks.length %> Pending</span>
+        <span><%= completedtasks.length %> completed</span>
       </section>
     </section>
     <section class="tablink">
@@ -35,63 +35,76 @@
 
     <!-- pending Tasks -->
     <section class="Pending" id="pending">
+      <% if(mytasks && mytasks.length > 0){%>
+        <% mytasks.forEach(task =>{ %>
       <article class="task">
         <section class="task_title">
-          <h3>Set up registration desk</h3>
-          <span class="priority">High</span>
-          <span class="status_pending">Pending</span>
+          <h3><%= task.title %></h3>
+          <span class="priority"><%= task.priority %></span>
+          <span class="status_pending"><%= task.status %></span>
         </section>
-        <p id="description">please setup the registration desk in the main lobby</p>
+        <p id="description"><%= task.description %></p>
         <section class="assigner">
           <span class="assigner_details">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
               <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
             </svg>
-            <p>Assigned by: Lilimu Mualusi</p>
+            <p>Assigned by:Event Manager</p>
           </span>
           <span class="due">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
             </svg>
-            <p>Due: 09:00 Am</p>
+            <p><%= new Date(task.dueDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) %>
+             at
+             <%= new Date(task.dueDate).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }) %>
+            </p>
           </span>
-          <span class="type">setup</span>
+          <span class="type"><%= task.category %></span>
         </section>
+        <form action="/staff/<%= task._id %>/complete" method="POST">
         <button class="done">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
             <path stroke-linecap="round" stroke-linejoin="round" d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0 1 18 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V18.75m-7.5-10.5h6.375c.621 0 1.125.504 1.125 1.125v9.375m-8.25-3 1.5 1.5 3-3.75" />
           </svg>
           Complete Task
         </button>
+        </form>
       </article>
+      <% }) %>
+      <% } else { %>
+        <p>No tasks assigned yet.</p>
+      <% } %> 
     </section>
 
 
     <!-- completed tasks -->
     <section class="completed_tasks" id="complete">
+      <% if(completedtasks && completedtasks.length > 0) { %>
+        <% completedtasks.forEach(task => { %>
       <article class="task">
         <section class="task_title">
-          <h3>Set up registration desk</h3>
-          <span class="priority">High</span>
-          <span class="status_complete">complete</span>
+          <h3><%= task.title %></h3>
+          <span class="priority"><%= task.priority %></span>
+          <span class="status_complete"><%= task.status %></span>
         </section>
-        <p id="description">please setup the registration desk in the main lobby</p>
+        <p id="description"><%= task.description %></p>
         <section class="assigner">
           <span class="assigner_details">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
               <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
             </svg>
-            <p>Assigned by: Lilimu Mualusi</p>
+            <p>Assigned by Event Manager</p>
           </span>
-          <span class="due">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-            </svg>
-            <p>Completed At: 09:00 Am</p>
-          </span>
-          <span class="type">setup</span>
+     
+          <span class="type"><%= task.category %></span>
         </section>
       </article>
+      <% }) %>
+      <% } else { %>
+        <p>No completed tasks yet.</p>
+      <% } %>
+        
     </section>
   </section>
   <script src="../scripts/staff_tasks.js"></script>
