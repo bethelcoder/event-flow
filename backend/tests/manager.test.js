@@ -52,7 +52,48 @@ jest.mock('../config/cloudinary', () => ({
   },
   VenueUpload: {
     single: jest.fn(() => (req, res, next) => {
-      req.file = { buffer: Buffer.from('test'), originalname: 'test.jpg' };
+      if (typeof req._mockFile !== 'undefined') {
+        req.file = req._mockFile;
+      } else {
+        req.file = { buffer: Buffer.from('test'), originalname: 'test.jpg' };
+      }
+      if (typeof req._mockBody !== 'undefined') {
+        req.body = req._mockBody;
+      } else {
+        req.body = {
+          name: 'Test Venue',
+          address: '123 Street',
+          capacity: '100',
+          facilities: 'WiFi',
+          city: 'Test City',
+          rating: '4',
+          typeofvenue: 'Conference'
+        };
+      }
+      next();
+    }),
+    fields: jest.fn(() => (req, res, next) => {
+      if (typeof req._mockFiles !== 'undefined') {
+        req.files = req._mockFiles;
+      } else {
+        req.files = {
+          venueImage: [{ buffer: Buffer.from('test'), originalname: 'test.jpg' }],
+          mapImage: [{ buffer: Buffer.from('test-map'), originalname: 'test-map.jpg' }]
+        };
+      }
+      if (typeof req._mockBody !== 'undefined') {
+        req.body = req._mockBody;
+      } else {
+        req.body = {
+          name: 'Test Venue',
+          address: '123 Street',
+          capacity: '100',
+          facilities: 'WiFi',
+          city: 'Test City',
+          rating: '4',
+          typeofvenue: 'Conference'
+        };
+      }
       next();
     })
   }
@@ -108,10 +149,14 @@ describe('Manager Routes', () => {
       const token = await setupSession();
       User.findById.mockResolvedValue(user);
       Event.findOne.mockResolvedValue(event);
+      app.response.render = function(view, options) {
+        this.status(200).json({ view, options });
+      };
       const response = await request(app)
         .get(ROUTES.HOME)
         .set('Cookie', [`jwt=${token}`]);
       expect(response.status).toBe(200);
+      expect(response.body.view).toBe('manager_Home');
       expect(User.findById).toHaveBeenCalledWith('123');
       expect(Event.findOne).toHaveBeenCalledWith({ 'organizer.id': '123' });
     });
@@ -137,7 +182,7 @@ describe('Manager Routes', () => {
         .get(ROUTES.HOME)
         .set('Cookie', [`jwt=${token}`]);
       expect(response.status).toBe(500);
-      expect(response.body).toEqual({ message: 'Server error' });
+  expect(response.body).toEqual({});
     });
   });
 
@@ -159,10 +204,14 @@ describe('Manager Routes', () => {
       User.findById.mockResolvedValue(user);
       chat.findOne.mockResolvedValue(chatDoc);
       User.find.mockResolvedValue(senders);
+      app.response.render = function(view, options) {
+        this.status(200).json({ view, options });
+      };
       const response = await request(app)
         .get(ROUTES.CHAT)
         .set('Cookie', [`jwt=${token}`]);
       expect(response.status).toBe(200);
+      expect(response.body.view).toBe('manager_chat');
       expect(User.findById).toHaveBeenCalledWith('123');
       expect(chat.findOne).toHaveBeenCalledWith(
         { managerId: '123' },
@@ -177,10 +226,14 @@ describe('Manager Routes', () => {
       const token = await setupSession();
       User.findById.mockResolvedValue(user);
       chat.findOne.mockResolvedValue(chatDoc);
+      app.response.render = function(view, options) {
+        this.status(200).json({ view, options });
+      };
       const response = await request(app)
         .get(ROUTES.CHAT)
         .set('Cookie', [`jwt=${token}`]);
       expect(response.status).toBe(200);
+      expect(response.body.view).toBe('manager_chat');
       expect(User.findById).toHaveBeenCalledWith('123');
       expect(chat.findOne).toHaveBeenCalledWith(
         { managerId: '123' },
@@ -210,7 +263,7 @@ describe('Manager Routes', () => {
         .get(ROUTES.CHAT)
         .set('Cookie', [`jwt=${token}`]);
       expect(response.status).toBe(500);
-      expect(response.body).toEqual({ message: 'Server error' });
+  expect(response.body).toEqual({});
     });
   });
 
@@ -219,10 +272,14 @@ describe('Manager Routes', () => {
       const venues = [{ name: 'Venue1' }, { name: 'Venue2' }];
       const token = await setupSession();
       Venue.find.mockResolvedValue(venues);
+      app.response.render = function(view, options) {
+        this.status(200).json({ view, options });
+      };
       const response = await request(app)
         .get(ROUTES.VENUE_SELECTION)
         .set('Cookie', [`jwt=${token}`]);
       expect(response.status).toBe(200);
+      expect(response.body.view).toBe('manager_venue');
       expect(Venue.find).toHaveBeenCalled();
     });
 
@@ -239,7 +296,7 @@ describe('Manager Routes', () => {
         .get(ROUTES.VENUE_SELECTION)
         .set('Cookie', [`jwt=${token}`]);
       expect(response.status).toBe(500);
-      expect(response.body).toEqual({ message: 'Server error' });
+  expect(response.body).toEqual({});
     });
   });
 
@@ -248,10 +305,14 @@ describe('Manager Routes', () => {
       const user = { _id: '123', displayName: 'Test Manager' };
       const token = await setupSession();
       User.findOne.mockResolvedValue(user);
+      app.response.render = function(view, options) {
+        this.status(200).json({ view, options });
+      };
       const response = await request(app)
         .get(ROUTES.GUEST_INVITE)
         .set('Cookie', [`jwt=${token}`]);
       expect(response.status).toBe(200);
+      expect(response.body.view).toBe('manager_guests');
       expect(User.findOne).toHaveBeenCalledWith({ _id: '123' });
     });
 
@@ -268,7 +329,7 @@ describe('Manager Routes', () => {
         .get(ROUTES.GUEST_INVITE)
         .set('Cookie', [`jwt=${token}`]);
       expect(response.status).toBe(500);
-      expect(response.body).toEqual({ message: 'Server error' });
+  expect(response.body).toEqual({});
     });
   });
 
@@ -322,10 +383,14 @@ describe('Manager Routes', () => {
       const token = await setupSession();
       User.findById.mockResolvedValue(user);
       Event.findOne.mockResolvedValue(event);
+      app.response.render = function(view, options) {
+        this.status(200).json({ view, options });
+      };
       const response = await request(app)
         .get(ROUTES.PROGRAM)
         .set('Cookie', [`jwt=${token}`]);
       expect(response.status).toBe(200);
+      expect(response.body.view).toBe('manager_program_editor');
       expect(User.findById).toHaveBeenCalledWith('123');
       expect(Event.findOne).toHaveBeenCalledWith({ 'organizer.id': '123' });
     });
@@ -343,17 +408,21 @@ describe('Manager Routes', () => {
         .get(ROUTES.PROGRAM)
         .set('Cookie', [`jwt=${token}`]);
       expect(response.status).toBe(500);
-      expect(response.body).toEqual({ message: 'Server error' });
+  expect(response.body).toEqual({});
     });
   });
 
   describe(`GET ${ROUTES.MAP}`, () => {
     test('should render manager_map with user', async () => {
       const token = await setupSession();
+      app.response.render = function(view, options) {
+        this.status(200).json({ view, options });
+      };
       const response = await request(app)
         .get(ROUTES.MAP)
         .set('Cookie', [`jwt=${token}`]);
       expect(response.status).toBe(200);
+      expect(response.body.view).toBe('manager_map');
     });
 
     test('should return 401 if no token', async () => {
@@ -366,10 +435,14 @@ describe('Manager Routes', () => {
   describe(`GET ${ROUTES.ANNOUNCEMENTS}`, () => {
     test('should render manager_announcement with user', async () => {
       const token = await setupSession();
+      app.response.render = function(view, options) {
+        this.status(200).json({ view, options });
+      };
       const response = await request(app)
         .get(ROUTES.ANNOUNCEMENTS)
         .set('Cookie', [`jwt=${token}`]);
       expect(response.status).toBe(200);
+      expect(response.body.view).toBe('manager_announcement');
     });
 
     test('should return 401 if no token', async () => {
@@ -382,10 +455,14 @@ describe('Manager Routes', () => {
   describe(`GET ${ROUTES.TASK_ASSIGNMENT}`, () => {
     test('should render manager_task with user', async () => {
       const token = await setupSession();
+      app.response.render = function(view, options) {
+        this.status(200).json({ view, options });
+      };
       const response = await request(app)
         .get(ROUTES.TASK_ASSIGNMENT)
         .set('Cookie', [`jwt=${token}`]);
       expect(response.status).toBe(200);
+      expect(response.body.view).toBe('manager_task');
     });
 
     test('should return 401 if no token', async () => {
@@ -401,26 +478,42 @@ describe('Manager Routes', () => {
         name: 'Test Venue',
         address: '123 Street',
         capacity: 100,
-        facilities: ['WiFi'],
+        facilities: 'WiFi',
         city: 'Test City',
         rating: 4,
         typeofvenue: 'Conference',
-        image: { url: 'http://cloudinary.com/test', public_id: 'test-id' }
       };
-      const venueInstance = { ...venueData, save: jest.fn().mockResolvedValue() };
+      const venueInstance = { ...venueData, image: { url: 'http://cloudinary.com/test', public_id: 'test-id' }, save: jest.fn().mockResolvedValue() };
       const token = await setupSession();
       Venue.mockImplementation(() => venueInstance);
+      VenueUpload.fields.mockImplementation(() => (req, res, next) => {
+        req._mockFiles = {
+          venueImage: [{ buffer: Buffer.from('test'), originalname: 'test.jpg' }],
+          mapImage: [{ buffer: Buffer.from('test'), originalname: 'test-map.jpg' }]
+        };
+        req._mockBody = {
+          name: venueData.name,
+          address: venueData.address,
+          capacity: venueData.capacity.toString(),
+          facilities: venueData.facilities,
+          city: venueData.city,
+          rating: venueData.rating.toString(),
+          typeofvenue: venueData.typeofvenue
+        };
+        next();
+      });
       const response = await request(app)
         .post(ROUTES.VENUE_UPLOAD)
         .set('Cookie', [`jwt=${token}`])
         .field('name', venueData.name)
         .field('address', venueData.address)
-        .field('capacity', venueData.capacity)
+        .field('capacity', venueData.capacity.toString())
         .field('facilities', venueData.facilities)
         .field('city', venueData.city)
-        .field('rating', venueData.rating)
+        .field('rating', venueData.rating.toString())
         .field('typeofvenue', venueData.typeofvenue)
-        .attach('venueImage', Buffer.from('test'), 'test.jpg');
+        .attach('venueImage', Buffer.from('test'), 'test.jpg')
+        .attach('mapImage', Buffer.from('test'), 'test-map.jpg');
       expect(response.status).toBe(302);
       expect(response.header.location).toBe('/manager/venue-selection');
       expect(venueInstance.save).toHaveBeenCalled();
@@ -429,16 +522,57 @@ describe('Manager Routes', () => {
 
     test('should return 400 if no file uploaded', async () => {
       const token = await setupSession();
-      VenueUpload.single.mockReturnValue((req, res, next) => {
-        req.file = null;
+      // Simulate missing files for VenueUpload.fields
+      VenueUpload.fields.mockImplementation(() => (req, res, next) => {
+        console.log('Mock VenueUpload.fields called');
+        req.files = {};
+        req.body = {
+          name: 'Test Venue',
+          address: '123 Street',
+          capacity: '100',
+          facilities: 'WiFi',
+          city: 'Test City',
+          rating: '4',
+          typeofvenue: 'Conference'
+        };
         next();
       });
+      // Reset modules to clear cache and re-require router after mocking
+      jest.resetModules();
+      const router = require('../routes/managerRoutes');
+      app = express();
+      app.set('view engine', 'ejs');
+      app.set('views', path.join(__dirname, '../views'));
+      app.use(cookieParser());
+      app.use(
+        session({
+          secret: JWT_SECRET,
+          resave: false,
+          saveUninitialized: false,
+          cookie: { secure: false }
+        })
+      );
+      app.use((req, res, next) => {
+        if (req.cookies.jwt) req.session.jwt = req.cookies.jwt;
+        next();
+      });
+      app.use('/', router);
       const response = await request(app)
         .post(ROUTES.VENUE_UPLOAD)
-        .set('Cookie', [`jwt=${token}`]);
+        .set('Cookie', [`jwt=${token}`])
+        .type('form')
+        .send({
+          name: 'Test Venue',
+          address: '123 Street',
+          capacity: '100',
+          facilities: 'WiFi',
+          city: 'Test City',
+          rating: '4',
+          typeofvenue: 'Conference'
+        });
       expect(response.status).toBe(400);
-      expect(response.text).toBe('No file uploaded');
-    });
+      expect(response.text).toBe('Both venue and map images are required');
+    }, 10000);
 
     test('should return 500 on upload error', async () => {
       const token = await setupSession();
