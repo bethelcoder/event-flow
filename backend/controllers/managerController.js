@@ -84,13 +84,17 @@ const managerincidents = async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
     const event = await Event.findOne({ 'organizer.id': user._id });
-    if (!event) {
-      return res.status(404).send('No event found for this manager');
-    }
+     if(event){
       const staffincidents = await Incidents.find({ eventId: event._id, staffId: { $exists: true, $ne: null } }).sort({ createdAt: -1 });
-      const incidents = await Incidents.find({ eventId: event._id }).sort({ createdAt: -1 });
       const guestincidents = await Incidents.find({ eventId: event._id, guestId: { $exists: true, $ne: null } }).sort({ createdAt: -1 });
       res.render('manager_incident',{user, staffincidents, guestincidents});
+     }
+     else{
+      staffincidents = [];
+      guestincidents = [];
+      res.render('manager_incident',{user, staffincidents, guestincidents});
+     }
+
       } catch (err) {
         console.error(err);
         res.status(500).send('Server error');
@@ -103,10 +107,8 @@ const GetTask = async (req, res) => {
 
  
     const event = await Event.findOne({ 'organizer.id': user._id });
-    if (!event) return res.status(404).send('No event found for this manager');
-
-  
-    const assignedStaffIds = event.staff.map(s => s.staffId);
+    if(event){
+       const assignedStaffIds = event.staff.map(s => s.staffId);
 
     
     const availableStaff = await User.find({ 
@@ -144,6 +146,15 @@ const GetTask = async (req, res) => {
 
     
     res.render('manager_task', { user, availableStaff, tasks, staffWithCounts });
+    }
+    else{
+      availableStaff = [];
+      tasks = [];
+      staffWithCounts = [];
+      res.render('manager_task', { user, availableStaff, tasks, staffWithCounts });
+    }
+  
+   
 
   } catch (error) {
     console.error('Error fetching available staff:', error);
