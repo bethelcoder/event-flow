@@ -2,6 +2,7 @@ function openPage(pageId, button) {
    
     document.getElementById('qr').style.display = 'none';
     document.getElementById('program').style.display = 'none';
+    document.getElementById('announce').style.display = 'none';
     document.getElementById('venue').style.display = 'none';
     document.getElementById('report').style.display = 'none';
 
