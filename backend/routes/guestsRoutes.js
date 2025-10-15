@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { registerGuest, guestAccess, guestReport } = require('../controllers/guestsController');
+const { MarkGuestAnnouncementRead,registerGuest, guestAccess, guestReport } = require('../controllers/guestsController');
 const Guest = require('../models/Guest');
 const {authenticateJWT,redirectIfAuthenticated, onboardingJWT} = require('../middleware/authenticateJWT');
 
@@ -65,5 +65,7 @@ router.post("/registerGuest",registerGuest);
 router.get("/access/:guestId", guestAccess);
 
 router.post("/report-issue/:guestId", guestReport);
+
+router.post('/access/:guestId/announcements/read',MarkGuestAnnouncementRead);
 
 module.exports = router;

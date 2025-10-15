@@ -1,3 +1,5 @@
+
+
 function openPage(pageId, button) {
    
     document.getElementById('qr').style.display = 'none';
@@ -13,7 +15,19 @@ function openPage(pageId, button) {
     buttons.forEach(btn => btn.classList.remove('active'));
 
     button.classList.add('active');
-}
+     if (pageId === 'announce') {
+    notifCount = 0;
+    updateBadge();
+    
+      fetch(`/guests/access/${user._id}/announcements/read`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ eventId: event._id, guestId: user._id })
+    }).catch(err => console.error('Error marking announcements as read', err));
+  }
+    
+  }
+
 document.addEventListener('DOMContentLoaded', () => {
     // const firstButton = document.querySelector('.btn_tablink');
     openPage('qr');
