@@ -6,6 +6,7 @@ const Event = require('../models/Event');
 const Announcement = require('../models/Announcement');
 const Incidents = require('../models/Incidents');
 const Task = require('../models/Task');
+const Session = require('../models/Session');
 
 
 const staffRegpage = async (req, res) => {
@@ -198,4 +199,18 @@ const completeTask = async (req, res) => {
   }
 };
 
-module.exports = { staffRegpage, staffRegistration,GetAnnouncementsforStaff,SubmitIncidentReport,getincidents,getMyTasks,completeTask };
+const GetProgram = async (req,res) => {
+
+  try{
+    const event= await Event.findOne({ "staff.staffId": req.user.id });
+    const announcements = await Announcement.find({ eventId: event._id }).sort({ createdAt: -1 });
+    const notifcount = announcements.filter(a => !a.ReadBy.includes(user._id)).length;
+    res.render('staff_program',{event,notifcount});
+  }
+  catch(error){
+    console.error("Error getting program:", error);
+    res.status(500).send("server");
+  }
+}
+
+module.exports = { staffRegpage, staffRegistration,GetAnnouncementsforStaff,SubmitIncidentReport,getincidents,getMyTasks,completeTask,GetProgram};
