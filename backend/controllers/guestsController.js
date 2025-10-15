@@ -5,6 +5,7 @@ const { sendGuestQRCode } = require('../services/emailService');
 const Event = require('../models/Event');
 const Annotation = require('../models/Annotation');
 const Incidents = require('../models/Incidents');
+const Announcements = require('../models/Announcement');
 
 exports.registerGuest = async (req, res) => {
   try {
@@ -71,10 +72,11 @@ exports.guestAccess = async (req, res) => {
     const sessions = event.sessions;
     const map = event.venue.map;
     const managerId = event.organizer.id.toString();
+    const announcements = await Announcements.find({eventId:event._id});
     const annotations = await Annotation.find({ userId: managerId });
     if (!guest) return res.status(404).send('Guest not found.');
     if(!guest.checkedIn) return res.render("guest-error.ejs");
-    res.render("guest.ejs", {event, guestName, guestId, guestEmail, eventName,eventDate, eventVenue, annotations, sessions, venueImage,map,eventPlaceName,eventDescription});
+    res.render("guest.ejs", {event, guestName, guestId, guestEmail, eventName,eventDate, eventVenue, annotations, sessions, venueImage,map,eventPlaceName,eventDescription,announcements});
   }
   catch(err){
     console.error(err);
