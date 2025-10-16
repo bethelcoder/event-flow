@@ -8,7 +8,6 @@
     "dev": "nodemon app.js",
     "test": "jest",
     "test:coverage": "jest --coverage"
-
   },
   "repository": {
     "type": "git",
@@ -50,9 +49,12 @@
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
-    "@playwright/test": "^1.55.0",
+    "@playwright/test": "^1.55.1",
+    "istanbul-lib-coverage": "^3.2.2",
+    "istanbul-reports": "^3.2.0",
     "jest": "^30.1.2",
     "nyc": "^17.1.0",
+    "playwright": "^1.55.1",
     "playwright-to-istanbul": "^1.0.2",
     "puppeteer-to-istanbul": "^1.4.0",
     "supertest": "^7.1.4"

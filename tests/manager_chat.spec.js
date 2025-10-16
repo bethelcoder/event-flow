@@ -1,9 +1,25 @@
 // tests/manager_chat.spec.js
 const { test, expect } = require('@playwright/test');
 const fs = require('fs');
-const { startCoverage, stopAndSaveCoverage } = require('./coverageHelper');
 
 const baseURL = 'http://localhost:3000';
+
+// -------------------- Coverage Helper Functions --------------------
+async function startCoverage(page) {
+  await page.coverage.startJSCoverage();
+  await page.coverage.startCSSCoverage(); // optional if you want CSS coverage
+}
+
+async function stopAndSaveCoverage(page) {
+  const jsCoverage = await page.coverage.stopJSCoverage();
+  const cssCoverage = await page.coverage.stopCSSCoverage(); // optional
+
+  // Save coverage JSON
+  const coverageData = { jsCoverage, cssCoverage };
+  fs.writeFileSync('tests/frontend-coverage.json', JSON.stringify(coverageData, null, 2));
+}
+
+// ------------------------------------------------------------------
 
 test.describe('Manager Chat Page - Independent Functional Tests', () => {
 
