@@ -600,10 +600,19 @@ router.get('/chat', authenticateJWT, (req,res)=>{
     res.render('manager_chat', { user: req.user });
 });
 
-router.get('/venue-selection', authenticateJWT, async(req,res)=>{
-  const venues = await Venue.find();
-  res.render('manager_venue', { user: req.user, venues });
+router.get('/venue-selection', authenticateJWT, async (req, res) => {
+  try {
+    const venues = await Venue.find();
+    const user = await User.findById(req.user.id);
+    const event = await Event.findOne({ 'organizer.id': user._id }); // fetch current event
+
+    res.render('manager_venue', { user: req.user, venues, event });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error');
+  }
 });
+
 router.get('/incidents', authenticateJWT,managercontroller.managerincidents);
   
 router.get('/guest-invite', authenticateJWT, async (req,res)=>{
@@ -791,44 +800,62 @@ router.delete('/program/:sessionID', authenticateJWT, async (req, res) => {
   }
 });
 
-router.post('/select-venue',authenticateJWT,async(req,res)=>{
- const {venue}=req.body;
 
- try {
-   const user = await User.findById(req.user.id);
-   const event = await Event.findOne({ 'organizer.id': user._id });
-   const selectedVenue = await Venue.findOne({ name: venue });
-   const eventCapacity = await Event.expectedAttendees;
-   if (!event) {
-     return res.status(404).json({ message: 'Event not found' });
-   }
+router.post('/select-venue', authenticateJWT, async (req, res) => {
+  const { venue } = req.body;
 
-   if(eventCapacity > selectedVenue.capacity) {
-     return res.status(404).json({ message: 'Venue space too small for your audience' });
-   }
-   event.venue = {
-    venueID: selectedVenue._id,
-    name: selectedVenue.name,
-    address: selectedVenue.address,
-    city: selectedVenue.city,
-    mapPath: selectedVenue.mapPath,
-    image: {
-      url: selectedVenue.image.url,
-      public_id: selectedVenue.image.public_id
-    },
-    map: {
-      url: selectedVenue.map.url,
-      public_id: selectedVenue.map.public_id     
+  try {
+    const user = await User.findById(req.user.id);
+    const event = await Event.findOne({ 'organizer.id': user._id });
+    const selectedVenue = await Venue.findOne({ name: venue });
+
+    if (!event) return res.status(404).json({ message: 'Event not found' });
+    if (!selectedVenue) return res.status(404).json({ message: 'Venue not found' });
+
+    // Check if manager already has a venue
+    if (event.venue && event.venue.venueID) {
+      
+      return;
     }
-   };
-   await event.save();
 
-   res.status(200).redirect('/manager/home');
- } catch (err) {
-   console.error(err);
-   res.status(500).json({ message: 'Server error' });
- }
+    if (selectedVenue.booked) {
+      return res.status(400).json({ message: 'Venue already booked' });
+    }
+
+    if (event.expectedAttendees > selectedVenue.capacity) {
+      return res.status(400).json({ message: 'Venue space too small for your audience' });
+    }
+
+    // Assign venue
+    event.venue = {
+      venueID: selectedVenue._id,
+      name: selectedVenue.name,
+      address: selectedVenue.address,
+      city: selectedVenue.city,
+      mapPath: selectedVenue.mapPath,
+      image: {
+        url: selectedVenue.image.url,
+        public_id: selectedVenue.image.public_id
+      },
+      map: {
+        url: selectedVenue.map.url,
+        public_id: selectedVenue.map.public_id
+      }
+    };
+
+    selectedVenue.booked = true;
+
+    await selectedVenue.save();
+    await event.save();
+
+    res.status(200).redirect('/manager/home');
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
 });
+
 
 
 
