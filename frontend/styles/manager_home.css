@@ -67,9 +67,9 @@ body {
     gap: 10px;   
 }
 .setup_overview .teamoverview {
-    flex: 0 0 22%;
     padding: 15px;
     border-radius: 8px;
+    margin-right: auto;
 }
 /* EVENT SETUP SECTION */
 .setup {
@@ -368,6 +368,8 @@ progress::-moz-progress-bar {
     .setup_overview .setup,
     .setup_overview .teamoverview {
         flex: 1 1 100%;
+        width: 100%;
+        margin-right: 0;
     }
 
     .home_heading {
