@@ -10,10 +10,14 @@ const Session = require('../models/Session');
 
 
 const staffRegpage = async (req, res) => {
-  const { managerId } = req.query;
+  const { managerId, position } = req.query;
 
   if (!managerId) {
     return res.status(400).send("Missing managerId");
+  }
+
+  if (!position) {
+    return res.status(400).send("Missing Staff Position");
   }
 
   try {
@@ -24,9 +28,9 @@ const staffRegpage = async (req, res) => {
       return res.status(404).send("Invalid manager link");
     }
 
-    const googleAuthUrl = `/auth/google?state=${managerId || ''}`;
+    const googleAuthUrl = `/auth/google?managerId=${managerId || ''}&position=${position}`;
     res.redirect(googleAuthUrl);
-    console.log("I'm here");
+    
   } catch (err) {
     console.error(err);
     res.status(500).send("Server error");
@@ -35,7 +39,7 @@ const staffRegpage = async (req, res) => {
 
 const staffRegistration = async (req, res) => {
   try {
-    const { managerId } = req.query;
+    const { managerId, position } = req.query;
     let userId;
 
     const JWT_SECRET = process.env.JWT_SECRET;
@@ -75,10 +79,12 @@ const staffRegistration = async (req, res) => {
     const alreadyStaff = event.staff.some(
       (s) => s.staffId.toString() === staffUser._id.toString()
     );
+    console.log(`THis is my postion: ${position}!!!!`);
     if (!alreadyStaff) {
       event.staff.push({
         staffId: staffUser._id,
         role: "staff",
+        position
       });
       await event.save();
     }
@@ -108,6 +114,8 @@ const staffRegistration = async (req, res) => {
     return res.status(500).json({ error: "Server error" });
   }
 };
+
+
 const GetAnnouncementsforStaff= async (req, res) => {
   try {
     const user = await User.findById(req.user.id);

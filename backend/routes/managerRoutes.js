@@ -626,8 +626,11 @@ router.post("/send-guest-invite", registerGuest);
 // Send staff invite
 router.post("/send-staff-invite", async (req, res) => {
   try {
-    const { email, name, managerName, managerId} = req.body;
-    await sendStaffInvite(email, name, managerName, managerId);
+    const { email, name, managerName, managerId, position } = req.body;
+    const event = await Event.findOne({ "organizer.id": managerId });
+
+    if(!event) return res.json({ "error": "Please create ana event first" });
+    await sendStaffInvite(email, name, managerName, managerId, position);
     res.redirect("/manager/home");
   } catch (err) {
     console.error(err);

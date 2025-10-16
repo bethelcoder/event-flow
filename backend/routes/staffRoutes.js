@@ -142,6 +142,7 @@ const Annotations = require('../models/Annotation');
 
 // GET staff registration page
 router.get('/signup', staffRegpage);
+
 // POST /register/staff/:managerId
 router.get("/api/signup", staffRegistration);
 

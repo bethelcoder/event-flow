@@ -6,6 +6,7 @@ const Event = require('../models/Event');
 const Annotation = require('../models/Annotation');
 const Incidents = require('../models/Incidents');
 const Announcements = require('../models/Announcement');
+require("dotenv").config();
 
 exports.registerGuest = async (req, res) => {
   try {
@@ -17,7 +18,7 @@ exports.registerGuest = async (req, res) => {
           const eventId = event?._id;
     // Generate reference number
     const refNumber = generateRefNumber("Event Flow", "Techno AI Conference - 2025 ");
-
+    const websiteURL = process.env.WEBSITE_URL;
     // Create encrypted QR payload
     const payload = { email, eventId, refNumber };
     const encryptedQR = encryptData(payload);//info encrypted by the qrCode
@@ -40,7 +41,7 @@ exports.registerGuest = async (req, res) => {
     const guestId = guest._id;
 
     // 📩 Send email with QR code
-    await sendGuestQRCode(email, guestName, refNumber, qrCodeUrl, guestId);
+    await sendGuestQRCode(email, guestName, refNumber, qrCodeUrl, guestId, websiteURL);
 
     res.redirect("/manager/home");
     }

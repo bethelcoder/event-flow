@@ -43,7 +43,8 @@ const EventSchema = new mongoose.Schema({
     {
       staffId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
       role: String,
-      taskStatus: String
+      taskStatus: String,
+      position: String
     }
   ],
   venue:{
