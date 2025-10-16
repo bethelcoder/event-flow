@@ -292,3 +292,11 @@ body {
   font-weight: bold;
   color: #333;
 }
+
+.btn_disabled {
+    background-color: gray;
+    cursor: not-allowed;
+    opacity: 0.6;
+    pointer-events: none;
+}
+

@@ -813,9 +813,9 @@ router.post('/select-venue', authenticateJWT, async (req, res) => {
     if (!selectedVenue) return res.status(404).json({ message: 'Venue not found' });
 
     // Check if manager already has a venue
+    // Check if manager already has a venue
     if (event.venue && event.venue.venueID) {
-      
-      return;
+        return res.status(400).json({ message: 'You have already selected a venue!' });
     }
 
     if (selectedVenue.booked) {
