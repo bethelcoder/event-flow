@@ -210,6 +210,8 @@
         </span>
         <section class="map">
             <section id="map" style="height:800px;"> </section>
+            <h2>Saved Notes</h2>
+            <section id="savedNotes" style="padding:10px; border:1px solid #ccc; border-radius:6px; min-height:50px;"></section>
         </section>
         
     </section>
@@ -289,6 +291,11 @@
             drawnItems.addLayer(circle);
         }
     });
+    const notesDiv = document.getElementById('savedNotes');
+    const firstNoteAnnotation = savedAnnotations.find(a => a.notes && a.notes.trim() !== "");
+    if (firstNoteAnnotation) {
+        notesDiv.textContent = firstNoteAnnotation.notes;
+    }
 </script>
 <script src="../scripts/guestSocket.js"></script>
 <script>

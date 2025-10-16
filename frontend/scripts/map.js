@@ -23,16 +23,20 @@ map.on(L.Draw.Event.CREATED, function(e) {
 
 document.getElementById('annotationForm').addEventListener('submit', function(e) {
     var data = [];
+    var noteText = document.getElementById('notes').value; // grab notes
+
     drawnItems.eachLayer(function(layer) {
         if (layer instanceof L.Marker) {
-            data.push({ type: 'marker', coords: layer.getLatLng() });
+            data.push({ type: 'marker', coords: layer.getLatLng(), notes: noteText }); // attach notes
         } else if (layer instanceof L.Circle) {
-            data.push({ type: 'circle', center: layer.getLatLng(), radius: layer.getRadius() });
+            data.push({ type: 'circle', center: layer.getLatLng(), radius: layer.getRadius(), notes: noteText }); // attach notes
         }
     });
 
     document.getElementById('annotationsInput').value = JSON.stringify(data);
 });
+
+
 
 // Add saved annotations to the map
 savedAnnotations.forEach(a => {

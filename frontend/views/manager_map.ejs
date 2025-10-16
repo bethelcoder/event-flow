@@ -17,10 +17,25 @@
         <%- include('partials/topbar') %>
         <h1>Venue map</h1>
         <section id="map" style="height:800px;"></section>
+        <h2>Saved Notes</h2>
+        <section id="savedNotes" style="padding:10px; border:1px solid #ccc; border-radius:6px; min-height:50px;"></section>
+
         <form id="annotationForm" method="POST" action="/manager/map/annotate">
             <input type="hidden" name="annotations" id="annotationsInput">
+
+            <!-- Notes field added here -->
+            <label for="notes">Notes:</label>
+            <textarea 
+                id="notes" 
+                name="notes" 
+                placeholder="Add notes about your annotations..." 
+                rows="3" 
+                style="width:100%; margin:10px 0; padding:8px; border-radius:6px; border:1px solid #ccc; resize:vertical;">
+            </textarea>
+
             <button id="saveBtn" type="submit">Save Annotations</button>
         </form>
+
     </section>
 
 
@@ -78,6 +93,8 @@
         });
 
         // Add saved annotations to the map
+        // Add saved annotations to the map and display their notes
+        console.log(savedAnnotations);
         savedAnnotations.forEach(a => {
             if (a.type === 'marker' && a.coords) {
                 const marker = L.marker([a.coords.lat, a.coords.lng]);
@@ -87,6 +104,14 @@
                 drawnItems.addLayer(circle);
             }
         });
+        // Display only one note (from the first annotation that has notes)
+        const notesDiv = document.getElementById('savedNotes');
+
+        const firstNoteAnnotation = savedAnnotations.find(a => a.notes && a.notes.trim() !== "");
+        if (firstNoteAnnotation) {
+            notesDiv.textContent = firstNoteAnnotation.notes;
+        }
+
 
     </script>
 </body>
