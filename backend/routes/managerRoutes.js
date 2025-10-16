@@ -739,6 +739,7 @@ router.post('/program', authenticateJWT, async (req, res) => {
 
     const user = await User.findById(req.user.id);
     const event = await Event.findOne({ 'organizer.id': user._id });
+ 
     const eventDate = event.dateTime;
     const [startHour, startMin] = start_time.split(':').map(Number);
     const [endHour, endMin] = end_time.split(':').map(Number);
@@ -773,7 +774,24 @@ router.post('/program', authenticateJWT, async (req, res) => {
     await session.save();
     await event.save();
 
-    res.status(201).redirect('/manager/program');
+
+    let targetUserIds = [];
+    targetUserIds = (event.guests || []).map(g => g.guestId?.toString());
+    targetUserIds = targetUserIds.filter(Boolean);
+    const io = req.app.get('io');
+    targetUserIds.forEach(userId => {
+      io.to(userId).emit('ProgramUpdate', { message: 'A new program item has been added' });
+    });
+
+    res.status(201).json({
+  _id: session._id,
+  title,
+  Speaker,
+  start_time: startDateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+  end_time: endDateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+  description,
+  location
+});
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error' });
@@ -794,6 +812,13 @@ router.delete('/program/:sessionID', authenticateJWT, async (req, res) => {
     event.sessions = event.sessions.filter(session => session.sessionId.toString() !== sessionID.toString());
     await event.save();
     await Session.findByIdAndDelete(sessionID);
+    let targetUserIds = [];
+    targetUserIds = (event.guests || []).map(g => g.guestId?.toString());
+    targetUserIds = targetUserIds.filter(Boolean);
+    const io = req.app.get('io');
+    targetUserIds.forEach(userId => {
+      io.to(userId).emit('ProgramUpdate', { message: 'A program item has been removed.' });
+    });
 
     res.status(200).json({ message: 'Session deleted successfully' });
   } catch (err) {
@@ -858,6 +883,78 @@ router.post('/select-venue', authenticateJWT, async (req, res) => {
   }
 });
 
+
+router.put('/program/:id', async (req, res) => {
+  try {
+    
+
+    const { title, Speaker, start_time, end_time, location, description } = req.body;
+
+    if (!title || !Speaker || !start_time || !end_time || !location || !description) {
+      return res.status(400).json({ error: 'All fields are required' });
+    }
+
+    const session = await Session.findById(req.params.id);
+    
+    if (!session) return res.status(404).json({ error: 'Session not found' });
+
+    const event = await Event.findById(session.eventId);
+  
+
+    if (!event) return res.status(404).json({ error: 'Event not found' });
+
+    const eventDate = event.dateTime; // same day as the event
+    const [startHour, startMin] = start_time.split(':').map(Number);
+    const [endHour, endMin] = end_time.split(':').map(Number);
+
+    const startDateTime = new Date(eventDate);
+    startDateTime.setHours(startHour, startMin, 0, 0);
+
+    const endDateTime = new Date(eventDate);
+    endDateTime.setHours(endHour, endMin, 0, 0);
+
+    session.title = title;
+    session.speaker = Speaker;
+    session.startTime = startDateTime;
+    session.endTime = endDateTime;
+    session.location = location;
+    session.description = description;
+
+    await session.save();
+
+    // Update the event's embedded session too
+    const sessionInEvent = event.sessions.find(s => s.sessionId.toString() === session._id.toString());
+    if (sessionInEvent) {
+      sessionInEvent.title = title;
+      sessionInEvent.speaker = Speaker;
+      sessionInEvent.startTime = startDateTime;
+      sessionInEvent.endTime = endDateTime;
+      sessionInEvent.location = location;
+      sessionInEvent.description = description;
+    }
+    await event.save();
+    let targetUserIds = [];
+    targetUserIds = (event.guests || []).map(g => g.guestId?.toString());
+    targetUserIds = targetUserIds.filter(Boolean);
+    const io = req.app.get('io');
+    targetUserIds.forEach(userId => {
+      io.to(userId).emit('ProgramUpdate', { message: 'A program item has been updated.' });
+    });
+    res.json({
+      _id: session._id,
+      title: session.title,
+      Speaker: session.speaker,
+      start_time: startDateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      end_time: endDateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      location: session.location,
+      description: session.description
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to update session' });
+  }
+});
 
 
 
