@@ -91,7 +91,7 @@ router.get(
           email: req.user.emails?.[0]?.value || null,
         });
         
-        if(managerId && managerId.length > 0) {
+        if(managerId && managerId !== 'undefined' && managerId !== 'null' && managerId.trim() !== '') {
           let user = await User.findOne({ googleId: req.user.id });
           await User.findByIdAndUpdate(user._id, { role: 'staff' });
           const token = jwt.sign(
