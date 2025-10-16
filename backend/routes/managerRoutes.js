@@ -812,7 +812,7 @@ router.post('/select-venue', authenticateJWT, async (req, res) => {
     if (!event) return res.status(404).json({ message: 'Event not found' });
     if (!selectedVenue) return res.status(404).json({ message: 'Venue not found' });
 
-    // Check if manager already has a venue
+    
     // Check if manager already has a venue
     if (event.venue && event.venue.venueID) {
         return res.status(400).json({ message: 'You have already selected a venue!' });
@@ -868,7 +868,7 @@ router.post('/publish', authenticateJWT,announcementController.createAndPublish)
 
 router.post('/create-task', authenticateJWT, managercontroller.SubmitTask);
 
-
+router.post('/EndEvent', authenticateJWT, managercontroller.EndEvent);
 
 
 module.exports = router;
