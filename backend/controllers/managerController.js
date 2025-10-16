@@ -11,6 +11,7 @@ const Annotation = require('../models/Annotation');
 const { cloudinary, VenueUpload } = require('../config/cloudinary');
 const Incidents = require('../models/Incidents');
 const Task = require('../models/Task');
+const Announcement = require('../models/Announcement');
 
 const managerHome = async (req, res) => {
   try {
@@ -46,6 +47,60 @@ const managerHome = async (req, res) => {
 
   } catch (error) {
     console.error('Error loading manager home:', error);
+    res.status(500).send('Server error');
+  }
+};
+
+const EndEvent = async (req, res) => {
+  try {
+    
+    const user = await User.findById(req.user.id);
+    if (!user) {
+      return res.status(404).json({ msg: 'User not found' });
+    }
+
+    // Find the event organized by this user
+    const event = await Event.findOne({ 'organizer.id': user._id });
+    if (!event) {
+      return res.status(404).json({ msg: 'Event not found' });
+    }
+
+    const announcements = await Announcement.find({eventId: event._id});
+
+    const annotations = await Annotation.find({ userId: user._id });
+
+    const sessions = await Session.find({ eventId: event._id });
+
+    // Find the venue and mark it as not booked
+    const venue = await Venue.findById(event.venue.venueID);
+    if (venue) {
+      venue.booked = false;
+      await venue.save();
+    }
+
+    // Delete all annotations by this user
+    if (annotations.length > 0) {
+      await Annotation.deleteMany({ userId: user._id });
+    }
+
+    // delete all the announcements
+    if(announcements.length > 0){
+      await Announcement.deleteMany({eventId: event._id});
+    }
+
+    // Delete all sessions of this event
+    if (sessions.length > 0) {
+      await Session.deleteMany({ eventId: event._id });
+    }
+
+    // Delete the event itself
+    await Event.findByIdAndDelete(event._id);
+
+    // Respond success
+    res.status(200).json({ msg: 'Event ended successfully, all related data deleted, venue released' });
+
+  } catch (error) {
+    console.error('Error ending event:', error);
     res.status(500).send('Server error');
   }
 };
@@ -195,4 +250,4 @@ const SubmitTask = async (req, res) => {
   }
 };
 
-module.exports = { managerHome, managerChat, managerincidents, GetTask, SubmitTask };
+module.exports = { managerHome, managerChat, managerincidents, GetTask, SubmitTask , EndEvent};
