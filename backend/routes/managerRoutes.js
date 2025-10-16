@@ -667,10 +667,9 @@ router.post('/map/annotate', authenticateJWT, async (req, res) => {
     try {
         const userId = req.user.id;
         const annotations = JSON.parse(req.body.annotations);
-
         await Annotation.deleteMany({ userId });
 
-        const annotatedData = annotations.map(a => ({ ...a, userId }));
+        const annotatedData = annotations.map(a => ({ ...a, userId,notes: req.body.notes.trim()}));
         await Annotation.insertMany(annotatedData);
         res.redirect('/manager/map');
     } catch (err) {
