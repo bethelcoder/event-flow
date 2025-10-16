@@ -16,8 +16,8 @@ const VenueSchema = new mongoose.Schema({
     map: {
         url: String,
         public_id: String
-    }
-
+    },
+    booked: { type: Boolean, default: false }
 });
 
 module.exports = mongoose.model("Venue", VenueSchema);

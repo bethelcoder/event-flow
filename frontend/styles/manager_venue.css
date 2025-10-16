@@ -7,17 +7,17 @@
 }
 
 body {
-   background: #fdfdfd;
+  background: #fdfdfd;
   color: #333;
   line-height: 1.5;
 }
 
 .main_content {
-    transition: margin-left 0.3s ease;
-    margin-left: 250px;
+  transition: margin-left 0.3s ease;
+  margin-left: 250px;
 }
 .main_content.expanded {
-    margin-left: 0px;
+  margin-left: 0px;
 }
 
 #heading {
@@ -27,10 +27,12 @@ body {
   text-align: center;
   color: #ff8800fb;
 }
-.icon{
+
+.icon {
   height: 15px;
   width: 15px;
 }
+
 /* Search bar */
 .search {
   display: flex;
@@ -64,6 +66,7 @@ body {
   background: #f3f4f6;
   font-size: 0.95rem;
 }
+
 .modal {
   position: fixed;
   top: 0;
@@ -88,17 +91,17 @@ body {
   grid-template-columns: 1fr 1fr;
   grid-gap: 20px;
 }
-#loading-screen {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    background: rgba(0,0,0,0.7); 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10000;
-  }
 
+#loading-screen {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.7); 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
 
 .pop_section section {
   display: flex;
@@ -127,10 +130,10 @@ body {
   border-color: #000000;
   box-shadow: 0 0 5px rgba(91, 157, 249, 0.5);
 }
-.pop_section button{
+
+.pop_section button {
   margin-top: auto;
 }
-
 
 /* Venue card design */
 .All_venues {
@@ -143,124 +146,157 @@ body {
 
 /* Form Card */
 .venue {
-    display: flex;
-    flex-direction: column;
-    width: 300px;
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    transition: transform 0.2s, box-shadow 0.2s;
-    background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* push .choose section to bottom */
+  width: 300px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative; /* needed for overlay */
+  background-color: #fff;
 }
 
 .venue:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+/* Booked Overlay */
+.venue .overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  color: red;
+  font-size: 36px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  transform: rotate(-45deg);
+  opacity: 0.7;
+  text-shadow: 2px 2px 3px #000;
+  background: rgba(255,255,255,0.1);
+  z-index: 2;
+}
+
+/* Disable booked buttons */
+.venue.booked button {
+  background: gray;
+  cursor: not-allowed;
 }
 
 /* Image */
 .venue img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
 }
-.venue .choose{
-  margin-top: auto;
-}
-
 
 /* Venue Name and Rating */
 .venue_name {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 16px;
-    border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
 }
 
 .venue_name h3 {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
 }
 
 .venue_name .rating {
-    background-color: #ff9900;
-    color: #fff;
-    padding: 4px 8px;
-    border-radius: 6px;
-    font-weight: bold;
-    font-size: 14px;
+  background-color: #ff9900;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 14px;
 }
 
 /* Details Section */
 .venue_details {
-    padding: 12px 16px;
+  padding: 12px 16px;
 }
 
 .location {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    color: #555;
-    margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #555;
+  margin-bottom: 6px;
 }
 
 .location .icon {
-    width: 18px;
-    height: 18px;
-    color: #ff6b6b;
+  width: 18px;
+  height: 18px;
+  color: #ff6b6b;
 }
 
 .type_of_venue {
-    display: block;
-    font-size: 14px;
-    color: #777;
-    margin-bottom: 8px;
+  display: block;
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 8px;
 }
 
 .details {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 
 .details .item {
-    background-color: #f0f0f0;
-    padding: 4px 8px;
-    border-radius: 6px;
-    font-size: 12px;
-    color: #555;
+  background-color: #f0f0f0;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  color: #555;
 }
 
-/* Choose Section */
+/* Choose Section (always at bottom) */
 .choose {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 16px;
-    border-top: 1px solid #eee;
+  padding: 12px 16px;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: flex-end; /* align button right */
+  flex-shrink: 0; /* never shrink */
 }
 
-.price {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-}
-
+/* Button */
 .btn_select {
-    padding: 8px 16px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .btn_select:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
+
+/* Price placeholder if needed */
+.price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.btn_disabled {
+    background-color: gray;
+    cursor: not-allowed;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
