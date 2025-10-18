@@ -1,7 +1,8 @@
 [
   {
     "name": "connect.sid",
-    "value": "s%3ACIpBbX5YOBhZ0WXf6TSgtGMxghCg1FAO.SrMIbo96ylUMETrhphIr8fKJeQEvrB4T2DBS%2BrOkqa0",
+    "value": "<SESSION_COOKIE>",
+
     "domain": "localhost",
     "path": "/",
     "httpOnly": true,
