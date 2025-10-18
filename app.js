@@ -36,6 +36,8 @@ app.use('/visuals', express.static(path.join(__dirname, 'visuals')));
 app.use('/auth', authRoutes);
 app.use('/', indexRoutes);
 app.use('/guests', guestRoutes);
+app.use('/guests/styles', express.static(path.join(__dirname, 'frontend', 'styles')));
+app.use('/guests/scripts', express.static(path.join(__dirname, 'frontend', 'scripts')));
 app.use('/checkin', checkInRoutes);
 app.use('/manager', managerRoutes);
 app.use('/staff', staffRoutes);

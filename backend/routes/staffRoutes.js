@@ -142,6 +142,7 @@ const Annotations = require('../models/Annotation');
 
 // GET staff registration page
 router.get('/signup', staffRegpage);
+
 // POST /register/staff/:managerId
 router.get("/api/signup", staffRegistration);
 
@@ -188,6 +189,7 @@ router.get('/incidents',authenticateJWT,staffController.getincidents);
 
 router.get('/tasks', authenticateJWT, staffController.getMyTasks);
 router.get('/announcements',authenticateJWT,staffController.GetAnnouncementsforStaff);
+router.get('/program',authenticateJWT,staffController.GetProgram);
 router.get('/map', authenticateJWT, async(req, res) => {
   const user =await User.findById(req.user.id);
   const event= await Event.findOne({ "staff.staffId": req.user.id });

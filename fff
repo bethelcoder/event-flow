@@ -1,0 +1,204 @@
+[33me4a5ffc[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mupdate/managerRoutes[m[33m)[m Merge branch 'main' of https://github.com/bethelcoder/event-flow into update/managerRoutes
+[33mc66e6d9[m added staff position
+[33mc273815[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Merge pull request #80 from bethelcoder/feature/map
+[33m23fb8ae[m[33m ([m[1;31morigin/feature/map[m[33m)[m end event function
+[33m241cb03[m Merge pull request #79 from bethelcoder/feature/map
+[33me307218[m a user only books a venue once
+[33m18b59b7[m mark booked venues
+[33m157cfca[m Merge pull request #78 from bethelcoder/guestRealtimeAnnouncement
+[33m0bf7d53[m[33m ([m[1;31morigin/guestRealtimeAnnouncement[m[33m)[m guest announcements
+[33m38b60d7[m Merge pull request #77 from bethelcoder/feature/map
+[33m4fc034a[m added program feature for staff
+[33m424dd0d[m Merge pull request #75 from bethelcoder/feature/repair
+[33mfad89af[m Merge pull request #76 from bethelcoder/feature/map
+[33mfa4ac9a[m added announcement feature in guest dashboard
+[33m1085dcc[m[33m ([m[1;31morigin/feature/repair[m[33m)[m render incidents and tasks page even with no event
+[33m961d58d[m Merge pull request #74 from bethelcoder/update/managerRoutes
+[33mf9692e9[m[33m ([m[1;31morigin/update/managerRoutes[m[33m, [m[1;32mfeat/guest-dashboard-v.2.0.0[m[33m)[m Handled error in incosistent venue capacity and expected attendees
+[33md53ef02[m Merge pull request #73 from bethelcoder/backendtesting
+[33md0a2a17[m[33m ([m[1;31morigin/backendtesting[m[33m)[m backend tests
+[33md91f4f0[m Merge pull request #72 from bethelcoder/feature/map
+[33me39a032[m added event description to guest event details
+[33m0dbcf2c[m added staff count to manager home
+[33m8dcb9a6[m added staff memebers count to manager Home page
+[33m6c575d9[m designed staff logout button
+[33me23c9e5[m Merge pull request #70 from bethelcoder/feature/task
+[33m32ff9f1[m[33m ([m[1;31morigin/feature/task[m[33m)[m working task
+[33mc4145f6[m Merge pull request #69 from bethelcoder/feature/map
+[33mad61fa0[m  fixed staff registeration redirection and list of staff members in manager Home
+[33m5a0ad44[m Merge pull request #68 from bethelcoder/feature/map
+[33m7cbd074[m map annotations to staff and guest
+[33md752099[m Merge pull request #67 from bethelcoder/feat/guest-dashboard-v.2.0.0
+[33m7a9db10[m[33m ([m[1;31morigin/feat/guest-dashboard-v.2.0.0[m[33m, [m[1;32mmain[m[33m)[m working guest dashboard
+[33me9f9ab3[m Allowed accessto API
+[33m1fa21f4[m Merge pull request #66 from bethelcoder/feature/fixedsubmitincident
+[33m33791b0[m[33m ([m[1;31morigin/feature/fixedsubmitincident[m[33m)[m fixed submit incident bug
+[33m5e0b1ae[m Merge pull request #65 from bethelcoder/feature/staff-incident
+[33m7654a16[m[33m ([m[1;31morigin/feature/staff-incident[m[33m)[m  complete staff incidents and also added manager incident on nav bar
+[33m3ff0f55[m Merge pull request #64 from bethelcoder/feature/staff-dashboard-announcement
+[33m4a6fbed[m[33m ([m[1;31morigin/feature/staff-dashboard-announcement[m[33m)[m staff announcements
+[33meb49a71[m Merge pull request #63 from bethelcoder/feature/map
+[33mb9c9fa3[m redesigned staff task page
+[33m0a3e2fc[m Merge branch 'main' of https://github.com/bethelcoder/event-management-project into feature/map
+[33m5e58612[m staff navigation
+[33m1ccacd8[m Update manager_map.ejs
+[33me8f8417[m Merge pull request #62 from bethelcoder/fix/email-smtp
+[33m0ea40ec[m[33m ([m[1;31morigin/fix/email-smtp[m[33m, [m[1;32mfix/email-smtp[m[33m)[m Merge branch 'main' of https://github.com/bethelcoder/event-flow
+[33m6ea1c40[m Fixed SMTP problem in render
+[33m779e1fa[m Merge pull request #61 from bethelcoder/staff_refinements
+[33m96f624a[m Completed the whole staff dashboard
+[33m1fa6374[m refined tasks
+[33mb71df0a[m refined incident page
+[33m2705b43[m finished the annoucement page
+[33mc94c4e4[m Merge pull request #60 from bethelcoder/feature/map
+[33m89456bc[m removed staff role selection
+[33mfb2bbfb[m Merge pull request #59 from bethelcoder/feature/map
+[33m2bcf6fa[m added unannotated map to guest
+[33m10b3510[m handled guest invite cases
+[33m791232a[m Merge branch 'main' of https://github.com/bethelcoder/event-flow
+[33md67e913[m feat/guest page access
+[33m45ed392[m Merge pull request #58 from bethelcoder/announcement
+[33mcec7ab9[m[33m ([m[1;31morigin/announcement[m[33m)[m sending notification
+[33md5eb19c[m Merge pull request #57 from bethelcoder/announcement
+[33mbb641b9[m Merge branch 'main' into announcement
+[33m5dbfd1e[m realtime history,delete
+[33m035b190[m Merge pull request #55 from bethelcoder/feature/map
+[33m1f15167[m added eventId to guest schema
+[33m83d7fae[m exposed venue api
+[33me8f3e53[m Dcoumentation site up and running safely
+[33mec4f8f1[m Merge branch 'main' of https://github.com/bethelcoder/event-flow
+[33m5eac8ee[m fixed inline javascript issue
+[33mc72fd1d[m Merge pull request #54 from bethelcoder/announcement
+[33m0f82268[m fixed announcements error
+[33m982b276[m Merge branch 'main' of https://github.com/bethelcoder/event-management-project into feature/map
+[33m5c8ab95[m latest information
+[33m06b43f5[m Merge pull request #53 from bethelcoder/announcement
+[33m7418ff9[m fixed announcement with no event
+[33m78593ed[m Merge pull request #52 from bethelcoder/announcement
+[33m259f523[m announcement
+[33m28037f8[m Merge pull request #51 from bethelcoder/announcement
+[33m9c5824c[m working email staff registration
+[33ma95d0df[m Merge pull request #50 from bethelcoder/announcement
+[33md6e1e4d[m pushed updated staff Registration that adds staff to event
+[33mad7a563[m Merge pull request #48 from bethelcoder/staff-dashboard
+[33m485b25f[m[33m ([m[1;31morigin/staff-dashboard[m[33m)[m changed the cookies
+[33m8479d5d[m finished test cases of sprint 2
+[33mfd403f1[m do not touch this
+[33mc16dd89[m working map annotation
+[33mf1a9605[m progress
+[33m1f2cb78[m progress
+[33m6f84fb5[m Merge pull request #41 from bethelcoder/announcement
+[33m1636f26[m fixed negative values on input and middleware redirect
+[33m5ab01de[m Merge pull request #40 from bethelcoder/feature/testing
+[33m38ec2e7[m[33m ([m[1;31morigin/feature/testing[m[33m)[m Merge branch 'main' into feature/testing
+[33med81c17[m Update tests.yml
+[33m483b0a6[m Update tests.yml
+[33mb8f3648[m backend tests
+[33m994a235[m Update managerRoutes.js
+[33m865c875[m Merge pull request #38 from bethelcoder/feature/backend-chat-system
+[33me2bada7[m[33m ([m[1;31morigin/feature/backend-chat-system[m[33m)[m staff members list appearance
+[33m737f625[m Merge pull request #37 from bethelcoder/staff-dashboard
+[33m06fa52a[m Resolved merge conflicts in package.json and package-lock.json
+[33mfb58efb[m wanting to merge with main branch & preventing errors
+[33m4a4a922[m Merge pull request #36 from bethelcoder/feature/backend-chat-system
+[33mda9b14b[m fixed qr alert issue
+[33mf085ee7[m Merge pull request #35 from bethelcoder/feature/backend-chat-system
+[33m58622b7[m working guest invite
+[33ma9ee576[m complete chat system
+[33ma8bea87[m Update managerRoutes.js
+[33m069c3b6[m Merge pull request #33 from bethelcoder/feature/ExportProgram
+[33m394ae34[m[33m ([m[1;31morigin/feature/ExportProgram[m[33m)[m Merge branch 'main' into feature/ExportProgram
+[33ma3c1ac5[m working venue selection and event overview
+[33m654123d[m working chat system
+[33m44dfe6f[m Merge remote-tracking branch 'origin/main' into feature/backend-chat-system
+[33m8c99156[m Merge pull request #32 from bethelcoder/feat/staff-invitation-chatRoom
+[33m861a78b[m[33m ([m[1;31morigin/feat/staff-invitation-chatRoom[m[33m)[m feat/fix:fixed incorrect passing of manager Details on invite email
+[33m0500c58[m Merge remote-tracking branch 'origin/main' into feature/backend-chat-system
+[33m1bfba49[m Merge pull request #31 from bethelcoder/feat/staff-invitation-chatRoom
+[33ma62dd24[m feat/update - configured routes properly for staff and guest invite
+[33md4f9e1b[m Merge pull request #30 from bethelcoder/feat/staff-invite
+[33m690b8aa[m[33m ([m[1;31morigin/feat/staff-invite[m[33m)[m feat/staff-invitation-chatRoom
+[33m40c12f8[m latest info
+[33mf3195a3[m Merge remote-tracking branch 'origin/main' into feature/backend-chat-system fetching the latest info.
+[33mb05a6a2[m saving progress
+[33m6e187e0[m saving progress
+[33m91c4917[m Merge pull request #28 from bethelcoder/feature/update-qrcode
+[33maca4ebf[m[33m ([m[1;31morigin/feature/update-qrcode[m[33m)[m added checkInPage.ejs
+[33mda77f3d[m Merge pull request #27 from bethelcoder/feature/ExportProgram
+[33m415cb2a[m Add manager routes and update role handling in authentication
+[33mdaf5e52[m feature:fix/qrCode scanning and decryption
+[33mef9d964[m saving progress
+[33m648c01d[m Save Program
+[33m54b6426[m Merge pull request #26 from bethelcoder/feature/managerHome
+[33mfdae3d1[m added routes to createEvent,Program_Editor to work
+[33m7548b0d[m Completed staff dashboard to standards
+[33me977123[m Merge remote-tracking branch 'origin/main' into staff-dashboard
+[33mdc59dba[m finished the staff portal completley
+[33m38aa197[m finished the report-icident modification
+[33m61603c8[m finished changing colours to staff-chats page
+[33me649ff7[m finished adding a hamburger button
+[33m0ff4d86[m Merge pull request #24 from bethelcoder/feature/UI-guest
+[33m653aaeb[m[33m ([m[1;31morigin/feature/UI-guest[m[33m)[m created guest UI
+[33mb68002e[m Merge pull request #22 from bethelcoder/feature/UI-guest
+[33mbaf4f55[m merged main to guest UI
+[33m3b1a7f8[m Merge pull request #23 from bethelcoder/staff-dashboard
+[33mdc293e3[m Merge branch 'main' of https://github.com/bethelcoder/event-flow into staff-dashboard
+[33mf471e36[m embedded the team-chats on the dashboard page
+[33m072b547[m finished poloshing announcement page
+[33ma869aaa[m finished the my task page functionalities
+[33m4d8efa9[m created manager home UI
+[33m41445e1[m Fixed the overflow issues on the tasks page
+[33m4546e44[m finished the incident page
+[33m0ccd321[m fixed the overflowing issues on the inicident-reporting page
+[33ma061d3f[m Merge pull request #21 from bethelcoder/feature/qrGen-backend
+[33m620948c[m[33m ([m[1;31morigin/feature/qrGen-backend[m[33m)[m Merge branch 'main' into feature/qrGen-backend
+[33m66466cc[m "merged auth.js"
+[33m7099f46[m feature/guest-qrref-security-checkin
+[33m65d5c4b[m Merge pull request #20 from bethelcoder/feature/chatSystem
+[33mddb536b[m[33m ([m[1;31morigin/feature/chatSystem[m[33m)[m fixed manager chat route
+[33m7e511cb[m Merge pull request #19 from bethelcoder/feature/chatSystem
+[33ma2b5c0c[m linked manager dashboard
+[33mf767ab1[m Completed the task page
+[33m42a9613[m Completed the report incident page
+[33m55f3d70[m Completed the report incident section
+[33ma1c406a[m Merge pull request #18 from bethelcoder/frontend-manager-dashboard
+[33m0cf07d5[m[33m ([m[1;31morigin/frontend-manager-dashboard[m[33m)[m designed manager UI
+[33mfb3f186[m Completed the announcements page
+[33mfb1d14e[m finished the team-chat section
+[33m92f344a[m Added Team Chats page and button navigation
+[33m7596fa2[m Completed the desgins of the layout
+[33md0f2af8[m Merge branch 'main' of https://github.com/bethelcoder/event-management-3rd-year-SPD-project
+[33m913a03c[m Staged commit
+[33m516445f[m Merge pull request #15 from bethelcoder/frontend-manager-dashboard
+[33m7b5e145[m Initial staff dashboard layout with vertical and horizontal lines
+[33m02061e6[m Merge pull request #17 from bethelcoder/documentation-site
+[33m0e1abdd[m[33m ([m[1;31morigin/documentation-site[m[33m)[m Resolved merge conflict using remote frontend.html
+[33m090ca16[m[33m ([m[1;31morigin/frontend-docs[m[33m)[m Add frontend documentation for Sprint 1
+[33ma6e283f[m fixed role submission page
+[33mf947239[m Merge pull request #14 from bethelcoder/frontend-manager-dashboard
+[33mf1d51f9[m fixed navigation links
+[33ma9cfeac[m Vhafunzi vhori avhafuni u vhidziwa uri vhafunzi rinwale uri tebogo
+[33mf028d0e[m Sprint 1 frontend documentation and development plan added
+[33m6b74b3e[m Add Sprint 1 frontend documentation
+[33md17e5b4[m Merge pull request #13 from bethelcoder/frontend-manager-dashboard
+[33mb966dec[m fixed responsiveness of the pages
+[33mbbb46fb[m Update DevelopmentGuides.html
+[33m59f52c5[m Merge pull request #12 from bethelcoder/feature/logout
+[33mcbefb5e[m[33m ([m[1;31morigin/feature/logout[m[33m)[m created logout button and changed redirect of logout route
+[33m436b8b5[m update responsive
+[33md5a17c5[m responsive
+[33m4d88dfe[m development guide fixed responsive paragraph
+[33m54a343c[m development guide
+[33med741f0[m Merge pull request #11 from bethelcoder/frontend-manager-dashboard
+[33m8a17e6e[m resolved conflict
+[33mb4d4a55[m Merge remote-tracking branch 'origin/main' into frontend-manager-dashboard Fetching the latest file from main branch
+[33m9b64abd[m changed css routing
+[33m7d34b9f[m architecture diagram
+[33mf5ae3e6[m created manager pages and added footers to all pages
+[33m68b9d35[m removed space from filename
+[33m322a165[m guides link
+[33m3ebfdb4[m Development Guide
+[33m9dee857[m Merge pull request #9 from bethelcoder/documentation-site
+[33m545ab78[m Add Sprint 1 documentation pages and templates
+[33m222d0ec[m Add initial documentation site structure for Sprint 1
+[33m330adb0[m Merge pull request #8 from bethelcoder/fix/sessions-deploy

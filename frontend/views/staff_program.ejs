@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Announcement</title>
+    <link rel="stylesheet" href="../styles/staff_program.css">
+    <link rel="stylesheet" href="../styles/dashboard.css">
+</head>
+<body>
+    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+    <script src="../scripts/socket.js"></script>
+
+    <%- include('partials/staff_navigation',{ notifcount }) %>
+    <section class="main_content" id="mainContent">
+        <%- include('partials/staff_topbar') %>
+
+        <section class="program_heading">
+            <section>
+                <h2>Program</h2>
+                <p>Stay updated with the latest event program</p>
+            </section>
+        </section>
+
+        <!-- program -->
+        <section class="Program_schedule" id="programSchedule">
+            <% if(event && event.sessions.length > 0) { %>
+                <% event.sessions.forEach(session => { %>
+            <section class="Program-section" data-id="<%= session._id %>">
+                <p class="time"><%= new Date(session.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) %></p>
+                <p class="duration"><%
+                const durationMinutes = Math.round((new Date(session.endTime) - new Date(session.startTime)) / 60000);
+                const hours = Math.floor(durationMinutes / 60);
+                const minutes = durationMinutes % 60;
+                %>
+            <%= hours > 0 ? `${hours}h ${minutes}min` : `${minutes}min` %></p>
+                <h4 class="title"><%= session.title %></h4>
+                <p class="description"><%= session.description %></p>
+                <P class="vanue">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                    </svg>
+                    <%= session.location %>
+                </P>
+                <span class="cartegory"><%= session.speaker %></span>
+                <p class="endtime"><%= new Date(session.endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) %></p>
+
+            </section>
+             <% }) %>
+             <% } %>
+            
+        </section>
+    </section>
+    <script src="../scripts/sidebar.js"></script>
+</body>
+</html>

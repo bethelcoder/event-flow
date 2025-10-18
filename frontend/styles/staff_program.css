@@ -1,0 +1,131 @@
+/* Reset & global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f7f9fc;
+  color: #222;
+  line-height: 1.6;
+}
+
+.main_content {
+    transition: margin-left 0.3s ease;
+    margin-left: 250px;
+}
+.main_content.expanded {
+    margin-left: 0px;
+}
+
+/* programments header */
+.program_heading {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  background-color: #fff;
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.program_heading .icon {
+  width: 40px;
+  height: 40px;
+  color: #153291;
+}
+
+.program_heading h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.2rem;
+  color: #ff8800fb;
+}
+
+.program_heading p {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.Program-section {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.Program-section .time {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #ff8800fb;
+}
+
+.Program-section .duration {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.Program-section .title {
+  font-size: 1.2rem;
+  color: #333;
+  text-transform: capitalize;
+}
+
+.Program-section .description {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.Program-section .vanue {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.Program-section .cartegory {
+  display: inline-block;
+  background: #e0e7ff;
+  color: #001aff;
+  padding: 0.3rem 0.7rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+
+/* Action buttons (edit & delete) */
+.Program-section button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 1rem;
+}
+
+.Program-section button.edit {
+  right: 2.5rem;
+}
+
+.Program-section button.delete {
+  right: 0.8rem;
+}
+
+.Program-section button:hover svg {
+  stroke: #153291;
+}
+
+.Program-section .endtime {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}

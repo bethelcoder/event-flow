@@ -600,10 +600,19 @@ router.get('/chat', authenticateJWT, (req,res)=>{
     res.render('manager_chat', { user: req.user });
 });
 
-router.get('/venue-selection', authenticateJWT, async(req,res)=>{
-  const venues = await Venue.find();
-  res.render('manager_venue', { user: req.user, venues });
+router.get('/venue-selection', authenticateJWT, async (req, res) => {
+  try {
+    const venues = await Venue.find();
+    const user = await User.findById(req.user.id);
+    const event = await Event.findOne({ 'organizer.id': user._id }); // fetch current event
+
+    res.render('manager_venue', { user: req.user, venues, event });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error');
+  }
 });
+
 router.get('/incidents', authenticateJWT,managercontroller.managerincidents);
   
 router.get('/guest-invite', authenticateJWT, async (req,res)=>{
@@ -617,8 +626,11 @@ router.post("/send-guest-invite", registerGuest);
 // Send staff invite
 router.post("/send-staff-invite", async (req, res) => {
   try {
-    const { email, name, managerName, managerId} = req.body;
-    await sendStaffInvite(email, name, managerName, managerId);
+    const { email, name, managerName, managerId, position } = req.body;
+    const event = await Event.findOne({ "organizer.id": managerId });
+
+    if(!event) return res.json({ "error": "Please create ana event first" });
+    await sendStaffInvite(email, name, managerName, managerId, position);
     res.redirect("/manager/home");
   } catch (err) {
     console.error(err);
@@ -655,10 +667,9 @@ router.post('/map/annotate', authenticateJWT, async (req, res) => {
     try {
         const userId = req.user.id;
         const annotations = JSON.parse(req.body.annotations);
-
         await Annotation.deleteMany({ userId });
 
-        const annotatedData = annotations.map(a => ({ ...a, userId }));
+        const annotatedData = annotations.map(a => ({ ...a, userId,notes: req.body.notes.trim()}));
         await Annotation.insertMany(annotatedData);
         res.redirect('/manager/map');
     } catch (err) {
@@ -728,6 +739,7 @@ router.post('/program', authenticateJWT, async (req, res) => {
 
     const user = await User.findById(req.user.id);
     const event = await Event.findOne({ 'organizer.id': user._id });
+ 
     const eventDate = event.dateTime;
     const [startHour, startMin] = start_time.split(':').map(Number);
     const [endHour, endMin] = end_time.split(':').map(Number);
@@ -762,7 +774,24 @@ router.post('/program', authenticateJWT, async (req, res) => {
     await session.save();
     await event.save();
 
-    res.status(201).redirect('/manager/program');
+
+    let targetUserIds = [];
+    targetUserIds = (event.guests || []).map(g => g.guestId?.toString());
+    targetUserIds = targetUserIds.filter(Boolean);
+    const io = req.app.get('io');
+    targetUserIds.forEach(userId => {
+      io.to(userId).emit('ProgramUpdate', { message: 'A new program item has been added' });
+    });
+
+    res.status(201).json({
+  _id: session._id,
+  title,
+  Speaker,
+  start_time: startDateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+  end_time: endDateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+  description,
+  location
+});
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error' });
@@ -783,6 +812,13 @@ router.delete('/program/:sessionID', authenticateJWT, async (req, res) => {
     event.sessions = event.sessions.filter(session => session.sessionId.toString() !== sessionID.toString());
     await event.save();
     await Session.findByIdAndDelete(sessionID);
+    let targetUserIds = [];
+    targetUserIds = (event.guests || []).map(g => g.guestId?.toString());
+    targetUserIds = targetUserIds.filter(Boolean);
+    const io = req.app.get('io');
+    targetUserIds.forEach(userId => {
+      io.to(userId).emit('ProgramUpdate', { message: 'A program item has been removed.' });
+    });
 
     res.status(200).json({ message: 'Session deleted successfully' });
   } catch (err) {
@@ -791,39 +827,133 @@ router.delete('/program/:sessionID', authenticateJWT, async (req, res) => {
   }
 });
 
-router.post('/select-venue',authenticateJWT,async(req,res)=>{
- const {venue}=req.body;
 
- try {
-   const user = await User.findById(req.user.id);
-   const event = await Event.findOne({ 'organizer.id': user._id });
-   const selectedVenue = await Venue.findOne({ name: venue });
+router.post('/select-venue', authenticateJWT, async (req, res) => {
+  const { venue } = req.body;
 
-   if (!event) {
-     return res.status(404).json({ message: 'Event not found' });
-   }
-   event.venue = {
-    venueID: selectedVenue._id,
-    name: selectedVenue.name,
-    address: selectedVenue.address,
-    city: selectedVenue.city,
-    mapPath: selectedVenue.mapPath,
-    image: {
-      url: selectedVenue.image.url,
-      public_id: selectedVenue.image.public_id
-    },
-    map: {
-      url: selectedVenue.map.url,
-      public_id: selectedVenue.map.public_id     
+  try {
+    const user = await User.findById(req.user.id);
+    const event = await Event.findOne({ 'organizer.id': user._id });
+    const selectedVenue = await Venue.findOne({ name: venue });
+
+    if (!event) return res.status(404).json({ message: 'Event not found' });
+    if (!selectedVenue) return res.status(404).json({ message: 'Venue not found' });
+
+    
+    // Check if manager already has a venue
+    if (event.venue && event.venue.venueID) {
+        return res.status(400).json({ message: 'You have already selected a venue!' });
     }
-   };
-   await event.save();
 
-   res.status(200).redirect('/manager/home');
- } catch (err) {
-   console.error(err);
-   res.status(500).json({ message: 'Server error' });
- }
+    if (selectedVenue.booked) {
+      return res.status(400).json({ message: 'Venue already booked' });
+    }
+
+    if (event.expectedAttendees > selectedVenue.capacity) {
+      return res.status(400).json({ message: 'Venue space too small for your audience' });
+    }
+
+    // Assign venue
+    event.venue = {
+      venueID: selectedVenue._id,
+      name: selectedVenue.name,
+      address: selectedVenue.address,
+      city: selectedVenue.city,
+      mapPath: selectedVenue.mapPath,
+      image: {
+        url: selectedVenue.image.url,
+        public_id: selectedVenue.image.public_id
+      },
+      map: {
+        url: selectedVenue.map.url,
+        public_id: selectedVenue.map.public_id
+      }
+    };
+
+    selectedVenue.booked = true;
+
+    await selectedVenue.save();
+    await event.save();
+
+    res.status(200).redirect('/manager/home');
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
+router.put('/program/:id', async (req, res) => {
+  try {
+    
+
+    const { title, Speaker, start_time, end_time, location, description } = req.body;
+
+    if (!title || !Speaker || !start_time || !end_time || !location || !description) {
+      return res.status(400).json({ error: 'All fields are required' });
+    }
+
+    const session = await Session.findById(req.params.id);
+    
+    if (!session) return res.status(404).json({ error: 'Session not found' });
+
+    const event = await Event.findById(session.eventId);
+  
+
+    if (!event) return res.status(404).json({ error: 'Event not found' });
+
+    const eventDate = event.dateTime; // same day as the event
+    const [startHour, startMin] = start_time.split(':').map(Number);
+    const [endHour, endMin] = end_time.split(':').map(Number);
+
+    const startDateTime = new Date(eventDate);
+    startDateTime.setHours(startHour, startMin, 0, 0);
+
+    const endDateTime = new Date(eventDate);
+    endDateTime.setHours(endHour, endMin, 0, 0);
+
+    session.title = title;
+    session.speaker = Speaker;
+    session.startTime = startDateTime;
+    session.endTime = endDateTime;
+    session.location = location;
+    session.description = description;
+
+    await session.save();
+
+    // Update the event's embedded session too
+    const sessionInEvent = event.sessions.find(s => s.sessionId.toString() === session._id.toString());
+    if (sessionInEvent) {
+      sessionInEvent.title = title;
+      sessionInEvent.speaker = Speaker;
+      sessionInEvent.startTime = startDateTime;
+      sessionInEvent.endTime = endDateTime;
+      sessionInEvent.location = location;
+      sessionInEvent.description = description;
+    }
+    await event.save();
+    let targetUserIds = [];
+    targetUserIds = (event.guests || []).map(g => g.guestId?.toString());
+    targetUserIds = targetUserIds.filter(Boolean);
+    const io = req.app.get('io');
+    targetUserIds.forEach(userId => {
+      io.to(userId).emit('ProgramUpdate', { message: 'A program item has been updated.' });
+    });
+    res.json({
+      _id: session._id,
+      title: session.title,
+      Speaker: session.speaker,
+      start_time: startDateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      end_time: endDateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      location: session.location,
+      description: session.description
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to update session' });
+  }
 });
 
 
@@ -837,7 +967,7 @@ router.post('/publish', authenticateJWT,announcementController.createAndPublish)
 
 router.post('/create-task', authenticateJWT, managercontroller.SubmitTask);
 
-
+router.post('/EndEvent', authenticateJWT, managercontroller.EndEvent);
 
 
 module.exports = router;

@@ -34,12 +34,8 @@ const EventSchema = new mongoose.Schema({
   guests: [
     {
       guestId: { type: mongoose.Schema.Types.ObjectId, ref: 'Guest' },
-      status: String,
-      refNumber: String,
-      qrcodeUrl: String,
-      checkInHistory: [
-        { time: Date, gate: String, staffId: { type: mongoose.Schema.Types.ObjectId, ref: 'Staff' } }
-      ]
+      role: String,
+      
     }
   ],
 
@@ -47,7 +43,8 @@ const EventSchema = new mongoose.Schema({
     {
       staffId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
       role: String,
-      taskStatus: String
+      taskStatus: String,
+      position: String
     }
   ],
   venue:{

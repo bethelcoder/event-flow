@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="../styles/dashboard.css">
     <link rel="stylesheet" href="../styles/manager_venue.css">
     <title>venue</title>
-    
 </head>
 <body>
 
@@ -28,118 +27,118 @@
       loadingScreen.style.display = "flex";
       animation.play();
     }
-
     function hideLoading() {
       loadingScreen.style.display = "none";
       animation.stop();
     }
 </script>
 
+<%- include('partials/manager_navigation') %>
+<section class="main_content" id="mainContent">
 
-    <%- include('partials/manager_navigation') %>
-    <section class="main_content" id="mainContent">
+  <%- include('partials/topbar') %>
+  <h2 id="heading">Venue Selection</h2>
 
-      <%- include('partials/topbar') %>
-      <h2 id="heading">Venue Selection</h2>
-
-       <section class="modal" id="venueModal" aria-hidden="true">
-          <form id="venueForm" class="pop_section" method="post" action="/manager/venue/upload" enctype="multipart/form-data">
-
-      
-            <section>
-              <label for="name">Venue Name</label>
-              <input id="name" name="name" type="text" placeholder="Venue Name" required>
-            </section>
-            <section>
-              <label for="typeofvenue">Type of Venue</label>
-              <input id="typeofvenue" name="typeofvenue" type="text" placeholder="e.g. Outdoor,Ballroom,Conference Hall" required>
-            </section>
-            <section>
-              <label for="address">Address</label>
-              <input id="address" name="address" type="text" placeholder="Venue Address" required>
-            </section>
-
-            <section>
-              <label for="capacity">Capacity</label>
-              <input id="capacity" name="capacity" type="number" min="1" step="1" placeholder="e.g. 500" required>
-            </section>
-
-            <section>
-              <label for="facilities">Facilities</label>
-              <input id="facilities" name="facilities" type="text" placeholder="e.g. Parking, WiFi, Stage" required>
-            </section>
-
-            <section>
-              <label for="city">City</label>
-              <input id="city" name="city" type="text" placeholder="e.g. Johannesburg" required>
-            </section>
-
-            <section>
-              <label for="rating">Rating</label>
-              <input id="rating" name="rating" type="number" step="0.1" min="0" max="5" placeholder="e.g. 4.5" required>
-            </section>
-
-            <section>
-              <label for="venueImage">Upload Image</label>
-              <input id="venueImage" name="venueImage" type="file" accept="image/*" required>
-            </section>
-
-            <section>
-              <label for="mapImage">Upload map</label>
-              <input id="mapImage" name="mapImage" type="file" accept="image/*" required>
-            </section>
-
-              <button class="btn_select" type="button" onclick="closeModal()">Cancel</button>
-              <button class="btn_select" type="submit">Add Venue</button>
-          </form>
-      </section>
-
-      <section class="add_venue">
-        <button class="btn_select" type="button" onclick="openModal()">Add New Venue</button>
-      </section>
-
-   
-
-        <section class="All_venues">
-          <% if(venues && venues.length > 0) { %>
-            <% venues.forEach(venue =>{ %>
-            <form class="venue" action="/manager/select-venue" method="post">
-                <img src="<%= venue.image.url %>">
-                <section class="venue_name">
-                    <h3><%= venue.name %></h3>
-                    <span class="rating"><%= venue.rating %></span>
-                </section>
-                <section class="venue_details">
-                    <p class="location">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-                        </svg>
-                        <%= venue.address %>, <%= venue.city %>
-                    </p>
-                    <span class="item"><strong> capicity: <%=  venue.capacity %></strong></span>
-                    <span class="type_of_venue"><%= venue.typeofvenue%></span>
-                    <section class="details">
-                      <% if (venue.facilities && venue.facilities.length > 0) { %>
-                   <%let facilities = venue.facilities[0].split(','); %>
-                 <%  facilities.forEach(facility => { %>
-                  <span class="item"><%= facility.trim() %></span>
-                  <% })}; %>
-                    </section>
-                </section>
-                <section class="choose">
-                    <button class="btn_select" type="submit">select</button>
-                </section>
-                <input type="hidden" name="venue" value="<%= venue.name %>">
-            </form>
-            <% })} %>
-
+  <!-- Add Venue Modal -->
+  <section class="modal" id="venueModal" aria-hidden="true">
+    <form id="venueForm" class="pop_section" method="post" action="/manager/venue/upload" enctype="multipart/form-data">
+        <section>
+          <label for="name">Venue Name</label>
+          <input id="name" name="name" type="text" placeholder="Venue Name" required>
         </section>
+        <section>
+          <label for="typeofvenue">Type of Venue</label>
+          <input id="typeofvenue" name="typeofvenue" type="text" placeholder="e.g. Outdoor,Ballroom,Conference Hall" required>
+        </section>
+        <section>
+          <label for="address">Address</label>
+          <input id="address" name="address" type="text" placeholder="Venue Address" required>
+        </section>
+        <section>
+          <label for="capacity">Capacity</label>
+          <input id="capacity" name="capacity" type="number" min="1" step="1" placeholder="e.g. 500" required>
+        </section>
+        <section>
+          <label for="facilities">Facilities</label>
+          <input id="facilities" name="facilities" type="text" placeholder="e.g. Parking, WiFi, Stage" required>
+        </section>
+        <section>
+          <label for="city">City</label>
+          <input id="city" name="city" type="text" placeholder="e.g. Johannesburg" required>
+        </section>
+        <section>
+          <label for="rating">Rating</label>
+          <input id="rating" name="rating" type="number" step="0.1" min="0" max="5" placeholder="e.g. 4.5" required>
+        </section>
+        <section>
+          <label for="venueImage">Upload Image</label>
+          <input id="venueImage" name="venueImage" type="file" accept="image/*" required>
+        </section>
+        <section>
+          <label for="mapImage">Upload map</label>
+          <input id="mapImage" name="mapImage" type="file" accept="image/*" required>
+        </section>
+        <button class="btn_select" type="button" onclick="closeModal()">Cancel</button>
+        <button class="btn_select" type="submit">Add Venue</button>
+    </form>
+  </section>
 
-    </section>
+  <!-- Add Venue Button -->
+  <section class="add_venue">
+    <button class="btn_select" type="button" onclick="openModal()">Add New Venue</button>
+  </section>
 
-    <script src="../scripts/sidebar.js"></script>
-    <script src="../scripts/venue.js"></script>
+  <!-- All Venues -->
+  <section class="All_venues">
+    <% if(venues && venues.length > 0) { %>
+      <% venues.forEach(venue => { %>
+      <form class="venue <%= venue.booked ? 'booked' : '' %>" action="/manager/select-venue" method="post">
+          <img src="<%= venue.image.url %>">
+
+          <% if(venue.booked){ %>
+            <div class="overlay">BOOKED</div>
+          <% } %>
+
+          <section class="venue_name">
+              <h3><%= venue.name %></h3>
+              <span class="rating"><%= venue.rating %></span>
+          </section>
+
+          <section class="venue_details">
+              <p class="location">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                  </svg>
+                  <%= venue.address %>, <%= venue.city %>
+              </p>
+              <span class="item"><strong>capacity: <%= venue.capacity %></strong></span>
+              <span class="type_of_venue"><%= venue.typeofvenue %></span>
+              <section class="details">
+                <% if (venue.facilities && venue.facilities.length > 0) { %>
+                  <% let facilities = venue.facilities[0].split(','); %>
+                  <% facilities.forEach(facility => { %>
+                    <span class="item"><%= facility.trim() %></span>
+                  <% }) %>
+                <% } %>
+              </section>
+          </section>
+
+          <section class="choose">
+              <button class="btn_select" type="submit" <% if(venue.booked) { %> disabled <% } %>>
+                <% if(venue.booked){ %>Booked<% } else { %>Select<% } %>
+              </button>
+          </section>
+
+          <input type="hidden" name="venue" value="<%= venue.name %>">
+      </form>
+      <% }) %>
+    <% } %>
+  </section>
+
+</section>
+
+<script src="../scripts/sidebar.js"></script>
+<script src="../scripts/venue.js"></script>
 </body>
-
 </html>

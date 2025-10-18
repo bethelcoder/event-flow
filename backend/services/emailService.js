@@ -11,7 +11,7 @@ const tranEmailApi = new SibApiV3Sdk.TransactionalEmailsApi();
 /**
  * Sends a guest their QR Code via email
  */
-const sendGuestQRCode = async (to, name, refNumber, qrCodeUrl, guestId) => {
+const sendGuestQRCode = async (to, name, refNumber, qrCodeUrl, guestId, websiteURL) => {
   const html = `
     <h2>🎉 Welcome to the Event!</h2>
     <p>Hi <b>${name}</b>,</p>
@@ -20,7 +20,7 @@ const sendGuestQRCode = async (to, name, refNumber, qrCodeUrl, guestId) => {
     <p>Please present the QR code below at the entrance:</p>
     <br/>
     <p>Below is your link to access the above event management platform:</p>
-    <p>${process.env.WEBSITE_URL}/guests/access/${guestId}</p>
+    <p>${websiteURL}/guests/access/${guestId}</p>
     <img src="cid:qrcode" alt="QR Code" />
     <br/><br/>
     <p>We look forward to seeing you!</p>
@@ -45,8 +45,8 @@ const sendGuestQRCode = async (to, name, refNumber, qrCodeUrl, guestId) => {
 /**
  * Sends a staff invitation email
  */
-const sendStaffInvite = async (to, staffName, managerName, managerId) => {
-  const registrationLink = `${process.env.WEBSITE_URL}/staff/signup?managerId=${managerId}`;
+const sendStaffInvite = async (to, staffName, managerName, managerId, position) => {
+  const registrationLink = `${process.env.WEBSITE_URL}/staff/signup?managerId=${managerId}&position=${encodeURIComponent(position)}`;
 
   const html = `
     <h2>👋 Invitation to Join Our Event Staff</h2>

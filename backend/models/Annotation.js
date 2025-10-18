@@ -6,11 +6,12 @@ const annotationSchema = new mongoose.Schema({
         enum: ['marker', 'circle'], 
         required: true 
     },
-    coords: Object,    // {lat, lng} for marker
-    center: Object,    // {lat, lng} for circle
-    radius: Number,    // radius for circle
-    userId: {          // user who saved
-        type: String,  // or mongoose.Schema.Types.ObjectId if you have a Users collection
+    coords: Object,
+    center: Object,
+    radius: Number,
+    notes: { type: String },   // <-- added field
+    userId: {
+        type: String,
         required: true
     },
     createdAt: { type: Date, default: Date.now }
