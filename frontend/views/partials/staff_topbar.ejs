@@ -37,4 +37,17 @@
     // auto-remove after 5s
     setTimeout(() => div.remove(), 5000);
   });
+    socket.on('ProgramUpdate', (update) => {
+    const div = document.createElement('div');
+    div.className = `announcement ${update.priority}`;
+    div.innerHTML = ` ${update.message}`;
+    document.getElementById('announcement-popup').appendChild(div);
+
+    setTimeout(() => {
+        div.remove();
+    }, 5000);
+  });
+
+</script>
+
 </script>
