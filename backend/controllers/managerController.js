@@ -249,5 +249,27 @@ const SubmitTask = async (req, res) => {
     res.status(500).send('Server error');
   }
 };
+const PromoteStafftoSecurity = async (req, res) => {
+   const { eventId, staffId } = req.body;
+  console.log('Promote staff request received for eventId:', eventId, 'staffId:', staffId);
 
-module.exports = { managerHome, managerChat, managerincidents, GetTask, SubmitTask , EndEvent};
+  try {
+
+    const result = await Event.updateOne(
+      { _id: eventId, "staff.staffId": staffId },     
+      { $set: { "staff.$.position": "security" } }         
+    );
+
+    if (result.modifiedCount === 0) {
+      return res.status(404).send('Staff member not found in this event');
+    }
+
+    res.redirect('/manager/home'); 
+  } catch (error) {
+    console.error('Error promoting staff:', error);
+    res.status(500).send('Error promoting staff');
+  }
+};
+
+
+module.exports = { managerHome, managerChat, managerincidents, GetTask, SubmitTask , EndEvent, PromoteStafftoSecurity };

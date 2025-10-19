@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Security Check-In | Event Flow</title>
+  <link rel="stylesheet" href="../styles/dashboard.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.4/html5-qrcode.min.js" integrity="sha512-k/KAe4Yff9EUdYI5/IAHlwUswqeipP+Cp5qnrsUjTPCgl51La2/JhyyjNciztD7mWNKLSXci48m7cctATKfLlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <style>
     body {
@@ -78,6 +79,11 @@
   </style>
 </head>
 <body>
+  <%- include('partials/staff_navigation', { notifcount }) %>
+
+  <section class="main_content" id="mainContent">
+    <%- include('partials/staff_topbar') %>
+
   <main class="checkin-container">
     <h1>Guest Check-In</h1>
 
@@ -162,5 +168,6 @@
       }
     });
   </script>
+  </section>
 </body>
 </html>
