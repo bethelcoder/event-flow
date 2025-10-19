@@ -1,0 +1,80 @@
+/* ===========================
+   Reset & Global
+=========================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f8f7f5;
+  color: #181411;
+  line-height: 1.6;
+}
+
+.main_content {
+  transition: margin-left 0.3s ease;
+  margin-left: 250px;
+  padding: 2rem;
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f8f7f5;
+}
+
+.main_content.expanded {
+  margin-left: 0;
+}
+
+main.access-denied-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.access-denied-content {
+  text-align: center;
+  max-width: 600px;
+  width: 100%;
+}
+
+.access-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.access-icon svg {
+  width: 120px;
+  height: 120px;
+  color: #f77118;
+}
+
+h1 {
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.main-text {
+  color: #181411;
+  margin-bottom: 0.75rem;
+}
+
+.sub-text {
+  color: #8c715f;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .main_content {
+    margin-left: 0;
+    padding: 1rem;
+  }
+  .access-icon svg {
+    width: 100px;
+    height: 100px;
+  }
+}

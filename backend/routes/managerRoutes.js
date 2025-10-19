@@ -842,7 +842,10 @@ router.post('/program', authenticateJWT, async (req, res) => {
 
 
     let targetUserIds = [];
-    targetUserIds = (event.guests || []).map(g => g.guestId?.toString());
+    targetUserIds = [
+    ...(event.staff || []).map(s => s.staffId?.toString()),
+    ...(event.guests || []).map(g => g.guestId?.toString())
+    ];
     targetUserIds = targetUserIds.filter(Boolean);
     const io = req.app.get('io');
     targetUserIds.forEach(userId => {
@@ -879,7 +882,10 @@ router.delete('/program/:sessionID', authenticateJWT, async (req, res) => {
     await event.save();
     await Session.findByIdAndDelete(sessionID);
     let targetUserIds = [];
-    targetUserIds = (event.guests || []).map(g => g.guestId?.toString());
+    targetUserIds = [
+    ...(event.staff || []).map(s => s.staffId?.toString()),
+    ...(event.guests || []).map(g => g.guestId?.toString())
+    ];
     targetUserIds = targetUserIds.filter(Boolean);
     const io = req.app.get('io');
     targetUserIds.forEach(userId => {
@@ -1000,7 +1006,10 @@ router.put('/program/:id', async (req, res) => {
     }
     await event.save();
     let targetUserIds = [];
-    targetUserIds = (event.guests || []).map(g => g.guestId?.toString());
+    targetUserIds = [
+    ...(event.staff || []).map(s => s.staffId?.toString()),
+    ...(event.guests || []).map(g => g.guestId?.toString())
+    ];
     targetUserIds = targetUserIds.filter(Boolean);
     const io = req.app.get('io');
     targetUserIds.forEach(userId => {
@@ -1022,7 +1031,7 @@ router.put('/program/:id', async (req, res) => {
   }
 });
 
-
+router.post('/promote-staff', authenticateJWT, managercontroller.PromoteStafftoSecurity);
 
 
 

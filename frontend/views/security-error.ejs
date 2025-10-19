@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Access Denied</title>
+  <link rel="stylesheet" href="../styles/dashboard.css">
+  <link rel="stylesheet" href="../styles/security-error.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <script>
+    const user = {
+      role: "<%= user.role %>",
+      username: "<%= user.displayName %>",
+      _id: "<%= user._id %>",
+    }
+  </script>
+
+  <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+  <script src="/scripts/socket.js"></script>
+
+  <%- include('partials/staff_navigation', { notifcount }) %>
+
+  <section class="main_content" id="mainContent">
+    <%- include('partials/staff_topbar') %>
+
+    <main class="access-denied-page">
+      <section aria-labelledby="access-denied-title" class="access-denied-content">
+        <figure class="access-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#f77118" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="120" height="120">
+    <rect x="4" y="11" width="16" height="10" rx="2" ry="2"/>
+    <path d="M8 11V7a4 4 0 018 0v4"/>
+    <circle cx="12" cy="16" r="1.5"/>
+  </svg>
+</figure>
+
+
+        <h1 id="access-denied-title">Access Denied</h1>
+        <p class="main-text">You are not authorized to scan QR codes. Only security personnel are allowed to access this feature.</p>
+        <p class="sub-text">Please contact your event manager or security admin for access.</p>
+      </section>
+    </main>
+  </section>
+
+  <script src="/scripts/sidebar.js"></script>
+</body>
+</html>

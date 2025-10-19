@@ -27,54 +27,39 @@ function closeForm() {
 addBtn.addEventListener("click", openForm);
 cancelBtn.addEventListener("click", closeForm);
 
-// Open Add Staff Modal
-if (addStaffBtn) {
-    addStaffBtn.addEventListener('click', () => {
-        addStaffModal.style.display = 'flex';
-    });
-}
+const kebabs = document.querySelectorAll('.kebab');
 
-// Open Update Event Modal
-if (updateEventBtn) {
-    updateEventBtn.addEventListener('click', () => {
-        updateEventModal.style.display = 'flex';
-    });
-}
+kebabs.forEach(kebab => {
+  const middle = kebab.querySelector('.middle');
+  const cross = kebab.querySelector('.cross');
+  const dropdown = kebab.querySelector('.dropdown');
 
-// Open Delete Event Modal
-if (deleteEventBtn) {
-    deleteEventBtn.addEventListener('click', () => {
-        deleteEventModal.style.display = 'flex';
-    });
-}
+  kebab.addEventListener('click', (e) => {
+    e.stopPropagation(); // prevent body click from closing immediately
 
-// Close modals when clicking cancel buttons
-cancelButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        if (addStaffModal) addStaffModal.style.display = 'none';
-        if (updateEventModal) updateEventModal.style.display = 'none';
-        if (deleteEventModal) deleteEventModal.style.display = 'none';
+    // Close other dropdowns
+    document.querySelectorAll('.kebab .dropdown.active').forEach(dd => {
+      if(dd !== dropdown) dd.classList.remove('active');
     });
+
+    document.querySelectorAll('.kebab .middle.active').forEach(m => {
+      if(m !== middle) m.classList.remove('active');
+    });
+
+    document.querySelectorAll('.kebab .cross.active').forEach(c => {
+      if(c !== cross) c.classList.remove('active');
+    });
+
+    // Toggle current one
+    middle.classList.toggle('active');
+    cross.classList.toggle('active');
+    dropdown.classList.toggle('active');
+  });
 });
 
-// Close modals when clicking outside the popup
-window.addEventListener('click', (e) => {
-    if (e.target === addStaffModal) {
-        addStaffModal.style.display = 'none';
-    }
-    if (e.target === updateEventModal) {
-        updateEventModal.style.display = 'none';
-    }
-    if (e.target === deleteEventModal) {
-        deleteEventModal.style.display = 'none';
-    }
-});
-
-// Close modals on ESC key
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-        if (addStaffModal) addStaffModal.style.display = 'none';
-        if (updateEventModal) updateEventModal.style.display = 'none';
-        if (deleteEventModal) deleteEventModal.style.display = 'none';
-    }
+// Close any open kebabs when clicking outside
+document.body.addEventListener('click', () => {
+  document.querySelectorAll('.kebab .dropdown.active').forEach(dd => dd.classList.remove('active'));
+  document.querySelectorAll('.kebab .middle.active').forEach(m => m.classList.remove('active'));
+  document.querySelectorAll('.kebab .cross.active').forEach(c => c.classList.remove('active'));
 });

@@ -4,6 +4,23 @@ const fs = require('fs');
 
 const baseURL = 'http://localhost:3000';
 
+// -------------------- Coverage Helper Functions --------------------
+async function startCoverage(page) {
+  await page.coverage.startJSCoverage();
+  await page.coverage.startCSSCoverage(); // optional if you want CSS coverage
+}
+
+async function stopAndSaveCoverage(page) {
+  const jsCoverage = await page.coverage.stopJSCoverage();
+  const cssCoverage = await page.coverage.stopCSSCoverage(); // optional
+
+  // Save coverage JSON
+  const coverageData = { jsCoverage, cssCoverage };
+  fs.writeFileSync('tests/frontend-coverage.json', JSON.stringify(coverageData, null, 2));
+}
+
+// ------------------------------------------------------------------
+
 test.describe('Manager Chat Page - Independent Functional Tests', () => {
 
   test.beforeEach(async ({ page }) => {
@@ -13,6 +30,14 @@ test.describe('Manager Chat Page - Independent Functional Tests', () => {
 
     // Navigate to the manager chat page
     await page.goto(`${baseURL}/manager/chat`);
+
+    // Start JS coverage collection
+    await startCoverage(page);
+  });
+
+  test.afterEach(async ({ page }) => {
+    // Stop JS coverage and save to frontend-coverage.json
+    await stopAndSaveCoverage(page);
   });
 
   test('1️⃣ Verify chat page loads successfully with correct URL', async ({ page }) => {
@@ -35,7 +60,7 @@ test.describe('Manager Chat Page - Independent Functional Tests', () => {
     await expect(chatInput).toBeVisible();
 
     // Type a test message
-    const testMessage = `Playwright test message ${Date.now()}`;
+    const testMessage = `This is an automated message from Playwright testing: ${Date.now()}`;
     await chatInput.fill(testMessage);
 
     // Click the send button (form submit)
