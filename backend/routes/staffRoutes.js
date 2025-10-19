@@ -204,6 +204,23 @@ router.get('/map', authenticateJWT, async(req, res) => {
   res.render('staff_map',{user, notifcount,map,annotations});
 });
 
+router.get('/security', authenticateJWT, async (req, res) => {
+  const user = await User.findById(req.user.id);
+  const event = await Event.findOne({ "staff.staffId": req.user.id });
+  const staffMember = event.staff.find(s => s.staffId.toString() === req.user.id);
+
+  if (!event) {
+    return res.status(404).send('No event found for this staff member');
+  }
+  const announcements = await Announcement.find({ eventId: event._id }).sort({ createdAt: -1 });
+  const notifcount = announcements.filter(a => !a.ReadBy.includes(user._id)).length;
+  if (staffMember.position !== 'security') {
+    res.render('security-error', { user, notifcount });
+  } else {
+    res.render('checkInPage', { user, notifcount });
+  }
+});
+
 router.post('/report-incident', authenticateJWT, staffController.SubmitIncidentReport);
 
 router.post('/:id/complete', authenticateJWT, staffController.completeTask);

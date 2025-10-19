@@ -956,7 +956,7 @@ router.put('/program/:id', async (req, res) => {
   }
 });
 
-
+router.post('/promote-staff', authenticateJWT, managercontroller.PromoteStafftoSecurity);
 
 
 
