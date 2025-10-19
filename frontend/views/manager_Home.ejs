@@ -17,10 +17,8 @@
                 <h2>Event Manager Dashboard</h2>
                 <p>Set up your event and manage your team</p>
             </section>
-            <form action="/manager/EndEvent" method="POST">
-                <button type="submit">
-                    End Event
-                </button>
+            <form action="/manager/cancel-event" method="POST">
+                <button type="submit">Cancel Event</button>
             </form>
 
             <form action="/logout" method="get">
@@ -28,7 +26,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="dash_icon">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
                     </svg>
-                    logout
+                    Logout
                 </button>
             </form>
         </section>
@@ -36,7 +34,7 @@
            
 
         <section class="setup_overview">
-            <% if(!event || event.length === 0) { %>
+            <% if(!event) { %>
             <form class="setup" method="post" action="/manager/create-event">
                 <p>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="dash_icon">
@@ -56,8 +54,12 @@
                 </section>
                 <section class="input-row">
                     <section class="row">
-                        <h4>Event Time</h4>
-                        <input type="time" name="eventTime" required>
+                        <h4>Event Start Time</h4>
+                        <input type="time" name="eventStartTime" required>
+                    </section>
+                    <section class="row">
+                        <h4>Event End Time</h4>
+                        <input type="time" name="eventEndTime" required>
                     </section>
                     <section class="row">
                         <h4>Expected Attendees</h4>
@@ -88,7 +90,8 @@
                 <section class="details">
                     <h3><%= event.name %></h3>
                     <p><strong>Date:</strong> <%= event.dateTime.toLocaleDateString() %></p>
-                    <p><strong>Time:</strong> <%= event.dateTime.toLocaleTimeString() %></p>
+                    <p><strong>Start Time:</strong> <%= event.startTime.toLocaleTimeString() %></p>
+                    <p><strong>End Time:</strong> <%= event.endTime.toLocaleTimeString() %></p>
                     <p><strong>Location:</strong> <%= event.venue.address %>, <%= event.venue.city %></p>
                     <p><strong>Description:</strong> <%= event.description %></p>
                 </section>

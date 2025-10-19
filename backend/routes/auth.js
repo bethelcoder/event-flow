@@ -67,7 +67,6 @@ router.get('/google', (req, res, next) => {
   // const managerId = req.query.state; // or req.query
   // const postion = req.query.position;
     const state = `${req.query.managerId},${req.query.position}`;
-    console.log(`This managerId is: ${req.query.managerId}`);
   passport.authenticate('google', { 
     scope: ['profile','email'], 
     state
@@ -81,7 +80,6 @@ router.get(
   async (req, res) => {
     try {
       const [managerId, position] = req.query.state.split(",");
-      console.log(`${managerId}, ${position}`);
       let user = await User.findOne({ googleId: req.user.id });
       //user doesn't exist
       if (!user) {

@@ -7,6 +7,7 @@ require('./backend/config/db.js');
 require('./backend/config/passport');
 
 const sessionMiddleware = require('./backend/config/session');
+const startEventAutoEndScheduler = require('./backend/services/eventScheduler.js');
 const authRoutes = require('./backend/routes/auth');
 const indexRoutes = require('./backend/routes/index');
 const guestRoutes = require('./backend/routes/guestsRoutes.js');
@@ -47,6 +48,8 @@ app.use('/api', api);
 //Swagger documentation route
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
+// Starting event scheduler
+startEventAutoEndScheduler();
 // Socket IO Initialisation
 
 const chat = require('./backend/models/chat.js');

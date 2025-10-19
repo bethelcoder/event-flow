@@ -3,18 +3,29 @@ const mongoose = require('mongoose');
 const EventSchema = new mongoose.Schema({
   name: String,                   // "Tech Conference 2025"
   description: String,            // Event summary
-  dateTime: Date,
+  dateTime: {type: Date, required: true},
+  startTime: {type: Date, required: true},
+  endTime: {type: Date, required: true},
+  extendedUntil: {
+    type: Date,
+    default: null, // when null, scheduler uses endTime
+  },
+  status: {
+    type: String,
+    enum: ['upcoming', 'active', 'cancelled', 'ended'],
+    default: 'upcoming'
+  },
   expectedAttendees: Number,
   location: {
-    name: String,                 // "Convention Center"
+    name: String, // "Convention Center"
     address: String,
     city: String,
     geo: { lat: Number, lng: Number }
   },
 
   organizer: {
-    id: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-    name: String,
+    id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    name: { type: String, ref: 'User' },
     contactEmail: String,
     contactPhone: String
   },
@@ -34,8 +45,7 @@ const EventSchema = new mongoose.Schema({
   guests: [
     {
       guestId: { type: mongoose.Schema.Types.ObjectId, ref: 'Guest' },
-      role: String,
-      
+      role: String, 
     }
   ],
 
@@ -70,6 +80,14 @@ const EventSchema = new mongoose.Schema({
         type: String
       }
     ]
+  },
+  notifiedGuests: {
+    type: Boolean,
+    default: false
+  },
+  promptedManager: {
+    type: Boolean,
+    default: false
   },
 
   createdAt: { type: Date, default: Date.now },
