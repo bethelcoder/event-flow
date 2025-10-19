@@ -10,16 +10,11 @@
 
 const validateDate = (eventDate) => {
   const now = new Date();
-  const eventDate = new Date(event.date);
   return eventDate >= now;
 };
 
-const validateTime = (event) => {
-  const start = new Date(`${event.date}T${event.startTime}`);
-  const end = new Date(`${event.date}T${event.endTime}`);
-
+const validateTime = (start, end) => {
   if (start >= end) return false;      // End must be after start
-  if (end < new Date()) return false;  // Event already passed
   return true;
 };
 

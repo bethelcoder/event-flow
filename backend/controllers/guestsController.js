@@ -13,7 +13,10 @@ exports.registerGuest = async (req, res) => {
     const { email, guestName } = req.body;
 
     const managerId = req.body.manager.id;
-    const event = await Event.findOne({ 'organizer.id': managerId },{ _id: 1 }).lean();
+    const event = await Event.findOne({
+      'organizer.id': managerId,
+      status: { $in: ["upcoming", "active"] },
+    });
     if(event){
           const eventId = event?._id;
     // Generate reference number

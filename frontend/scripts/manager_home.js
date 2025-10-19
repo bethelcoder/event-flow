@@ -2,6 +2,18 @@ const popup = document.querySelector(".modal");
 const addBtn = document.querySelector(".add_staff .add_btn"); 
 const cancelBtn = document.querySelector(".add_popup .cancel"); 
 
+// Add Staff Modal
+const addStaffBtn = document.querySelector('.add_btn');
+const addStaffModal = document.getElementById('popup');
+const cancelButtons = document.querySelectorAll('.cancel');
+
+// Update Event Modal
+const updateEventBtn = document.querySelector('.update_event_btn');
+const updateEventModal = document.getElementById('updateEventPopup');
+
+// Delete Event Modal
+const deleteEventBtn = document.querySelector('.delete_event_btn');
+const deleteEventModal = document.getElementById('deleteEventPopup');
 
 function openForm() {
   document.getElementById('popup').style.display = 'flex';

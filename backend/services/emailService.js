@@ -77,4 +77,52 @@ const sendStaffInvite = async (to, staffName, managerName, managerId, position) 
   await tranEmailApi.sendTransacEmail(sendSmtpEmail);
 };
 
-module.exports = { sendGuestQRCode, sendStaffInvite };
+const sendExtendPromptEmail = async (event) => {
+  const manager = event.organizer;
+
+  const subject = `⚠️ Your event "${event.name}" is ending soon`;
+  const message = `<p>Hi <b>${manager.name}</b>,</p>
+                    <p>Your event "${event.name}" is ending in 5 minutes.</p>
+
+                    <p>If you want to extend the event duration, <a href="#">please click here</a></p>:
+                    
+
+                    <strong>If you don’t extend, the event will end automatically.</strong>
+
+                    <p>Thanks,</p>
+                    <b>Event Flow</b>, your Event Management System!
+                    `;
+
+  const sendSmtpEmail = {
+    to: [{ email: manager.contactEmail }],
+    sender: { email: process.env.EMAIL_USER, name: "Event Flow" },
+    subject: subject,
+    htmlContent: message,
+  };
+
+  await tranEmailApi.sendTransacEmail(sendSmtpEmail);
+
+};
+
+const sendGuestNotification = async (guestEmail, guestName, eventName) => {
+  const subject = `⚠️ The event "${eventName}" is ending soon`;
+  const message = `<p>Hi <b>${guestName}</b>,</p>
+                    <p>The event "${eventName}" is ending in 5 minutes.</p>
+                    <p>Your access to the associated event is going to be revoked in 5 minutes, unless if the event manager extends the event</p>
+
+                    <p>Thanks,</p>
+                    <b>Event Flow</b>, your Event Management System!
+                    `;
+
+  const sendSmtpEmail = {
+    to: [{ email: guestEmail }],
+    sender: { email: process.env.EMAIL_USER, name: "Event Flow" },
+    subject: subject,
+    htmlContent: message,
+  };
+
+  await tranEmailApi.sendTransacEmail(sendSmtpEmail);
+
+};
+
+module.exports = { sendGuestQRCode, sendStaffInvite, sendExtendPromptEmail, sendGuestNotification };

@@ -15,6 +15,8 @@ const managercontroller = require('../controllers/managerController');
 const { managerHome, managerChat } = require('../controllers/managerController');
 const { cloudinary, VenueUpload } = require('../config/cloudinary');
 const Announcement = require('../models/Announcement');
+const { DateTime} = require("luxon");
+const { validateTime, validateDate } = require('../utils/eventValidator');
 
 
 /**
@@ -627,9 +629,12 @@ router.post("/send-guest-invite", registerGuest);
 router.post("/send-staff-invite", async (req, res) => {
   try {
     const { email, name, managerName, managerId, position } = req.body;
-    const event = await Event.findOne({ "organizer.id": managerId });
+    const event = await Event.findOne({
+          'organizer.id': managerId,
+          status: { $in: ["upcoming", "active"] },
+    });
 
-    if(!event) return res.json({ "error": "Please create ana event first" });
+    if(!event) return res.json({ "error": "Please create an event first" });
     await sendStaffInvite(email, name, managerName, managerId, position);
     res.redirect("/manager/home");
   } catch (err) {
@@ -698,22 +703,40 @@ router.post('/create-event', authenticateJWT, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
 
-    if (!req.body.eventName || !req.body.eventDate || !req.body.eventTime || !req.body.Expected || !req.body.eventDescription) {
+    if (!req.body.eventName || !req.body.eventDate || !req.body.eventStartTime || !req.body.eventEndTime || !req.body.Expected || !req.body.eventDescription) {
       return res.status(400).json({ message: 'All fields are required' });
     }
 
-    const [hours, minutes] = req.body.eventTime.split(':').map(Number);
-    const eventDate = new Date(req.body.eventDate);
-    eventDate.setHours(hours, minutes);
+    const { eventDate, eventStartTime, eventEndTime } = req.body;
+
+
+    const eventStartDate = DateTime.fromISO(`${eventDate}T${eventStartTime}`, {
+      zone: "Africa/Johannesburg",
+    }).toJSDate();
+
+    const eventEndDate = DateTime.fromISO(`${eventDate}T${eventEndTime}`, {
+      zone: "Africa/Johannesburg",
+    }).toJSDate()
+
+    if(!validateDate(eventStartDate)) return res.status(400).json({ message: "Cannot book an event for past days." });
+
+
+    
+    if (!validateTime(eventStartDate, eventEndDate)) {
+      return res.status(400).json({ message: "End time must be after start time." });
+    }
 
     const event = new Event({
       name: req.body.eventName,
       description: req.body.eventDescription,
-      dateTime: eventDate,
+      dateTime: eventStartDate,
+      startTime: eventStartDate,
+      endTime: eventEndDate,
+      status: "upcoming",
       expectedAttendees: Number(req.body.Expected),
       organizer: {
         id: user._id,
-        name: user.name,
+        name: user.displayName,
         contactEmail: user.email || "N/A",
         contactPhone: user.phone || "N/A"
       },
@@ -722,10 +745,53 @@ router.post('/create-event', authenticateJWT, async (req, res) => {
     });
 
     await event.save();
-    res.redirect('/manager/home');
+    res.redirect('/manager/venue-selection');
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error' });
+  }
+});
+
+/**
+ * @route   PATCH /events/:id/extend
+ * @desc    Extend event end time manually by manager
+ * @access  Manager
+ */
+router.patch('/:id/extend-event', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { minutes } = req.body; // how many minutes to extend by
+
+    // Default to 30 mins if not provided
+    const extendBy = minutes ? Number(minutes) : 30;
+
+    const event = await Event.findById(id);
+    if (!event) return res.status(404).json({ message: "Event not found" });
+
+    if (event.status !== "active") {
+      return res.status(400).json({ message: "Only active events can be extended" });
+    }
+
+    // Get the base end time (either already extended or original)
+    const baseEnd = event.extendedUntil || event.endTime;
+
+    // Calculate new extension time
+    const newExtendedUntil = new Date(baseEnd.getTime() + extendBy * 60 * 1000);
+    event.extendedUntil = newExtendedUntil;
+    event.updatedAt = new Date();
+
+    await event.save();
+
+    res.status(200).json({
+      message: `Event extended by ${extendBy} minutes.`,
+      extendedUntil: newExtendedUntil
+    });
+
+    console.log(`🕒 Event "${event.name}" extended by ${extendBy} minutes → New end: ${newExtendedUntil.toLocaleString("en-ZA", { timeZone: "Africa/Johannesburg" })}`);
+
+  } catch (err) {
+    console.error("❌ Error extending event:", err);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
@@ -839,7 +905,7 @@ router.post('/select-venue', authenticateJWT, async (req, res) => {
 
   try {
     const user = await User.findById(req.user.id);
-    const event = await Event.findOne({ 'organizer.id': user._id });
+    const event = await Event.findOne({ 'organizer.id': user._id, status: "upcoming" });
     const selectedVenue = await Venue.findOne({ name: venue });
 
     if (!event) return res.status(404).json({ message: 'Event not found' });
@@ -881,7 +947,7 @@ router.post('/select-venue', authenticateJWT, async (req, res) => {
     await selectedVenue.save();
     await event.save();
 
-    res.status(200).redirect('/manager/home');
+    res.status(200).render('thank-you');
 
   } catch (err) {
     console.error(err);
@@ -976,7 +1042,7 @@ router.post('/publish', authenticateJWT,announcementController.createAndPublish)
 
 router.post('/create-task', authenticateJWT, managercontroller.SubmitTask);
 
-router.post('/EndEvent', authenticateJWT, managercontroller.EndEvent);
+router.post('/cancel-event', authenticateJWT, managercontroller.CancelEvent);
 
 
 module.exports = router;

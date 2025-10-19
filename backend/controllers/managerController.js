@@ -12,14 +12,18 @@ const { cloudinary, VenueUpload } = require('../config/cloudinary');
 const Incidents = require('../models/Incidents');
 const Task = require('../models/Task');
 const Announcement = require('../models/Announcement');
+const { DateTime} = require("luxon");
 
 const managerHome = async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
-
+    
     const manager = await User.findById(req.user.id, { displayName: 1 });
    
-    const event = await Event.findOne({ 'organizer.id': user._id });
+    const event = await Event.findOne({
+      'organizer.id': user._id,
+      status: { $in: ["upcoming", "active"] },
+    });
 
     const chatDoc = await chat.findOne(
       { managerId: req.user.id },
@@ -51,7 +55,7 @@ const managerHome = async (req, res) => {
   }
 };
 
-const EndEvent = async (req, res) => {
+const CancelEvent = async (req, res) => {
   try {
     
     const user = await User.findById(req.user.id);
@@ -60,10 +64,17 @@ const EndEvent = async (req, res) => {
     }
 
     // Find the event organized by this user
-    const event = await Event.findOne({ 'organizer.id': user._id });
+    
+    const event = await Event.findOne({
+        'organizer.id': user._id,
+        status: { $in: ["upcoming", "active"] },
+      });
     if (!event) {
       return res.status(404).json({ msg: 'Event not found' });
     }
+
+    event.status = "cancelled";
+    await event.save();
 
     const announcements = await Announcement.find({eventId: event._id});
 
@@ -97,10 +108,10 @@ const EndEvent = async (req, res) => {
     await Event.findByIdAndDelete(event._id);
 
     // Respond success
-    res.status(200).json({ msg: 'Event ended successfully, all related data deleted, venue released' });
+    res.status(200).json({ msg: 'Event cancelled successfully, You can still book for whenever you are ready!' });
 
   } catch (error) {
-    console.error('Error ending event:', error);
+    console.error('Error cancelling event:', error);
     res.status(500).send('Server error');
   }
 };
@@ -272,4 +283,4 @@ const PromoteStafftoSecurity = async (req, res) => {
 };
 
 
-module.exports = { managerHome, managerChat, managerincidents, GetTask, SubmitTask , EndEvent, PromoteStafftoSecurity };
+module.exports = { managerHome, managerChat, managerincidents, GetTask, SubmitTask , CancelEvent, PromoteStafftoSecurity };
