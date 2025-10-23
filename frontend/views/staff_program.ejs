@@ -8,6 +8,14 @@
     <link rel="stylesheet" href="../styles/dashboard.css">
 </head>
 <body>
+          <script>
+        const user = {
+            role: "<%= user.role %>",
+            Username: "<%= user.displayName %>",
+            _id: "<%= user._id %>",
+        }
+    </script>
+
     <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
     <script src="../scripts/socket.js"></script>
 
