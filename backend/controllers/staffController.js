@@ -210,10 +210,11 @@ const completeTask = async (req, res) => {
 const GetProgram = async (req,res) => {
 
   try{
+    const user = await User.findById(req.user.id);
     const event= await Event.findOne({ "staff.staffId": req.user.id });
     const announcements = await Announcement.find({ eventId: event._id }).sort({ createdAt: -1 });
     const notifcount = announcements.filter(a => !a.ReadBy.includes(user._id)).length;
-    res.render('staff_program',{event,notifcount});
+    res.render('staff_program',{event,notifcount,user});
   }
   catch(error){
     console.error("Error getting program:", error);
